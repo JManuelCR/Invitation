@@ -1,0 +1,74 @@
+.controls-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+    background-color: rgba(0, 0, 0, 0.8);
+    border-radius: 10px;
+    padding: 10px;
+    display: flex;
+    gap: 5px;
+    backdrop-filter: blur(10px);
+}
+
+.mute-button, .mute-button-icon {
+    background-color: rgba(255, 255, 255, 0.2);
+    border: none;
+    border-radius: 5px;
+    padding: 8px 12px;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.mute-button:hover, .mute-button-icon:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+.mute-button-text {
+    font-weight: bold;
+}
+
+.invitation-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
+    min-height: 100vh;
+    transition: all 0.5s ease;
+    scroll-snap-type: y mandatory;
+    scroll-behavior: smooth;
+}
+
+/* Estilos para cuando el envelope está cerrado */
+.invitation-container:not(.envelope-opened) {
+    overflow: hidden;
+}
+
+/* Estilos para cuando el envelope está abierto */
+.invitation-container.envelope-opened {
+    min-height: auto;
+}
+
+/* Asegurar que el body no tenga scroll cuando el envelope está cerrado */
+body {
+    transition: overflow 0.3s ease;
+}
+
+
+/* Estilos para dispositivos móviles */
+@media (max-width: 768px) {
+    .controls-container {
+        bottom: 10px;
+        right: 10px;
+        padding: 8px;
+        gap: 3px;
+    }
+    
+    .mute-button, .mute-button-icon {
+        padding: 6px 10px;
+        font-size: 14px;
+    }
+}

@@ -1,0 +1,119 @@
+:root {
+  line-height: 1.5;
+  font-weight: 400;
+  --envelope-background-color: #3024245c;
+  --support: #302424;
+  --primary: #b49084;
+  --tertiary: #80656E;
+  --base-opacity-40: rgba(233, 214, 208, 0.40);
+  --white: #fff;
+  --Padding-x: 16px;
+  --gap-welcome-content: 80px;
+  --Names-sizes: 70px;
+  --font-marcellus: "Marcellus SC", serif;
+  --font-antic: "Antic Didone", serif;
+  --font-lucida-bright: "Lucida Bright", "Lucida Sans", serif;
+  --Seal-size: 60px;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-inline: var(--Padding-x);
+  /* Asegurar que siempre comience al inicio */
+  scroll-padding-top: 0;
+}
+
+/* Forzar posición al inicio al cargar */
+html, body {
+  scroll-behavior: auto;
+}
+
+em {
+  color: var(--White, #fff);
+  text-align: center;
+  text-shadow: 22px 4px 4px rgba(0, 0, 0, 0.25);
+  font-family: "Antic Didone";
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+h1 {
+  font-family: "Marcellus SC", system-ui, Avenir, Helvetica, Arial, sans-serif;
+  color: var(--White, #fff);
+  text-align: center;
+  text-shadow: 1px 3px 6px rgba(255, 255, 255, 0.5);
+  font-size: var(--Names-sizes, 70px);
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  margin: 0;
+}
+h2{
+  color: var(--Terttiary, #80656E);
+font-family: var(--font-lucida-bright);
+font-size: 40px;
+font-style: italic;
+font-weight: 400;
+line-height: normal;
+margin: 0;
+}
+p{
+  color: #000;
+text-align: center;
+font-family: var(--font-lucida-bright);
+font-size: 24px;
+font-style: normal;
+font-weight: 400;
+line-height: normal;
+margin: 0;
+}
+
+@media (max-width: 380px) {
+  h2{
+    font-size: 44px;
+  }
+  p{
+    font-size: 16px;
+  }
+}
+
+@media (min-width: 768px) {
+  :root {
+    --Names-sizes: 95px;
+  }
+  em{
+    font-size: 30px;
+  }
+  h2{
+    font-size: 50px;
+  }
+  p{
+    font-size: 24px;
+  }
+}
+@media (min-width: 1024px) {
+  :root {
+    --Names-sizes: 120px;
+  }
+  em{
+    font-size: 40px;
+  }
+  h2{
+    font-size: 60px;
+  }
+  p{
+    font-size: 30px;
+  }
+}

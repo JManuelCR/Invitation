@@ -1,0 +1,233 @@
+.nos-casamos-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 32px;
+    width: 100%;
+    min-height: 100vh;
+    padding-inline: var(--Padding-x);
+    box-sizing: border-box;
+    background: var(--base-opacity-40, rgba(233, 214, 208, 0.40));
+}
+
+.nos-casamos-images {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding: 10px;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+    max-width: 100%;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.8s ease-out;
+    box-sizing: border-box;
+}
+
+.nos-casamos-container.visible .nos-casamos-images {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.image_manu {
+    object-fit: cover;
+    width: 100%;
+    height: auto;
+    max-width: 300px;
+    opacity: 0;
+    transform: translateY(30px) scale(0.95);
+    transition: all 0.6s ease-out;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    position: relative;
+    overflow: hidden;
+    justify-self: center;
+}
+
+.nos-casamos-container.visible .image_manu {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    animation: gentleFloat 4s ease-in-out 1 0.6s;
+}
+
+.image_manu:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+    z-index: 10;
+}
+
+.image_tla {
+    object-fit: cover;
+    width: 100%;
+    height: auto;
+    max-width: 300px;
+    opacity: 0;
+    transform: translateY(30px) scale(0.95);
+    transition: all 0.6s ease-out;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    position: relative;
+    overflow: hidden;
+    justify-self: center;
+}
+
+.nos-casamos-container.visible .image_tla {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    animation: gentleFloat 4s ease-in-out 1 0.9s;
+}
+
+.image_tla:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+    z-index: 10;
+}
+
+/* Flotación suave y elegante */
+@keyframes gentleFloat {
+    0%, 100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-6px);
+    }
+}
+
+/* Efecto de brillo sutil en hover */
+.image_manu::before,
+.image_tla::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.6s ease-out;
+    border-radius: 12px;
+    pointer-events: none;
+}
+
+.image_manu:hover::before,
+.image_tla:hover::before {
+    left: 100%;
+}
+
+/* Efecto de borde sutil en hover */
+.image_manu::after,
+.image_tla::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border: 2px solid transparent;
+    border-radius: 12px;
+    transition: border-color 0.3s ease;
+    pointer-events: none;
+}
+
+.image_manu:hover::after {
+    border-color: rgba(180, 144, 132, 0.3);
+}
+
+.image_tla:hover::after {
+    border-color: rgba(180, 144, 132, 0.3);
+}
+
+/* Responsive para tablets */
+@media (min-width: 768px) and (max-width: 1023px) {
+    .nos-casamos-images {
+        gap: 30px;
+        max-width: 600px;
+        width: 100%;
+    }
+    
+    .image_manu,
+    .image_tla {
+        max-width: 250px;
+        justify-self: center;
+    }
+}
+
+/* Responsive para desktop pequeño */
+@media (min-width: 1024px) and (max-width: 1439px) {
+    .nos-casamos-images {
+        gap: 40px;
+        max-width: 800px;
+        width: 100%;
+    }
+    
+    .image_manu,
+    .image_tla {
+        max-width: 350px;
+        justify-self: center;
+    }
+}
+
+/* Responsive para desktop grande */
+@media (min-width: 1440px) {
+    .nos-casamos-images {
+        gap: 50px;
+        max-width: 1000px;
+        width: 100%;
+    }
+    
+    .image_manu,
+    .image_tla {
+        max-width: 400px;
+        justify-self: center;
+    }
+}
+
+/* Responsive con animaciones más suaves */
+@media (max-width: 768px) {
+    .image_manu,
+    .image_tla {
+        max-width: 200px;
+        justify-self: center;
+    }
+    
+    .nos-casamos-images {
+        gap: 15px;
+        width: 100%;
+        max-width: 100%;
+    }
+    
+    @keyframes gentleFloat {
+        0%, 100% {
+            transform: translateY(0px);
+        }
+        50% {
+            transform: translateY(-4px);
+        }
+    }
+}
+
+/* Animación para el título */
+.nos-casamos-container h2 {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.6s ease-out;
+}
+
+.nos-casamos-container.visible h2 {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Animación para el párrafo */
+.nos-casamos-container p {
+    opacity: 0;
+    transform: translateY(15px);
+    transition: all 0.6s ease-out;
+}
+
+.nos-casamos-container.visible p {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.3s;
+}
