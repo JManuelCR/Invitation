@@ -2,6 +2,8 @@ import Envelope from '../envelope/envelope'
 import { useRef, useState, useEffect } from 'react'
 import PortadaDeInvitacion from '../portada-de-invitacion/portada-de-invitacion'
 import NosCasamos from '../nos-casamos/nos-casamos'
+import InvitacionPara from '../invitacion-para/invitacion-para'
+import Ceremonia from '../ceremonia/ceremonia'
 import './invitation.css'
 
 export default function Invitation() {
@@ -105,7 +107,9 @@ export default function Invitation() {
             />
 
             <PortadaDeInvitacion ref={targetRef}/>
-            <NosCasamos/>
+            <NosCasamos/>   
+            <InvitacionPara/>
+            <Ceremonia/>
             <audio 
                 ref={audioRef} 
                 src="/audio/Christina Perri - A Thousand Years [Official Music Video] - Christina Perri.mp3"

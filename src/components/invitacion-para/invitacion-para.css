@@ -1,0 +1,31 @@
+.invitacion-para-container {
+  width: 100%;
+  min-height: 100vh;
+  background: var(--white);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 80px;
+  padding-inline: var(--Padding-x);
+  box-sizing: border-box;
+}
+.nombre_del_invitado {
+  font-size: 2rem;
+  color: var(--bold);
+  font-style: italic;
+  font-weight: 400;
+  line-height: normal;
+  text-align: center;
+}
+
+.number_of_passes_number{
+    color: var(--Support, #36272E);
+text-align: center;
+
+font-family: var(--font-lucida-bright);
+font-size: 38px;
+font-style: italic;
+font-weight: 400;
+line-height: normal;
+}

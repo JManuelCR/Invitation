@@ -1,0 +1,12 @@
+.ceremonia-container {
+    background-color: var(--base-opacity-40);
+}
+.ceremonia-container-main-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 42px;
+}
+.image_ceremonia {
+  width: 100%;
+}
