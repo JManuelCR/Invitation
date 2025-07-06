@@ -1,0 +1,18 @@
+.list-element {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    list-style: none;
+}
+
+.list-element__text {
+    color: #000;
+
+font-family: "Lucida Bright";
+font-size: clamp(16px, 3vw, 20px);
+font-style: italic;
+font-weight: 400;
+line-height: normal;
+text-align: start;
+}

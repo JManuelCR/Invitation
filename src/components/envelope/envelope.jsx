@@ -1,5 +1,5 @@
 import "./envelope.css";
-import envelope from "../../assets/envelope.png";
+import envelope from "../../assets/img/envelope.png";
 import { useState } from "react";
 
 import { useData } from "../../context/useData";

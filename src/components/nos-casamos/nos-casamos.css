@@ -7,6 +7,8 @@
     width: 100%;
     min-height: 100vh;
     padding-inline: var(--Padding-x);
+    padding-top: 40px;
+    padding-bottom: 40px;
     box-sizing: border-box;
     background: var(--base-opacity-40, rgba(233, 214, 208, 0.40));
 }

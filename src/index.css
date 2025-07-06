@@ -5,11 +5,13 @@
   --support: #302424;
   --primary: #b49084;
   --tertiary: #80656e;
+  --bold: #000;
   --base-opacity-40: rgba(233, 214, 208, 0.4);
   --letters: #101010;
   --white: #fff;
   --bold: #000;
   --Padding-x: 16px;
+  --vertical-padding: 42px;
   --gap-welcome-content: 80px;
   --Names-sizes: 70px;
   --font-marcellus: "Marcellus SC", serif;
@@ -18,17 +20,18 @@
   --font-lucida-sans: "Lucida Sans", "Lucida Grande", "Lucida Sans Unicode",
     Geneva, Verdana, sans-serif;
   --Seal-size: 60px;
+  --tertiary-font-size: clamp(38px, 5vw, 55px);
+  --responsive-transition: all 0.3s ease;
+  --bullet-size: clamp(20px, 6vw, 30px);
+  --bullet-background: conic-gradient(from 180deg at 50% 50%, #D4C0B9 32.30913072824478deg, #685154 115.19999742507935deg, #B49084 201.16353034973145deg, #36272E 308.8720107078552deg);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-html {
+html, body {
   scroll-behavior: smooth;
-}
-
-body {
   margin: 0;
   display: flex;
   justify-content: center;
@@ -36,12 +39,7 @@ body {
   padding-inline: var(--Padding-x);
   /* Asegurar que siempre comience al inicio */
   scroll-padding-top: 0;
-}
-
-/* Forzar posición al inicio al cargar */
-html,
-body {
-  scroll-behavior: auto;
+  transition: var(--responsive-transition);
 }
 
 em {
@@ -66,13 +64,23 @@ h1 {
   margin: 0;
 }
 h2 {
-  color: var(--Terttiary, #80656e);
+  color: var(--tertiary, #80656e);
   font-family: var(--font-lucida-bright);
   font-size: 38px;
   font-style: italic;
   font-weight: 400;
   line-height: normal;
   margin: 0;
+}
+h3 {
+  color: var(--bold, #000);
+  font-family: var(--font-lucida-bright);
+  font-size: var(--tertiary-font-size);
+  font-style: italic;
+  font-weight: 400;
+  line-height: normal;
+  margin: 0;
+  text-align: center;
 }
 p {
   color: #000;
@@ -95,14 +103,14 @@ p {
 }
 .general-container {
   display: flex;
-  width: 100%;
   min-height: 100vh;
-  padding: 16px;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 42px;
   flex-shrink: 0;
+  padding-top: var(--vertical-padding);
+  padding-bottom: var(--vertical-padding);
 }
 hr {
   width: 121.149px;
@@ -139,7 +147,9 @@ hr {
   cursor: pointer;
   transition: all 0.3s ease;
 }
-
+a {
+  text-decoration: none;
+}
 @media (max-width: 380px) {
   h2 {
     font-size: 44px;

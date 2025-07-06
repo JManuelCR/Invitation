@@ -1,0 +1,21 @@
+.bullet {
+    display: flex;
+    width: var(--bullet-size);
+    height: var(--bullet-size);
+    min-width: var(--bullet-size);
+    min-height: var(--bullet-size);
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 50%;
+    padding: 3px;
+    padding: clamp(2px, 3vw, 5px);
+    background: var(--bullet-background);
+}
+.bullet__icon {
+    width: 100%;
+    height: 100%;
+    background-image: url("../../assets/img/location.svg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}

@@ -1,5 +1,5 @@
-import manu_buscando_a_tla from "../../assets/manu_buscando_a_tla.png";
-import tla_buscando_a_manu from "../../assets/tla_buscando_a_manu.png";
+import manu_buscando_a_tla from "../../assets/img/manu_buscando_a_tla.png";
+import tla_buscando_a_manu from "../../assets/img/tla_buscando_a_manu.png";
 import './nos-casamos.css'
 import { useState, useEffect, useRef } from 'react';
 

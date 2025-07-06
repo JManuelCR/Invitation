@@ -2,7 +2,7 @@
   background-color: var(--envelope-background-color);
   height: 100vh;
   width: 100vw;
-  min-height: 100vh;
+  min-height:100vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -32,7 +32,7 @@
 }
 .envelope__button {
   align-items: center;
-  animation: pulse 2s infinite;
+  animation: pulse 1.5s infinite;
   background: conic-gradient(
     from 180deg at 50% 50%,
     rgba(215, 52, 61, 0.81) 15.536845922470093deg,
@@ -75,15 +75,21 @@
   height: 100%;
 }
 @media (min-width: 768px) {
-  .envelope__image {
+  .envelope__image-container {
     width: 250px;
     height: auto;
   }
 }
 @media (min-width: 1024px) {
-  .envelope__image {
-    width: 100%;
-    height: 100%;
+  .envelope__image-container {
+    width: 100vw;
+    height: 100vh;
+  }
+  .envelope__button {
+    width: 120px;
+    height: 120px;
+    bottom: 28%;
+    left: 46%;
   }
 }
 @keyframes pulse {

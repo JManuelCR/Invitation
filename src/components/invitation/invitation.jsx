@@ -12,6 +12,7 @@ export default function Invitation() {
     const [isMuted, setIsMuted] = useState(false);
     const [isPaused, setIsPaused] = useState(true);
     const [showControls, setShowControls] = useState(false);
+    const [showFullControls, setShowFullControls] = useState(false);
     const [isEnvelopeOpened, setIsEnvelopeOpened] = useState(false);
 
     // Bloquear scroll al cargar la página y posicionar al inicio
@@ -38,7 +39,7 @@ export default function Invitation() {
     // Asegurar que siempre esté al inicio cuando se monta el componente
     useEffect(() => {
         window.scrollTo(0, 0);
-    }, []);
+    }, [isEnvelopeOpened]);
 
     useEffect(() => {
         const audio = audioRef.current;
@@ -58,7 +59,7 @@ export default function Invitation() {
 
     const handleEnvelopeClick = () => {
         setIsEnvelopeOpened(true);
-        setShowControls(true);
+        setShowFullControls(true);
         
         // Habilitar scroll después de hacer clic
         document.body.style.overflow = 'auto';
@@ -89,6 +90,11 @@ export default function Invitation() {
         }
     };
 
+    const handleShowControls = () => {
+        setShowFullControls(!showFullControls);
+        setShowControls(!showControls);
+    }
+
     const handleVolumeChange = (increment) => {
         if (audioRef.current) {
             const newVolume = Math.max(0, Math.min(1, audioRef.current.volume + increment));
@@ -115,6 +121,10 @@ export default function Invitation() {
                 src="/audio/Christina Perri - A Thousand Years [Official Music Video] - Christina Perri.mp3"
                 preload="auto"
             />
+            <button className='show-controls-button' onClick={handleShowControls} style={{ display: showFullControls  ? 'block' : 'none' }}>
+                <span>🔊</span>
+            </button>
+
             <div className='controls-container' style={{ display: showControls ? 'flex' : 'none' }}>
                 <button className='mute-button' onClick={handleMuteToggle}>
                     <span className='mute-button-text'>{isMuted ? '🔇' : '🔊'}</span>
@@ -131,6 +141,11 @@ export default function Invitation() {
                 <button onClick={() => handleVolumeChange(-0.1)} className='mute-button-icon'>
                     🔊 -
                 </button>
+
+                <button onClick={() => handleShowControls()} className='mute-button-icon'>
+                    ✖️
+                </button>
+
             </div>
         </div>
     )
