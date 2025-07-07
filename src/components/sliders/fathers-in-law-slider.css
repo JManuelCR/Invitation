@@ -1,0 +1,199 @@
+/* Contenedor principal del slider */
+.fathers-in-law-slider-container {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* Slider principal */
+.keen-slider {
+    display: flex;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+}
+
+/* Slides individuales */
+.keen-slider__slide {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 100%;
+    width: 100%;
+    height: auto;
+    background-color: transparent;
+    flex-shrink: 0;
+    transform: scale(0.95);
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+/* Slide activo */
+.keen-slider__slide.keen-slider__slide--active {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* Slides inactivos */
+.keen-slider__slide:not(.keen-slider__slide--active) {
+    transform: scale(0.9);
+}
+
+/* Efecto de hover en las cards */
+.keen-slider__slide:hover .fathers-in-law-card {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+/* Animación para las cards individuales */
+.fathers-in-law-card {
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transform: translateY(20px);
+    opacity: 0;
+    animation: cardEntrance 0.8s ease-out forwards;
+    animation-delay: 0.2s;
+}
+
+/* Animación de entrada para las cards */
+@keyframes cardEntrance {
+    0% {
+        opacity: 0;
+        transform: translateY(30px) scale(0.95);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* Efecto de brillo en las cards */
+.fathers-in-law-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.8s ease-out;
+    border-radius: inherit;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.keen-slider__slide--active .fathers-in-law-card::before {
+    left: 100%;
+}
+
+/* Animación para el contenido de las cards */
+.fathers-in-law-card-header {
+    animation: slideInFromTop 0.6s ease-out forwards;
+    animation-delay: 0.4s;
+    opacity: 0;
+    transform: translateY(-20px);
+}
+
+.fathers-in-law-card-names {
+    animation: slideInFromBottom 0.6s ease-out forwards;
+    animation-delay: 0.6s;
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+@keyframes slideInFromTop {
+    0% {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideInFromBottom {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Indicadores de navegación */
+.slider-indicators {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 25px;
+    padding: 10px;
+}
+
+.indicator {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    border: none;
+    background-color: rgba(180, 144, 132, 0.3);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.indicator:hover {
+    background-color: rgba(180, 144, 132, 0.6);
+    transform: scale(1.2);
+}
+
+.indicator.active {
+    background-color: var(--primary, #b49084);
+    transform: scale(1.3);
+    box-shadow: 0 0 10px rgba(180, 144, 132, 0.5);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .fathers-in-law-slider-container {
+        padding: 15px;
+    }
+    
+    .keen-slider__slide {
+        padding: 5px;
+    }
+    
+    .slider-indicators {
+        margin-top: 20px;
+        gap: 10px;
+    }
+    
+    .indicator {
+        width: 12px;
+        height: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .fathers-in-law-slider-container {
+        padding: 10px;
+    }
+    
+    .keen-slider__slide {
+        padding: 2px;
+    }
+    
+    .slider-indicators {
+        margin-top: 15px;
+        gap: 8px;
+    }
+    
+    .indicator {
+        width: 10px;
+        height: 10px;
+    }
+}

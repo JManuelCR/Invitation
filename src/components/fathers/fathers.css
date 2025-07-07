@@ -1,0 +1,39 @@
+.fathers-container {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.fathers-container-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+.fathers-container-article {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+  background-color: var(--base-opacity-40);
+  border-radius: 8px;
+  align-self: stretch;
+  padding: 32px 24px;
+}
+.message {
+    color: var(--letters);
+    text-align: center;
+    font-size: 24px;
+}
+.fathers-title {
+    text-align: center;
+    font-size: 24px;
+}
+.fathersInLaw-title {
+    text-align: center;
+    font-size: 36px;
+}

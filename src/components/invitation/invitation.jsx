@@ -4,7 +4,10 @@ import PortadaDeInvitacion from '../portada-de-invitacion/portada-de-invitacion'
 import NosCasamos from '../nos-casamos/nos-casamos'
 import InvitacionPara from '../invitacion-para/invitacion-para'
 import Ceremonia from '../ceremonia/ceremonia'
+import Recption from '../recepcion/recepcion'
 import './invitation.css'
+import Kiss from '../manu-and-tlalli-kiss/kiss'
+import Fathers from '../fathers/fathers'
 
 export default function Invitation() {
     const targetRef = useRef(null);
@@ -116,6 +119,9 @@ export default function Invitation() {
             <NosCasamos/>   
             <InvitacionPara/>
             <Ceremonia/>
+            <Recption/>
+            <Kiss/>
+            <Fathers/>
             <audio 
                 ref={audioRef} 
                 src="/audio/Christina Perri - A Thousand Years [Official Music Video] - Christina Perri.mp3"

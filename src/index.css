@@ -36,7 +36,6 @@ html, body {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding-inline: var(--Padding-x);
   /* Asegurar que siempre comience al inicio */
   scroll-padding-top: 0;
   transition: var(--responsive-transition);

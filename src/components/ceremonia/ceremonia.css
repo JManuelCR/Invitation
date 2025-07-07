@@ -8,7 +8,9 @@
   align-items: center;
   gap: 42px;
 }
-.ceremo
+.ceremonia-image-container {
+  width: 90%;
+}
 .image_ceremonia {
   width: 100%;
 }
