@@ -1,0 +1,124 @@
+/* Slider principal */
+.we-said-yes-container {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 42px;
+  padding-top: var(--section-padding-vertical);
+  padding-bottom: var(--section-padding-vertical);
+}
+
+/*header*/
+.we-said-yes-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.we-said-yes-title {
+  text-align: center;
+  text-wrap: balance;
+}
+/*poem*/
+.poem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+}
+.poem-line {
+  color: var(--Bold, #000);
+  text-align: center;
+
+}
+.poem-author {
+    color: var(--Support, #36272E);
+    text-align: center;
+
+}
+
+/*<Efecto de hover en las cards */
+.keen-slider__slide:hover .we-said-yes-card {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+/* Animación para las cards individuales */
+.we-said-yes-card {
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  transform: translateY(20px);
+  opacity: 0;
+  animation: cardEntrance 0.8s ease-out forwards;
+  animation-delay: 0.2s;
+}
+.we-said-yes-card-image::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+  transition: left 0.8s ease-out;
+  border-radius: inherit;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.we-said-yes-card-image:hover {
+  transform: scale(1.05);
+}
+
+.keen-slider__slide--active .we-said-yes-card-image::before {
+  left: 100%;
+}
+
+.we-said-yes-card-image {
+  animation: slideInFromTop 0.6s ease-out forwards;
+  animation-delay: 0.4s;
+  opacity: 0;
+  transform: translateY(-20px);
+}
+.image {
+  animation: none;
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  transform: translateY(20px);
+  opacity: 0;
+}
+
+@media (min-width: 768px) {
+  .we-said-yes-container {
+    padding: 15px;
+  }
+
+  .keen-slider__slide {
+    padding: 5px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .we-said-yes-container {
+    padding: 50px;
+  }
+
+
+  .keen-slider__slide {
+    padding: 10px;
+  }
+}

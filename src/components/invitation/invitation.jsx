@@ -8,6 +8,10 @@ import Recption from '../recepcion/recepcion'
 import './invitation.css'
 import Kiss from '../manu-and-tlalli-kiss/kiss'
 import Fathers from '../fathers/fathers'
+import WeSaidYes from '../we-said-yes/we-said-yes'
+import DressCode from '../dress-code/dress-code'
+import Schedule from '../schedule/schedule'
+import Gifts from '../gifts/gifts'
 
 export default function Invitation() {
     const targetRef = useRef(null);
@@ -122,6 +126,10 @@ export default function Invitation() {
             <Recption/>
             <Kiss/>
             <Fathers/>
+            <WeSaidYes/>
+            <DressCode/>
+            <Schedule/>
+            <Gifts/>    
             <audio 
                 ref={audioRef} 
                 src="/audio/Christina Perri - A Thousand Years [Official Music Video] - Christina Perri.mp3"

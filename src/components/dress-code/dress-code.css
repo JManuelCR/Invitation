@@ -1,0 +1,78 @@
+/*container*/
+.dress-code-container {
+    padding: 20px;
+    padding-top: var(--section-padding-vertical);
+    padding-bottom: var(--section-padding-vertical);
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    box-sizing: border-box;
+    background-color: var(--base-opacity-40);
+}
+/*header*/
+.dress-code-header-title {      
+    text-align: center;
+}
+/*description*/
+.dress-code-text {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+    gap: 16px;
+}
+.dress-code-text-highlight {
+    color: var(--support);
+    text-align: center;
+}
+
+/*images-container*/
+.images-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 32px;
+    opacity: 0;
+    transform: translateY(50px);
+    transition: all 1.6s ease-out;
+}
+
+.images-container.animate {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+
+.dress-container{
+    opacity: 0;
+    transform: translateY(100px);
+    transition: all 1.6s ease-out 0.4s;
+}
+
+.dress-container.animate {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.suit-container {
+    opacity: 0;
+    transform: translateY(-100px);
+    transition: all 1.6s ease-out 0.4s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.suit-container.animate {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.dress-image{
+    width: clamp(100px, 15vw, 180px);
+    height: auto;
+}
+.suit-image{
+    width: clamp(100px, 15vw, 180px);
+    height: auto;
+}

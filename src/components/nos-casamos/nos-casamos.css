@@ -12,6 +12,9 @@
     box-sizing: border-box;
     background: var(--base-opacity-40, rgba(233, 214, 208, 0.40));
 }
+.nos-casamos-title{
+    text-align: center;
+}
 
 .nos-casamos-images {
     display: grid;
@@ -147,7 +150,7 @@
         max-width: 600px;
         width: 100%;
     }
-    
+
     .image_manu,
     .image_tla {
         max-width: 250px;
@@ -162,7 +165,7 @@
         max-width: 800px;
         width: 100%;
     }
-    
+
     .image_manu,
     .image_tla {
         max-width: 350px;
@@ -177,7 +180,7 @@
         max-width: 1000px;
         width: 100%;
     }
-    
+
     .image_manu,
     .image_tla {
         max-width: 400px;
@@ -192,13 +195,13 @@
         max-width: 200px;
         justify-self: center;
     }
-    
+
     .nos-casamos-images {
         gap: 15px;
         width: 100%;
         max-width: 100%;
     }
-    
+
     @keyframes gentleFloat {
         0%, 100% {
             transform: translateY(0px);

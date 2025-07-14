@@ -1,0 +1,96 @@
+/*gifts container*/
+.gifts-container {
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap:60px;
+    padding-top: var(--section-padding-vertical);
+    padding-bottom: var(--section-padding-vertical);
+    padding-left: var(--Padding-x);
+    padding-right: var(--Padding-x);
+}
+
+.gifts-header-title {
+    text-align: center;
+}
+.gifts-message {
+    text-align: center;
+    color: var(--bold);
+}
+.gifts-account {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+}   
+.gifts-animation {
+    transition: all 0.3s ease-in-out;
+    animation: animate 2s ease-in-out infinite;
+}
+.gifts-data {
+    font-size: 16px;
+    font-weight: bold;
+    color: var(--bold);
+}
+.gifts-account-number {
+    font-size: 18px;
+    font-weight: bold;
+    color: var(--bold);
+}
+.gifts-account-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+}
+.gifts-copied {
+    position: absolute;
+    bottom: 70%;
+    transform: translateY(50%);
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 16px;
+    background-color: var(--primary);
+    transition: all 0.3s ease-in-out;
+    border-radius: 5px;
+    padding: 5px;
+}
+.gifts-copied p {
+    font-size: 18px;
+    font-weight: bold;
+    color: var(--secondary);
+}
+
+@keyframes animate {
+    0% {
+        transform: scale(1);
+        rotate: 0deg;
+    }
+    20% {
+        rotate: 5deg;
+    }
+    40% {
+        rotate: -5deg;
+    }
+    30% {
+        rotate: 5deg;
+    }
+    60% {
+        rotate: -5deg;
+    }
+    80% {
+        rotate: 5deg;
+        transform: scale(1.1);
+    }
+
+    100% {
+        transform: scale(1);
+        rotate: 0deg;
+        }
+}
