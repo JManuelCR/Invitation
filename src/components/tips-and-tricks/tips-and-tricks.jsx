@@ -21,6 +21,9 @@ import hertz from "../../assets/img/hertz.png";
 import expedia from "../../assets/img/expedia.png";
 import CarRental from "../car-rental/car-rental";
 import googleMaps from "../../assets/img/google-maps.jpeg";
+import alameda from "../../assets/img/alameda.jpg";
+import antequera from "../../assets/img/antequera.jpg";
+import aeropuertoTaxi from "../../assets/img/aeropuerto.jpg";
 
 const hoteles = [
   {
@@ -120,6 +123,24 @@ const carRentalOptions = [
   },
 ];
 
+const taxisOptions = [
+  {
+    name: "Taxis aeropuerto",
+    image: aeropuertoTaxi,
+    link: "tel:+52 951 224 8804"
+  },
+  {
+    name: "Taxis Antequera",
+    image: antequera,
+    link: "tel:+52 1 951 515 4355"
+  },
+  {
+    name: "Taxis Alameda",
+    image: alameda,
+    link: "tel:+52 1 9515162190"
+  },
+];
+
 const TipsAndTricks = () => {
   return (
     <section className="tips-and-tricks-container">
@@ -152,7 +173,7 @@ const TipsAndTricks = () => {
             alt="airport-instructions-maps-google"
           />
           <div className="airport-instructions-text-container">
-            <p className="airport-instructions-text">Aeropuerto- centro</p>
+            <p className="airport-instructions-text">Aeropuerto - centro</p>
             <span>...ver en google maps</span>
           </div>
         </a>
@@ -163,6 +184,7 @@ const TipsAndTricks = () => {
       <section className="tips-and-tricks-title-primary">
         <p className="tips-and-tricks-text">Taxis</p>
       </section>
+      <CarRental rentalOptions={taxisOptions} />
     </section>
   );
 };
