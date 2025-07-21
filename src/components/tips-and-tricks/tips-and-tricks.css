@@ -1,0 +1,23 @@
+.tips-and-tricks-container{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: 100%;
+
+}
+.asistan-confirmation-header {
+    text-align: center;
+}
+.tips-and-tricks-title-container{
+    display: flex;
+    justify-content: start;
+    width: 100%;
+}
+.tips-and-tricks-text{
+    padding-left: 36px;
+}

@@ -1,0 +1,105 @@
+.tips-and-tricks-slide-container {
+  width: 100%;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+.tips-and-tricks-slider-article {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: s;
+  justify-content: center;
+  gap: 10px;
+  background-color: var(--color-white);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  box-shadow: 1px 2px  
+  10px 0 rgba(0, 0, 0, 0.4);
+}
+
+.tips-and-tricks-slider-article-text {
+  color: var(--support);
+  text-align: center;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: normal;  
+  padding-bottom: 10px;
+}
+.tips-and-tricks-slider-article-title {
+  color: #000;
+  text-align: center;
+  font-size: 20px;
+  font-style: italic;
+  font-weight: 400;
+  line-height: normal;
+  margin-block-start: 0px;
+  margin-block-end: 0px;
+}
+
+.tips-and-tricks-slider-article-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+
+.keen-slider__slide:hover .tips-and-tricks-slider-article {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+.tips-and-tricks-slider-article::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+  transition: left 0.8s ease-out;
+  border-radius: inherit;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.keen-slider__slide--active .tips-and-tricks-slider-article::before {
+  left: 100%;
+}
+
+.tips-and-tricks-title-container {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  width: 100%;
+}
+
+.tips-and-tricks-text {
+  animation: slideInFromTop 0.6s ease-out forwards;
+  animation-delay: 0.4s;
+  opacity: 0;
+  transform: translateY(-20px);
+}
+.tips-and-tricks-slider-article-image {
+  animation: slideInFromBottom 0.6s ease-out forwards;
+  animation-delay: 0.6s;
+  opacity: 0;
+  transform: translateY(20px);
+}
+.tips-and-tricks-slider-article-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}

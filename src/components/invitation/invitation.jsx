@@ -12,6 +12,8 @@ import WeSaidYes from '../we-said-yes/we-said-yes'
 import DressCode from '../dress-code/dress-code'
 import Schedule from '../schedule/schedule'
 import Gifts from '../gifts/gifts'
+import AsistanConfirmation from '../asistan-confirmation/asistan-confirmation'
+import TipsAndTricks from '../tips-and-tricks/tips-and-tricks'
 
 export default function Invitation() {
     const targetRef = useRef(null);
@@ -43,10 +45,10 @@ export default function Invitation() {
         };
     }, []);
 
-    // Asegurar que siempre esté al inicio cuando se monta el componente
-    useEffect(() => {
-        window.scrollTo(0, 0);
-    }, [isEnvelopeOpened]);
+    // Removido el useEffect que causaba scroll automático
+    // useEffect(() => {
+    //     window.scrollTo(0, 0);
+    // }, [isEnvelopeOpened]);
 
     useEffect(() => {
         const audio = audioRef.current;
@@ -71,12 +73,15 @@ export default function Invitation() {
         // Habilitar scroll después de hacer clic
         document.body.style.overflow = 'auto';
         
-        // Hacer scroll suave hacia la invitación
+        // Hacer scroll suave hacia la invitación solo si es necesario
         if (targetRef.current) {
-            targetRef.current.scrollIntoView({ 
-                behavior: 'smooth',
-                block: 'start'
-            });
+            const rect = targetRef.current.getBoundingClientRect();
+            if (rect.top < 0) {
+                targetRef.current.scrollIntoView({ 
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
         }
     };
 
@@ -129,7 +134,9 @@ export default function Invitation() {
             <WeSaidYes/>
             <DressCode/>
             <Schedule/>
-            <Gifts/>    
+            <Gifts/> 
+            <AsistanConfirmation totalPasses={2}/>
+            <TipsAndTricks/>
             <audio 
                 ref={audioRef} 
                 src="/audio/Christina Perri - A Thousand Years [Official Music Video] - Christina Perri.mp3"

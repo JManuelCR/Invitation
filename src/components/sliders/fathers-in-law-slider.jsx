@@ -1,5 +1,5 @@
 import { useKeenSlider } from 'keen-slider/react';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import 'keen-slider/keen-slider.min.css';
 import './fathers-in-law-slider.css';
 import FathersInLawCard from '../fathers-in-law-card/fathers-in-law-card';
@@ -7,6 +7,14 @@ import FathersInLawCard from '../fathers-in-law-card/fathers-in-law-card';
 const FathersInLawSlider = ({ fathersData }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
+  const [isUserInteracting, setIsUserInteracting] = useState(false);
+  const interactionTimeout = useRef(null);
+
+  const handleUserInteraction = () => {
+    setIsUserInteracting(true);
+    if (interactionTimeout.current) clearTimeout(interactionTimeout.current);
+    interactionTimeout.current = setTimeout(() => setIsUserInteracting(false), 8000);
+  };
 
   const [sliderRef, instanceRef] = useKeenSlider({
     initial: 0,
@@ -32,22 +40,30 @@ const FathersInLawSlider = ({ fathersData }) => {
       setCurrentSlide(0);
       setIsAnimating(false);
     },
+    dragStart: handleUserInteraction,
+    dragEnd: handleUserInteraction,
   });
 
   const goToSlide = (index) => {
+    handleUserInteraction();
     instanceRef.current?.moveToIdx(index);
   };
 
-  // Auto-play cada 5 segundos
+  // Auto-play cada 7 segundos, solo si el usuario no está interactuando
   useEffect(() => {
-    if (!instanceRef.current) return;
-    
+    if (!instanceRef.current || isUserInteracting) return;
     const interval = setInterval(() => {
       instanceRef.current?.next();
     }, 7000);
-    
     return () => clearInterval(interval);
-  }, [instanceRef]);
+  }, [instanceRef, isUserInteracting]);
+
+  // Limpia el timeout al desmontar
+  useEffect(() => {
+    return () => {
+      if (interactionTimeout.current) clearTimeout(interactionTimeout.current);
+    };
+  }, []);
 
   return (
     <div className="fathers-in-law-slider-container">

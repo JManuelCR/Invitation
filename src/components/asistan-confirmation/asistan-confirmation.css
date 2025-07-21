@@ -1,0 +1,23 @@
+.asistan-confirmation-container {
+    padding: 20px;
+    padding-top: var(--section-padding-vertical);
+    padding-bottom: var(--section-padding-vertical);
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 60px;
+    background-color: var(--base-opacity-40);;
+}
+
+.asistan-confirmation-header {
+    text-align: center;
+}
+.asistan-confirmation-text{
+    font-size: 16px;
+font-style: normal;
+font-weight: 400;
+line-height: normal;
+}

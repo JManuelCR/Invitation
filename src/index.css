@@ -24,15 +24,22 @@
   --tertiary-font-size: clamp(38px, 5vw, 55px);
   --responsive-transition: all 0.3s ease;
   --bullet-size: clamp(20px, 6vw, 30px);
-  --bullet-background: conic-gradient(from 180deg at 50% 50%, #D4C0B9 32.30913072824478deg, #685154 115.19999742507935deg, #B49084 201.16353034973145deg, #36272E 308.8720107078552deg);
+  --bullet-background: conic-gradient(
+    from 180deg at 50% 50%,
+    #d4c0b9 32.30913072824478deg,
+    #685154 115.19999742507935deg,
+    #b49084 201.16353034973145deg,
+    #36272e 308.8720107078552deg
+  );
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-html, body {
-  scroll-behavior: smooth;
+html,
+body {
+  scroll-behavior: auto;
   margin: 0;
   display: flex;
   justify-content: center;
@@ -193,7 +200,7 @@ a {
   display: flex;
   overflow: hidden;
   position: relative;
-  width: 100%;
+  width: 100vw;
   height: auto;
   border-radius: 12px;
 }
@@ -227,34 +234,34 @@ a {
 /* Animación de entrada para las cards */
 @keyframes cardEntrance {
   0% {
-      opacity: 0;
-      transform: translateY(30px) scale(0.95);
+    opacity: 0;
+    transform: translateY(30px) scale(0.95);
   }
   100% {
-      opacity: 1;
-      transform: translateY(0) scale(1);
+    opacity: 1;
+    transform: translateY(0) scale(1);
   }
 }
 
 @keyframes slideInFromTop {
   0% {
-      opacity: 0;
-      transform: translateY(-20px);
+    opacity: 0;
+    transform: translateY(-20px);
   }
   100% {
-      opacity: 1;
-      transform: translateY(0);
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
 @keyframes slideInFromBottom {
   0% {
-      opacity: 0;
-      transform: translateY(20px);
+    opacity: 0;
+    transform: translateY(20px);
   }
   100% {
-      opacity: 1;
-      transform: translateY(0);
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
@@ -288,3 +295,116 @@ a {
   transform: scale(1.3);
   box-shadow: 0 0 10px rgba(180, 144, 132, 0.5);
 }
+.asistan-confirmation-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-top: 21px;
+  padding-bottom: 21px;
+  justify-content: center;
+  align-items: center;
+}
+.asistan-confirmation-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.asistan-confirmation-title {
+  color: #000;
+  text-align: center;
+  font-family: "Lucida Sans";
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+.asistan-confirmation-form label {
+  display: flex;
+  padding: 10px;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  align-self: stretch;
+}
+select {
+  display: flex;
+  padding: 8px 8px 8px 16px;
+  align-items: flex-start;
+  gap: 10px;
+  border-radius: 10px;
+  border: 2px solid var(--Support, #36272e);
+  background: #fff;
+}
+.asistan-confirmation-label-text{
+  color: #000;
+  font-family: "Lucida Sans";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+.button-container{
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  align-items: center;
+}
+
+.button-confirmar-asistencia{
+  display: flex;
+  padding: 10px 16px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  border-radius: 8px;
+  border: none;
+  color: var(--white, #fff);
+  background: linear-gradient(180deg, #B9988C 25%, var(--Primary, #B49084) 60.1%, var(--Mutted, #D4C0B9) 93.75%);
+}
+.button-confirmar-asistencia:hover{
+  background: linear-gradient(180deg, #B9988C 25%, var(--Primary, #B49084) 60.1%, var(--Mutted, #D4C0B9) 93.75%);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.button-confirmar-asistencia:active{
+  background: linear-gradient(180deg, #B9988C 35%, var(--Primary, #B49084) 80.1%, var(--Mutted, #D4C0B9) 93.75%);
+  cursor: pointer;
+  transform: scale(1.05);
+  transition: all 0.3s ease;
+}
+.button-confirmar-asistencia:focus{
+  background: linear-gradient(180deg, #B9988C 25%, var(--Primary, #B49084) 60.1%, var(--Mutted, #D4C0B9) 93.75%);
+  cursor: pointer;
+  transform: scale(1.05);
+  transition: all 0.3s ease;
+}
+
+  .button-no-asistir{
+  display: flex;
+  padding: 8px 16px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  border-radius: 8px;
+  border: 2px solid var(--support);
+  color: var(--support);
+  background: var(--white);
+  }
+  .button-no-asistir:hover{
+    background: var(--white);
+    cursor: pointer;
+    transform: scale(1.05);
+    transition: all 0.3s ease;
+  }
+  .button-no-asistir:active{
+    background: var(--white);
+    cursor: pointer;
+    transform: scale(1.05);
+    transition: all 0.3s ease;
+  }     
+  .button-no-asistir:focus{
+    background: var(--white);
+    cursor: pointer;
+    transform: scale(1.05);
+    transition: all 0.3s ease;
+  }

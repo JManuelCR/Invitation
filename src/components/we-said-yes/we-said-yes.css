@@ -44,62 +44,59 @@
 
 }
 
-/*<Efecto de hover en las cards */
-.keen-slider__slide:hover .we-said-yes-card {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+/* Estructura del slider igual que tips-and-tricks */
+.we-said-yes-slide-container {
+  width: 100%;
+  margin: 0 auto;
+  box-sizing: border-box;
 }
 
-/* Animación para las cards individuales */
-.we-said-yes-card {
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  transform: translateY(20px);
-  opacity: 0;
-  animation: cardEntrance 0.8s ease-out forwards;
-  animation-delay: 0.2s;
-}
-.we-said-yes-card-image::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: -100%;
-  height: 100%;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(255, 255, 255, 0.2),
-    transparent
-  );
-  transition: left 0.8s ease-out;
-  border-radius: inherit;
-  pointer-events: none;
-  z-index: 1;
+.slider-container {
+  width: 100%;
 }
 
-.we-said-yes-card-image:hover {
-  transform: scale(1.05);
+.keen-slider__slide {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 100%;
+  width: 100%;
+  height: auto;
+  background-color: transparent;
+  flex-shrink: 0;
+  transform: scale(0.95);
+  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  padding: 10px;
+  box-sizing: border-box;
 }
 
-.keen-slider__slide--active .we-said-yes-card-image::before {
-  left: 100%;
+.keen-slider__slide.keen-slider__slide--active {
+  opacity: 1;
+  transform: scale(1);
 }
 
-.we-said-yes-card-image {
-  animation: slideInFromTop 0.6s ease-out forwards;
-  animation-delay: 0.4s;
-  opacity: 0;
-  transform: translateY(-20px);
+.keen-slider__slide:not(.keen-slider__slide--active) {
+  transform: scale(0.9);
 }
-.image {
-  animation: none;
+
+.we-said-yes-slider-article-image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 10px;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.we-said-yes-slider-article-image img {
   width: 100%;
   height: 100%;
-  object-fit: fill;
-  border-radius: 12px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  transform: translateY(20px);
-  opacity: 0;
+  object-fit: cover;
+  border-radius: 10px;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  cursor: pointer;
 }
 
 @media (min-width: 768px) {
@@ -107,8 +104,8 @@
     padding: 15px;
   }
 
-  .keen-slider__slide {
-    padding: 5px;
+  .we-said-yes-slider-article-image {
+    height: 250px;
   }
 }
 
@@ -117,8 +114,8 @@
     padding: 50px;
   }
 
-
-  .keen-slider__slide {
-    padding: 10px;
+  .we-said-yes-slider-article-image {
+    height: 300px;
   }
 }
+

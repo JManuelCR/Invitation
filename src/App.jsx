@@ -4,22 +4,11 @@ import { useEffect } from 'react'
 import Invitation from './components/invitation/invitation'
 
 function App() {
-  // Asegurar que siempre comience al inicio
+  // Asegurar que siempre comience al inicio solo una vez
   useEffect(() => {
-    // Posicionar al inicio inmediatamente
+    // Posicionar al inicio inmediatamente solo al cargar
     window.scrollTo(0, 0);
-    
-    // Posicionar al inicio cuando se hace reload
-    const handleBeforeUnload = () => {
-      window.scrollTo(0, 0);
-    };
-    
-    window.addEventListener('beforeunload', handleBeforeUnload);
-    
-    return () => {
-      window.removeEventListener('beforeunload', handleBeforeUnload);
-    };
-  }, []);
+  }, []); // Solo se ejecuta una vez al montar
 
   return (
     <>
