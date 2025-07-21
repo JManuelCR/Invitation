@@ -16,6 +16,11 @@ import mitla from "../../assets/img/mitla.jpg";
 import mercado20deNoviembre from "../../assets/img/mercado_20_de_noviembre.jpg";
 import barrioDeJalatlaco from "../../assets/img/barrio_de_jalatlaco.jpg";
 import mercadoBenitoJuarez from "../../assets/img/mercado_benito_juarez.jpg";
+import alamo from "../../assets/img/alamo.png";
+import hertz from "../../assets/img/hertz.png";
+import expedia from "../../assets/img/expedia.png";
+import CarRental from "../car-rental/car-rental";
+import googleMaps from "../../assets/img/google-maps.jpeg";
 
 const hoteles = [
   {
@@ -97,6 +102,24 @@ const suggestedPlaces = [
   },
 ];
 
+const carRentalOptions = [
+  {
+    name: "Alamo",
+    image: alamo,
+    link: "https://www.alamo.com.mx/es?gad_source=1&gad_campaignid=9861578867&gbraid=0AAAAADKZn1HN47s49Us1EByTjT1pB7-0S&gclid=CjwKCAjwp_LDBhBCEiwAK7Fnkkcc0EoSd3wLf4F7aKsw8VVpmsihygpWQddLLF3H8vGvPJPbFCJ0_BoClfQQAvD_BwE",
+  },
+  {
+    name: "Hertz",
+    image: hertz,
+    link: "https://www.hertzmexico.com/tiempodeviajar/?utm_source=google&utm_medium=cpc&utm_campaign=nbrand&utm_content=MX&utm_term=&gad_source=1&gad_campaignid=20261631500&gbraid=0AAAAADq9hFXz8_sYEb8XIADG6XSJTNeak&gclid=CjwKCAjwp_LDBhBCEiwAK7FnklXd5LxV12ch_fCoE0pn4WZDH0Zs3X1C9-_rdJyV-tZM6vi9v2U7AxoCZ74QAvD_BwE",
+  },
+  {
+    name: "Expedia",
+    image: expedia,
+    link: "https://www.expedia.mx/en/Cars?locale=en_US&siteid=12&semcid=MX.B.GOOGLE.BT-c-EN.CAR&semdtl=a118255096887.b1141026955265.g1kwd-396244913.e1c.m1CjwKCAjwp_LDBhBCEiwAK7FnknB12Hyje1w_E-eZiTrZmHykFn4kVo3nBsW-_sQEsZ6s-cQQCny8JxoCDHQQAvD_BwE.r181a9ca22777a8e2e53aadf63a732041e0bd032d5120f0b8e5b4b4fca6a2af082.c1bkGkwqjm6uSSDGpHQ5K-nw.j19047083.k1.d1624927108854.h1e.i1.l1.n1.o1.p1.q1.s1.t1.x1.f1.u1.v1.w1&gad_source=1&gad_campaignid=18255096887&gbraid=0AAAAACTxZ9Z6zmxXyH_vf9E9q6yUYHUhF&gclid=CjwKCAjwp_LDBhBCEiwAK7FnknB12Hyje1w_E-eZiTrZmHykFn4kVo3nBsW-_sQEsZ6s-cQQCny8JxoCDHQQAvD_BwE",
+  },
+];
+
 const TipsAndTricks = () => {
   return (
     <section className="tips-and-tricks-container">
@@ -104,14 +127,42 @@ const TipsAndTricks = () => {
         <h2>Tips & Tricks</h2>
         <hr />
       </div>
-      <section className="tips-and-tricks-title-container">
+      <section className="tips-and-tricks-title-primary">
         <p className="tips-and-tricks-text">Hoteles sugeridos</p>
       </section>
       <TipsANdTricksSlider places={hoteles} />
-      <section className="tips-and-tricks-title-container">
+      <section className="tips-and-tricks-title-primary">
         <p className="tips-and-tricks-text">Lugares para visitar</p>
       </section>
       <TipsANdTricksSlider places={suggestedPlaces} />
+      <section className="tips-and-tricks-title-primary">
+        <p className="tips-and-tricks-text">Car rental</p>
+      </section>
+      <CarRental rentalOptions={carRentalOptions} />
+      <section className="tips-and-tricks-title-primary">
+        <p className="tips-and-tricks-text downtown-instructions">
+          Intrucciones para llegar al centro desde el aeropuerto
+        </p>
+      </section>
+      <section className="airport-instructions-maps">
+        <a href="https://maps.app.goo.gl/Mrk1s2jXLida2F2FA" target="_blank" rel="noopener noreferrer">
+          <img
+            src={googleMaps}
+            className="airport-instructions-maps-google"
+            alt="airport-instructions-maps-google"
+          />
+          <div className="airport-instructions-text-container">
+            <p className="airport-instructions-text">Aeropuerto- centro</p>
+            <span>...ver en google maps</span>
+          </div>
+        </a>
+      </section>
+      <section className="airport-recommendation-for-airport-taxi-container">
+        <p className="airport-recommendation-for-airport-taxi">También puedes tomar un taxi del aeropuerto a la “zona 1” bajando en el templo de Santo Domingo</p>
+      </section>
+      <section className="tips-and-tricks-title-primary">
+        <p className="tips-and-tricks-text">Taxis</p>
+      </section>
     </section>
   );
 };

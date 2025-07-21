@@ -1,23 +1,70 @@
-.tips-and-tricks-container{
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    padding-top: 40px;
-    padding-bottom: 40px;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    max-width: 100%;
-
+.tips-and-tricks-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding-top: 40px;
+  padding-bottom: 40px;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 100%;
 }
 .asistan-confirmation-header {
-    text-align: center;
+  text-align: center;
 }
-.tips-and-tricks-title-container{
+.tips-and-tricks-title-primary {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+.tips-and-tricks-text {
+  color: #000;
+  text-align: center;
+  font-size: 28px;
+  font-style: italic;
+  line-height: normal;
+  display: inline-block;
+}
+.downtown-instructions {
+  padding-left: 20px;
+  padding-right: 20px;
+}
+.airport-instructions-maps {
+  width: 100%;
+}
+.airport-instructions-maps a {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 16px;
+  padding-left: 30px;
+  padding-right: 30px;
+}
+.airport-instructions-maps-google {
+  width: 70px;
+  height: 70px;
+  object-fit: cover;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  animation: shake 2.5s infinite;
+}
+.airport-instructions-text {
+  text-align: center;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.airport-instructions-text-container{
     display: flex;
-    justify-content: start;
-    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
 }
-.tips-and-tricks-text{
-    padding-left: 36px;
+.airport-instructions-text-container span{
+    font-size: 14px;
+    font-weight: 400;
+    font-weight: 600;
 }
