@@ -42,7 +42,7 @@ const AsistanConfirmation = ({ totalPasses = 4 }) => {
       </section>
       </form>
       <p>
-        Por favor, consfirma tu asistencia antes de Octubre 15.
+        Por favor, confirma tu asistencia antes de Octubre 15.
       </p>
     </section>
   );

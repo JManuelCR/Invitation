@@ -78,6 +78,7 @@ h2 {
   font-weight: 400;
   line-height: normal;
   margin: 0;
+  text-align: center;
 }
 h3 {
   color: var(--bold, #000);

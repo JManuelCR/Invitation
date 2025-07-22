@@ -36,7 +36,7 @@ export default function Fathers() {
         </header>
         <section className="fathers-container-section">
           <p>Donají Pérez Cruz</p>
-          <p>Jorge Javier Bautista Perez</p>
+          <p>Jorge Javier Bautista Pérez</p>
         </section>
         <header className="ceremonia-container-header">
           <h2 className="fathers-title">Padres del novio</h2>

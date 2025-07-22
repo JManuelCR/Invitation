@@ -1,0 +1,48 @@
+.travel-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.travel-image {
+  width: 100%;
+  height: 100%;
+}
+
+.globe-airplane-spin {
+  transform-origin: 50% 50%;
+  animation: spin-globe-airplane 4s linear infinite;
+}
+
+@keyframes spin-globe-airplane {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.airplane-animation {
+  animation: airplane-fly 6s linear infinite;
+}
+
+.airplane2 {
+  animation-delay: 3s;
+}
+
+@keyframes airplane-fly {
+  0% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+  10% {
+    opacity: 1;
+  }
+  80% {
+    transform: translateY(-120px) scale(1.1);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-200px) scale(0.8);
+    opacity: 0;
+  }
+}

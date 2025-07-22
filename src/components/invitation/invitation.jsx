@@ -14,6 +14,8 @@ import Schedule from '../schedule/schedule'
 import Gifts from '../gifts/gifts'
 import AsistanConfirmation from '../asistan-confirmation/asistan-confirmation'
 import TipsAndTricks from '../tips-and-tricks/tips-and-tricks'
+import Thanks from '../thanks/thanks'
+import Travel from '../travel/travel'
 
 export default function Invitation() {
     const targetRef = useRef(null);
@@ -28,17 +30,17 @@ export default function Invitation() {
     useEffect(() => {
         // Bloquear scroll
         document.body.style.overflow = 'hidden';
-        
+
         // Posicionar al inicio de la página
         window.scrollTo(0, 0);
-        
+
         // También posicionar al inicio cuando se hace reload
         const handleBeforeUnload = () => {
             window.scrollTo(0, 0);
         };
-        
+
         window.addEventListener('beforeunload', handleBeforeUnload);
-        
+
         return () => {
             document.body.style.overflow = 'auto';
             window.removeEventListener('beforeunload', handleBeforeUnload);
@@ -55,10 +57,10 @@ export default function Invitation() {
         if (audio) {
             const handlePlay = () => setIsPaused(false);
             const handlePause = () => setIsPaused(true);
-            
+
             audio.addEventListener('play', handlePlay);
             audio.addEventListener('pause', handlePause);
-            
+
             return () => {
                 audio.removeEventListener('play', handlePlay);
                 audio.removeEventListener('pause', handlePause);
@@ -69,15 +71,15 @@ export default function Invitation() {
     const handleEnvelopeClick = () => {
         setIsEnvelopeOpened(true);
         setShowFullControls(true);
-        
+
         // Habilitar scroll después de hacer clic
         document.body.style.overflow = 'auto';
-        
+
         // Hacer scroll suave hacia la invitación solo si es necesario
         if (targetRef.current) {
             const rect = targetRef.current.getBoundingClientRect();
             if (rect.top < 0) {
-                targetRef.current.scrollIntoView({ 
+                targetRef.current.scrollIntoView({
                     behavior: 'smooth',
                     block: 'start'
                 });
@@ -116,16 +118,16 @@ export default function Invitation() {
 
     return (
         <div className={`invitation-container ${isEnvelopeOpened ? 'envelope-opened' : ''}`}>
-            <Envelope 
-                text="Abrir" 
-                targetRef={targetRef} 
-                audioRef={audioRef} 
+            <Envelope
+                text="Abrir"
+                targetRef={targetRef}
+                audioRef={audioRef}
                 onEnvelopeClick={handleEnvelopeClick}
                 isOpened={isEnvelopeOpened}
             />
 
             <PortadaDeInvitacion ref={targetRef}/>
-            <NosCasamos/>   
+            <NosCasamos/>
             <InvitacionPara/>
             <Ceremonia/>
             <Recption/>
@@ -134,11 +136,13 @@ export default function Invitation() {
             <WeSaidYes/>
             <DressCode/>
             <Schedule/>
-            <Gifts/> 
+            <Gifts/>
             <AsistanConfirmation totalPasses={2}/>
             <TipsAndTricks/>
-            <audio 
-                ref={audioRef} 
+            <Travel/>
+            <Thanks/>
+            <audio
+                ref={audioRef}
                 src="/audio/Christina Perri - A Thousand Years [Official Music Video] - Christina Perri.mp3"
                 preload="auto"
             />
@@ -150,15 +154,15 @@ export default function Invitation() {
                 <button className='mute-button' onClick={handleMuteToggle}>
                     <span className='mute-button-text'>{isMuted ? '🔇' : '🔊'}</span>
                 </button>
-                
+
                 <button onClick={handlePlayPause} className='mute-button-icon'>
                     {isPaused ? '▶️' : '⏸️'}
                 </button>
-                
+
                 <button onClick={() => handleVolumeChange(0.1)} className='mute-button-icon'>
                     🔊 +
                 </button>
-                
+
                 <button onClick={() => handleVolumeChange(-0.1)} className='mute-button-icon'>
                     🔊 -
                 </button>
