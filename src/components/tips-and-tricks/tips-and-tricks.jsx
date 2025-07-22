@@ -24,6 +24,7 @@ import googleMaps from "../../assets/img/google-maps.jpeg";
 import alameda from "../../assets/img/alameda.jpg";
 import antequera from "../../assets/img/antequera.jpg";
 import aeropuertoTaxi from "../../assets/img/aeropuerto.jpg";
+import GuysContact from "../guys-contact/guys-contact";
 
 const hoteles = [
   {
@@ -132,12 +133,12 @@ const taxisOptions = [
   {
     name: "Taxis Antequera",
     image: antequera,
-    link: "tel:+52 1 951 515 4355"
+    link: "tel:+52 951 515 4355"
   },
   {
     name: "Taxis Alameda",
     image: alameda,
-    link: "tel:+52 1 9515162190"
+    link: "tel:+52 9515162190"
   },
 ];
 
@@ -185,6 +186,11 @@ const TipsAndTricks = () => {
         <p className="tips-and-tricks-text">Taxis</p>
       </section>
       <CarRental rentalOptions={taxisOptions} />
+      <section className="tips-and-tricks-title-primary">
+        <p className="tips-and-tricks-text">Contacto</p>
+      </section>
+      <p className="airport-recommendation-for-airport-taxi">No estarás solo, si tienes algún inconveniente llámanos</p>
+        <GuysContact />
     </section>
   );
 };
