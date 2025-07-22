@@ -24,7 +24,6 @@ const GuysContact = () => {
                </a>
                </div>
             </div>
-            <p>Contacto</p>
         </section>
     )
 }

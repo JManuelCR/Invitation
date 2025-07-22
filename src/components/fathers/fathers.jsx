@@ -13,7 +13,7 @@ export default function Fathers() {
     },
     {
       title: "Padrinos de Lazo",
-      names: ["Roberto Nazariega Barcelos", "Tania Karina Acero Valdes"]
+      names: ["Roberto Nazariega Barcelos", "Tania Karina Acero Valdés"]
     },
     {
       title: "Padrino de Arras",

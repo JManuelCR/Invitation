@@ -25,6 +25,7 @@ import alameda from "../../assets/img/alameda.jpg";
 import antequera from "../../assets/img/antequera.jpg";
 import aeropuertoTaxi from "../../assets/img/aeropuerto.jpg";
 import GuysContact from "../guys-contact/guys-contact";
+import marriott from "../../assets/img/marriott-oaxaca.jpg";
 
 const hoteles = [
   {
@@ -52,6 +53,12 @@ const hoteles = [
     image: hollidayInn,
     link: "https://maps.app.goo.gl/xKhPu6L4LMzthJ6AA",
   },
+  {
+    name: "City Centro by Marriott Oaxaca",
+    image: marriott,
+    link: "https://maps.app.goo.gl/bS66YCSfbDtSUovP7",
+  },
+
 ];
 const suggestedPlaces = [
   {
@@ -149,6 +156,7 @@ const TipsAndTricks = () => {
         <h2>Tips & Tricks</h2>
         <hr />
       </div>
+      <p className="airport-recommendation-for-airport-taxi">Oaxaca es principal punto turístico en Mexico, aquí hay algunas sugerencias para que disfrutes aún más tu estadía.</p>
       <section className="tips-and-tricks-title-primary">
         <p className="tips-and-tricks-text">Hoteles sugeridos</p>
       </section>
