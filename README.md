@@ -1,12 +1,55 @@
-# React + Vite
+# Invitación de Boda
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Esta es una aplicación de invitación de boda que permite mostrar información personalizada para cada invitado basada en su ID único.
 
-Currently, two official plugins are available:
+## Cómo usar
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### URLs disponibles:
 
-## Expanding the ESLint configuration
+1. **Página principal (sin invitado específico):**
+   ```
+   http://localhost:5173/
+   http://localhost:5173/envelope
+   ```
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+2. **Invitación personalizada para un invitado específico:**
+   ```
+   http://localhost:5173/invitacion/{guestId}
+   ```
+   
+   Donde `{guestId}` es el ID único del invitado en la base de datos.
+
+### Ejemplos de uso:
+
+- `http://localhost:5173/invitacion/ABC123` - Invitación para el invitado con ID "ABC123"
+- `http://localhost:5173/invitacion/MARIA001` - Invitación para el invitado con ID "MARIA001"
+
+## Funcionalidades
+
+- **Información personalizada:** Muestra el nombre del invitado y número de pases disponibles
+- **Diseño responsivo:** Se adapta a diferentes tamaños de pantalla
+- **Audio de fondo:** Música de fondo con controles de reproducción
+- **Animaciones:** Efectos visuales y transiciones suaves
+
+## Configuración del Backend
+
+Asegúrate de que el backend esté configurado para responder a las siguientes rutas:
+
+- `GET /guest/{guestId}` - Obtener información del invitado por ID
+
+## Variables de entorno
+
+Crea un archivo `.env` en la raíz del proyecto:
+
+```env
+VITE_API_URL=http://localhost:3000
+```
+
+## Instalación y ejecución
+
+```bash
+npm install
+npm run dev
+```
+
+La aplicación estará disponible en `http://localhost:5173`
