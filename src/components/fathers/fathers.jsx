@@ -1,22 +1,23 @@
 import "./fathers.css";
 import FathersInLawSlider from "../sliders/fathers-in-law-slider";
-
+import { useTranslation } from "../../hooks/useTranslation";
 export default function Fathers() {
+  const { t } = useTranslation();
   const fathersData = [
     {
-      title: "Padrinos de Velación",
+      title: t.fathersInLaw.weddingGodParents,
       names: ["Mauro Aquino Cabrera", "Irma Paz Quintanar"]
     },
     {
-      title: "Padrinos de Anillos",
+      title: t.fathersInLaw.ringGodParents,
       names: ["Pablo Herrerías Saenz", "Maria Aurora García Ramos"]
     },
     {
-      title: "Padrinos de Lazo",
+      title: t.fathersInLaw.lazoGodParents,
       names: ["Roberto Nazariega Barcelos", "Tania Karina Acero Valdés"]
     },
     {
-      title: "Padrino de Arras",
+      title: t.fathersInLaw.arrasGodParents,
       names: ["José Ángel Jiménez Canseco"]
     }
   ];
@@ -25,13 +26,11 @@ export default function Fathers() {
     <section className="fathers-container general-container">
       <article className="fathers-container-article">
         <p className="message">
-          Con la bendición de nuestros padres, nos llena de alegría recordarte
-          que formas parte de un momento muy especial para nosotros.
-          <br /> Te invitamos con todo el corazón a ser testigo de nuestra
-          unión.
+            {t.fathersInLaw.message}
+          <br /> {t.fathersInLaw.messageComplement}
         </p>
         <header className="ceremonia-container-header">
-          <h2 className="fathers-title">Padres de la novia</h2>
+          <h2 className="fathers-title">{t.fathersInLaw.titleBride}</h2>
           <hr />
         </header>
         <section className="fathers-container-section">
@@ -39,7 +38,7 @@ export default function Fathers() {
           <p>Jorge Javier Bautista Pérez</p>
         </section>
         <header className="ceremonia-container-header">
-          <h2 className="fathers-title">Padres del novio</h2>
+          <h2 className="fathers-title">{t.fathersInLaw.titleGroom}</h2>
           <hr />
         </header>
         <section className="fathers-container-section">
@@ -48,10 +47,10 @@ export default function Fathers() {
         </section>
       </article>
       <section className="ceremonia-container-header">
-          <h2 className="fathersInLaw-title">Padrinos de la boda</h2>
+          <h2 className="fathersInLaw-title">{t.fathersInLaw.titleWeddingFathersInLaw}</h2>
           <hr />
         </section>
-        <p className="message">Sin ellos nada sería <br />igual</p>
+        <p className="message">{t.fathersInLaw.honorMessage} <br />{t.fathersInLaw.honorMessageComplement}</p>
         <FathersInLawSlider fathersData={fathersData} />
 
     </section>

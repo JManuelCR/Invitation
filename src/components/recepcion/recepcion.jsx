@@ -1,17 +1,19 @@
 import './recepcion.css';
 import ListElement from '../list-item/list-element';
 import image_recption from '../../assets/img/quinta-image.jpg';
+import { useTranslation } from '../../hooks/useTranslation';
 
 export default function Recption(){
+    const { t } = useTranslation();
     const listElements = [
-        { icon: "location", text: "Carr. Puerto Escondido - Oaxaca S/N, Centro, 71700 Zimatlán de Álvarez, Oax." },
-        { icon: "calendar", text: "Viernes 19 de diciembre 2025" },
-        { icon: "time", text: "14:30 PM" },
+        { icon: "location", text: t.reception.address },
+        { icon: "calendar", text: t.reception.date },
+        { icon: "time", text: t.reception.time },
       ]
       return (
         <section className=" general-container recepcion-container">
           <header className="recepcion-container-header">
-            <h2>Recepción</h2>
+            <h2>{t.reception.title}</h2>
             <hr />
           </header>
           <main className="recepcion-container-main">
@@ -22,7 +24,7 @@ export default function Recption(){
                 className="image_recepcion"
               />
             </div>
-              <h3>Quinta Real San Pedro</h3>
+              <h3>{t.reception.location}</h3>
             <section className="directions">
             <ul className="list-elements">
                 {listElements.map((element) => (
@@ -31,7 +33,7 @@ export default function Recption(){
               </ul>
             </section>
             <a className="button_primary" target="_blank" href="https://maps.app.goo.gl/NhWdcw7Z1nZhkE4n9">
-              <span className="button_primary_text">Ver el mapa</span>
+              <span className="button_primary_text">{t.reception.map}</span>
             </a>
           </main>
         </section>

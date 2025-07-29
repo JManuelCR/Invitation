@@ -16,8 +16,11 @@ import AsistanConfirmation from '../asistan-confirmation/asistan-confirmation'
 import TipsAndTricks from '../tips-and-tricks/tips-and-tricks'
 import Thanks from '../thanks/thanks'
 import Travel from '../travel/travel'
+import { useData } from '../../context/useData';
+
 
 export default function Invitation() {
+    const { person, loading } = useData();
     const targetRef = useRef(null);
     const audioRef = useRef(null);
     const [isMuted, setIsMuted] = useState(false);
@@ -118,6 +121,8 @@ export default function Invitation() {
 
     return (
         <div className={`invitation-container ${isEnvelopeOpened ? 'envelope-opened' : ''}`}>
+            {loading ? <div>Cargando...</div> : 
+            <>
             <Envelope
                 text="Abrir"
                 targetRef={targetRef}
@@ -128,7 +133,7 @@ export default function Invitation() {
 
             <PortadaDeInvitacion ref={targetRef}/>
             <NosCasamos/>
-            <InvitacionPara/>
+            <InvitacionPara data={{ person }} />
             <Ceremonia/>
             <Recption/>
             <Kiss/>
@@ -137,7 +142,7 @@ export default function Invitation() {
             <DressCode/>
             <Schedule/>
             <Gifts/>
-            <AsistanConfirmation totalPasses={2}/>
+            <AsistanConfirmation totalPasses={person?.guestPassesNumberToRecibe}/>
             <TipsAndTricks/>
             <Travel/>
             <Thanks/>
@@ -170,8 +175,9 @@ export default function Invitation() {
                 <button onClick={() => handleShowControls()} className='mute-button-icon'>
                     ✖️
                 </button>
-
-            </div>
+                </div>
+            </>
+            }
         </div>
     )
 }

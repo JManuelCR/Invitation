@@ -3,7 +3,12 @@ import './asistan-confirmation.css';
 const AsistanConfirmation = ({ totalPasses = 4 }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(e.target.passCount.value);
+    // axios.patch(`${process.env.REACT_APP_API_URL}/guest/confirm-attendance`, {
+    //   guestId: guestId,
+    //   attendance: e.target.passCount.value,
+    //   preference: e.target.preference.value,
+
+    // });
   };
   const handleNoAsistan = (e) => {
     e.preventDefault();
@@ -34,6 +39,14 @@ const AsistanConfirmation = ({ totalPasses = 4 }) => {
         </option>
       );
     })}
+          </select>
+        </label>
+        <span className="asistan-confirmation-label-text">No nos gustaría desperdiciar alimentos, por favor, indica que prefieres comer:</span>
+        <label className="asistan-confirmation-label" htmlFor="passCount">
+          <span className="asistan-confirmation-label-text">Preferencia:</span>
+          <select name="passCount" id="passCount">
+            <option value="Pollo">Pollo</option>
+            <option value="Pollo">Cerdo</option>
           </select>
         </label>
       <section className="button-container">

@@ -1,7 +1,9 @@
 import "./portada-de-invitacion.css";
 import { useState, useEffect, forwardRef } from "react";
+import { useTranslation } from "../../hooks/useTranslation";
 
 const PortadaDeInvitacion = forwardRef((props, ref) => {
+  const { t } = useTranslation();
   const [timeLeft, setTimeLeft] = useState({
     days: 0,
     hours: 0,
@@ -61,27 +63,27 @@ const PortadaDeInvitacion = forwardRef((props, ref) => {
     <section className={`container-portada-de-invitacion ${isVisible ? 'fade-in' : ''}`} ref={ref}>
       <header>
         <section className="title-and-phrase">
-          <h1>Tlalli & Manuel</h1>
-          <em>Donde tú estés, está mi hogar</em>
+          <h1>{t.cover.title}</h1>
+          <em>{t.cover.phrase}</em>
         </section>
       </header>
-      <p className="see-on">Nos vemos en....</p>
+      <p className="see-on">{t.cover.seeOn}</p>
       <article className="time-count-container">
         <section className="time-section-counter">
           <span>{formatNumber(timeLeft.days)}</span>
-          <span>Días</span>
+          <span>{t.cover.days}</span>
         </section>
         <section className="time-section-counter">
           <span>{formatNumber(timeLeft.hours)}</span>
-          <span>Horas</span>
+          <span>{t.cover.hours}</span>
         </section>
         <section className="time-section-counter">
           <span>{formatNumber(timeLeft.minutes)}</span>
-          <span>Minutos</span>
+          <span>{t.cover.minutes}</span>
         </section>
         <section className="time-section-counter seconds">
           <span>{formatNumber(timeLeft.seconds)}</span>
-          <span>Segundos</span>
+          <span>{t.cover.seconds}</span>
         </section>
       </article>
     </section>

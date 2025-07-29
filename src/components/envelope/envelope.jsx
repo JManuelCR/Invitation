@@ -1,11 +1,12 @@
 import "./envelope.css";
 import envelope from "../../assets/img/envelope.png";
 import { useState } from "react";
-
 import { useData } from "../../context/useData";
+import { useTranslation } from "../../hooks/useTranslation";
 
 const Envelope = ({ text, targetRef, audioRef, onEnvelopeClick }) => {
   const { people, loading } = useData();
+  const { t } = useTranslation();
   const [isFading, setIsFading] = useState(false);
   const [isOpened, setIsOpened] = useState(false);
 
@@ -42,7 +43,7 @@ const Envelope = ({ text, targetRef, audioRef, onEnvelopeClick }) => {
       <div className="envelope__image-container">
         <img className="envelope__image" src={envelope} alt="envelope" />
       <button className="envelope__button" onClick={handleClick}>
-        <span className="envelope__button-text">{text}</span> {loading ? "Cargando..." : people}
+        <span className="envelope__button-text">{text || t.envelope.open}</span> {loading ? t.envelope.loading : people}
       </button>
       </div>
     </div>

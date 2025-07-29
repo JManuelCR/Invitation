@@ -2,10 +2,12 @@ import manu_buscando_a_tla from "../../assets/img/manu_buscando_a_tla.png";
 import tla_buscando_a_manu from "../../assets/img/tla_buscando_a_manu.png";
 import './nos-casamos.css'
 import { useState, useEffect, useRef } from 'react';
+import { useTranslation } from '../../hooks/useTranslation';
 
 export default function NosCasamos() {
   const [isVisible, setIsVisible] = useState(false);
   const containerRef = useRef(null);
+  const { t } = useTranslation();
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -32,13 +34,11 @@ export default function NosCasamos() {
   }, []);
 
   return <section className={`nos-casamos-container ${isVisible ? 'visible' : ''}`} ref={containerRef}>
-    <h2 className="nos-casamos-title">¡Nos Casaremos!</h2>
+    <h2 className="nos-casamos-title">{t.weAreGettingMarried.title}</h2>
     <section className="nos-casamos-images">
         <img className="image_manu" src={manu_buscando_a_tla} alt="manu_buscando_a_tla" />
         <img className="image_tla" src={tla_buscando_a_manu} alt="tla_buscando_a_manu" />
     </section>
-    <p>
-    ¡Nos complace compartir con ustedes nuestra alegría y anunciar que nos casamos! Es un honor para nosotros invitarles a celebrar este día tan especial. Únanse a nosotros para celebrar el amor, la amistad y el comienzo de esta nueva etapa en nuestras vidas.
-    </p>
+    <p>{t.weAreGettingMarried.message}</p>
   </section>;
 }
