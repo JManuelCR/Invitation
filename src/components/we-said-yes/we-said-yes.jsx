@@ -6,8 +6,10 @@ import street from "../../assets/img/street.png";
 import { useKeenSlider } from "keen-slider/react";
 import { useState, useEffect } from "react";
 import "./we-said-yes.css";
+import { useTranslation } from "../../hooks/useTranslation";
 
 const WeSaidYes = () => {
+  const { t } = useTranslation();
   const images = [river, harry_potter, concert, parque, street];
   const [currentSlide, setCurrentSlide] = useState(0);
 
@@ -44,22 +46,21 @@ const WeSaidYes = () => {
   return (
     <section className="we-said-yes-container">
         <div className="we-said-yes-header">
-            <h2 className="we-said-yes-title">Dijimos que
-            sí</h2>
+            <h2 className="we-said-yes-title">{t.weSaidYes.title}</h2>
             <hr />
         </div>
       <div className="poem">
         <p className="poem-line">
-        Amar a alguien es una cosa.
+        {t.weSaidYes.poemLine1}
         </p>
         <p className="poem-line">
-        Que alguien te ame es otra.
+        {t.weSaidYes.poemLine2}
         </p>
         <p className="poem-line">
-        Pero que te ame la misma persona que amas, lo es todo.
+        {t.weSaidYes.poemLine3}
         </p>
         <p className="poem-author">
-        -PAULO COELHO
+        -{t.weSaidYes.poemAuthor}
         </p>
         </div>
         <section className="we-said-yes-slide-container">

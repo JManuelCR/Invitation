@@ -23,7 +23,6 @@ function AppContent() {
 
 function App() {
   const location = useLocation();
-  
   // Extraer el guestId de la URL
   const pathSegments = location.pathname.split('/');
   const guestId = pathSegments[1] === 'invitation' && !!pathSegments[2] ? pathSegments[2] : null;

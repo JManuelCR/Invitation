@@ -2,8 +2,10 @@ import { useState, useEffect, useRef } from "react";
 import suit from "../../assets/img/suit.png";
 import dress from "../../assets/img/dress.png";
 import "./dress-code.css";
+import { useTranslation } from "../../hooks/useTranslation";
 
 const DressCode = () => {
+    const { t } = useTranslation();
     const [isVisible, setIsVisible] = useState(false);
     const containerRef = useRef(null);
 
@@ -34,7 +36,7 @@ const DressCode = () => {
     return (
         <section className="dress-code-container" ref={containerRef}>
             <div className="dress-code-header">
-                <h2 className="dress-code-header-title">Código de vestimenta</h2>
+                <h2 className="dress-code-header-title">{t.dressCode.title}</h2>
                 <hr />
             </div>
             <section className={`images-container ${isVisible ? 'animate' : ''}`}>
@@ -46,12 +48,12 @@ const DressCode = () => {
                 </div>
             </section>
             <section className="dress-code-text">
-                <p className="dress-code-text-highlight">Formal</p>
-                <p className="dress-code-text-item">Blanco reservado para la novia</p>
-                <p className="dress-code-text-item">El clima promedio en la ciudad de Oaxaca en esta fecha es:</p>
-                <p className="dress-code-text-item">26°max/10°min<br />
-                0 días de lluvia</p>
-                <p className="dress-code-text-item">Tipo de  piso de la recepción: <span className="dress-code-text-highlight">Jardín</span></p>
+                <p className="dress-code-text-highlight">{t.dressCode.formal}</p>
+                <p className="dress-code-text-item">{t.dressCode.brideReserved}</p>
+                <p className="dress-code-text-item">{t.dressCode.weather}</p>
+                <p className="dress-code-text-item">{t.dressCode.weatherMaxMin}<br />
+                {t.dressCode.weatherRain}</p>
+                <p className="dress-code-text-item">{t.dressCode.floorType}: <span className="dress-code-text-highlight">{t.dressCode.floorTypeHighlight}</span></p>
             </section>
         </section>
     )

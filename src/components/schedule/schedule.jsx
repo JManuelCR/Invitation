@@ -1,16 +1,18 @@
 import { useRef, useEffect, useState } from "react";
 import './schedule.css'
+import { useTranslation } from "../../hooks/useTranslation";
 
-const events = [
-  { time: "12:00 pm", label: "Ceremonia" },
-  { time: "2:30 pm", label: "Recepción" },
-  { time: "3:00 pm", label: "Banquete" },
-  { time: "4:30 pm", label: "Brindis" },
-  { time: "5:00 pm", label: "Baile de los novios" },
-  { time: "5:30 pm", label: "Fiesta" },
-];
 
 const Schedule = () => {
+  const { t } = useTranslation();
+  const events = [
+    { time: "12:00 pm", label: t.schedule.ceremony },
+    { time: "2:30 pm", label: t.schedule.reception },
+    { time: "3:00 pm", label: t.schedule.dinner },
+    { time: "4:30 pm", label: t.schedule.brindis },
+    { time: "5:00 pm", label: t.schedule.dance },
+    { time: "5:30 pm", label: t.schedule.party },
+  ];
   const [activeIndex, setActiveIndex] = useState(0);
   const itemRefs = useRef([]);
 
@@ -33,7 +35,7 @@ const Schedule = () => {
   return (
     <section className="schedule-container">
       <div className="schedule-header">
-        <h2 className="schedule-header-title">Itinerario</h2>
+        <h2 className="schedule-header-title">{t.schedule.title}</h2>
         <hr />
       </div>
       <ul className="schedule-list">

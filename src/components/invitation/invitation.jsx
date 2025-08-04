@@ -1,5 +1,7 @@
 import Envelope from '../envelope/envelope'
 import { useRef, useState, useEffect } from 'react'
+import { useParams } from 'react-router-dom'
+import { useData } from '../../context/useData'
 import PortadaDeInvitacion from '../portada-de-invitacion/portada-de-invitacion'
 import NosCasamos from '../nos-casamos/nos-casamos'
 import InvitacionPara from '../invitacion-para/invitacion-para'
@@ -16,11 +18,11 @@ import AsistanConfirmation from '../asistan-confirmation/asistan-confirmation'
 import TipsAndTricks from '../tips-and-tricks/tips-and-tricks'
 import Thanks from '../thanks/thanks'
 import Travel from '../travel/travel'
-import { useData } from '../../context/useData';
 
 
 export default function Invitation() {
     const { person, loading } = useData();
+    const { guestId } = useParams();
     const targetRef = useRef(null);
     const audioRef = useRef(null);
     const [isMuted, setIsMuted] = useState(false);
@@ -142,7 +144,7 @@ export default function Invitation() {
             <DressCode/>
             <Schedule/>
             <Gifts/>
-            <AsistanConfirmation totalPasses={person?.guestPassesNumberToRecibe}/>
+            <AsistanConfirmation totalPasses={person?.guestPassesNumberToRecibe} guestId={guestId}/>
             <TipsAndTricks/>
             <Travel/>
             <Thanks/>

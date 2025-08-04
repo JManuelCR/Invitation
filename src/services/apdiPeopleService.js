@@ -4,8 +4,12 @@ const API = axios.create({
   baseURL: import.meta.env.VITE_API_URL || "http://localhost:3000",
 });
 
-export const getPeople = (id) => {
-  console.log("Making API request to:", `/guest/${id}`);
-  console.log("Full URL:", `${import.meta.env.VITE_API_URL || "http://localhost:3000"}/guest/${id}`);
+console.log("Base URL configurada:", API.defaults.baseURL);
+
+export const getGuest = (id) => {
   return API.get(`/guest/${id}`);
+};
+
+export const patchGuest = (id, data) => {
+  return API.patch(`/guest/${id}`, data);
 };

@@ -15,9 +15,133 @@
 .asistan-confirmation-header {
     text-align: center;
 }
+
 .asistan-confirmation-text{
     font-size: 16px;
-font-style: normal;
-font-weight: 400;
-line-height: normal;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.asistan-confirmation-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.asistan-confirmation-label {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.asistan-confirmation-label-text {
+    font-weight: 500;
+    color: var(--text-color);
+}
+
+.asistan-confirmation-label select {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    background-color: white;
+}
+
+.asistan-confirmation-label select:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+}
+
+.asistan-confirmation-label select:disabled {
+    background-color: #f5f5f5;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+.button-container {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.button-confirmar-asistencia,
+.button-no-asistir {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.button-confirmar-asistencia {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.button-confirmar-asistencia:hover:not(:disabled) {
+    background-color: var(--primary-color-dark);
+    transform: translateY(-2px);
+}
+
+.button-confirmar-asistencia:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.button-no-asistir {
+    background-color:  var(--white);
+    border: 2px solid var(--tertiary);
+    color: var(--tertiary);
+}
+
+.button-no-asistir:hover:not(:disabled) {
+    background-color:  var(--white);
+    border: 2px solid var(--tertiary);
+    color: var(--tertiary);
+    transform: translateY(-2px);
+}
+
+.button-no-asistir:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.error {
+    color: #dc3545;
+    font-size: 14px;
+    margin-top: 4px;
+}
+
+.asistan-confirmation-title {
+    font-size: 18px;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.submit-message {
+    padding: 12px 16px;
+    border-radius: 6px;
+    font-weight: 500;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.submit-message.success {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.submit-message.error {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
 }

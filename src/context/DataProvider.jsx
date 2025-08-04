@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getPeople } from "../services/apdiPeopleService";
+import { getGuest } from "../services/apdiPeopleService";
 import { DataContext } from "./DataContext";
 
 export const DataProvider = ({ children, guestId }) => {
@@ -11,12 +11,9 @@ export const DataProvider = ({ children, guestId }) => {
         const idToUse = guestId || "default";
         
         try {
-            console.log("Fetching data for guestId:", idToUse);
-            const response = await getPeople(idToUse);
-            console.log("Response received:", response.data);
+            const response = await getGuest(idToUse);
             setPerson(response.data);
         } catch (error) {
-            console.error("Error loading people:", error);
             setPerson(null);
         } finally {
             setLoading(false);
@@ -24,7 +21,6 @@ export const DataProvider = ({ children, guestId }) => {
     };
 
     useEffect(() => {
-        console.log("DataProvider useEffect triggered with guestId:", guestId);
         loadPeople();
     }, [guestId]);
     

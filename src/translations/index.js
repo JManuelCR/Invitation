@@ -51,18 +51,26 @@ export const translations = {
     
     // Schedule
     schedule: {
-      title: "Programa",
+      title: "Itinerario",
       ceremony: "Ceremonia",
       reception: "Recepción",
-      dinner: "Cena",
-      party: "Fiesta"
+      dinner: "Banquete",
+      party: "Fiesta",
+      dance: "Baile de los novios",
+      brindis: "Brindis"
     },
     
     // DressCode
     dressCode: {
       title: "Código de Vestimenta",
       formal: "Formal",
-      description: "Traje oscuro / Vestido largo"
+      description: "Traje oscuro / Vestido largo",
+      brideReserved: "Blanco reservado para la novia",
+      weather: "El clima promedio en la ciudad de Oaxaca en esta fecha es:",
+      weatherMaxMin: "26°max/10°min",
+      weatherRain: "0 días de lluvia",
+      floorType: "Tipo de piso de la recepción:",
+      floorTypeHighlight: "Jardín"
     },
     
     // Gifts
@@ -113,7 +121,11 @@ export const translations = {
     
     // WeSaidYes
     weSaidYes: {
-      title: "Dijimos que Sí"
+      title: "Dijimos que Sí",
+      poemLine1: "Amar a alguien es una cosa.",
+      poemLine2: "Pero que te ame la misma persona que amas, lo es todo.",
+      poemLine3: "Que alguien te ame es otra.",
+      poemAuthor: "PAULO COELHO"
     },
     
     // AsistanConfirmation
@@ -121,7 +133,18 @@ export const translations = {
       title: "Confirmación de Asistencia",
       confirm: "Confirmar",
       decline: "Declinar",
-      message: "Por favor confirma tu asistencia"
+      message: "Por favor confirma tu asistencia",
+      passesMessage: "Tienes {totalPasses} pases para ti y tu familia",
+      passesToUse: "Pases a utilizar:",
+      foodWasteMessage: "No nos gustaría desperdiciar alimentos, por favor, indica que prefieres comer:",
+      preference: "Preferencia:",
+      selectOption: "Selecciona una opción",
+      chicken: "Pollo",
+      pork: "Cerdo",
+      confirmAttendance: "Confirmar asistencia",
+      willNotAttend: "No asistiré",
+      deadlineMessage: "Por favor, confirma tu asistencia antes de Octubre 15.",
+      requiredField: "Este campo es requerido"
     }
   },
   
@@ -180,15 +203,23 @@ export const translations = {
       title: "Schedule",
       ceremony: "Ceremony",
       reception: "Reception",
-      dinner: "Dinner",
-      party: "Party"
+      dinner: "Banquete",
+      party: "Party",
+      dance: "Bride and Groom Dance",
+      brindis: "Brindis"
     },
     
     // DressCode
     dressCode: {
       title: "Dress Code",
       formal: "Formal",
-      description: "Dark suit / Long dress"
+      description: "Dark suit / Long dress",
+      brideReserved: "White reserved for the bride",
+      weather: "The average weather in the city of Oaxaca on this date is:",
+      weatherMaxMin: "26°max/10°min",
+      weatherRain: "0 days of rain",
+      floorType: "Floor type of the reception:",
+      floorTypeHighlight: "Garden"
     },
     
     // Gifts
@@ -240,7 +271,11 @@ export const translations = {
     
     // WeSaidYes
     weSaidYes: {
-      title: "We Said Yes"
+      title: "We Said Yes",
+      poemLine1: "To love someone is one thing.",
+      poemLine2: "But to love the same person who loves you, that's everything.",
+      poemLine3: "To have someone love you is another.",
+      poemAuthor: "PAULO COELHO"
     },
     
     // AsistanConfirmation
@@ -248,7 +283,18 @@ export const translations = {
       title: "RSVP",
       confirm: "Confirm",
       decline: "Decline",
-      message: "Please confirm your attendance"
+      message: "Please confirm your attendance",
+      passesMessage: "You have {totalPasses} passes for you and your family",
+      passesToUse: "Passes to use:",
+      foodWasteMessage: "We wouldn't like to waste food, please indicate what you prefer to eat:",
+      preference: "Preference:",
+      selectOption: "Select an option",
+      chicken: "Chicken",
+      pork: "Pork",
+      confirmAttendance: "Confirm attendance",
+      willNotAttend: "I will not attend",
+      deadlineMessage: "Please confirm your attendance before October 15.",
+      requiredField: "This field is required"
     }
   }
 }; 
