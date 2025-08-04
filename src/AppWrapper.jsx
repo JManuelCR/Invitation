@@ -6,10 +6,9 @@ import App from './App.jsx'
 export default function AppWrapper() {
   const location = useLocation();
   
-  // Extraer el guestId de la URL
-  // Formato esperado: /invitacion/{guestId}
-  const pathSegments = location.pathname.split('/');
-  const guestId = pathSegments[1] === 'invitacion' && pathSegments[2] ? pathSegments[2] : null;
+  const queryParams = new URLSearchParams(location.search);
+
+  const guestId = queryParams.get('guestId');
   
   return (
     <DataProvider guestId={guestId}>

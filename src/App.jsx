@@ -23,9 +23,9 @@ function AppContent() {
 
 function App() {
   const location = useLocation();
-  // Extraer el guestId de la URL
-  const pathSegments = location.pathname.split('/');
-  const guestId = pathSegments[1] === 'invitation' && !!pathSegments[2] ? pathSegments[2] : null;
+  // Extraer el guestId de los query parameters
+  const urlParams = new URLSearchParams(location.search);
+  const guestId = urlParams.get('invitation');
   return (
     <DataProvider guestId={guestId}>
       <AppContent />
