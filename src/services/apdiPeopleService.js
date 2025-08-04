@@ -4,8 +4,6 @@ const API = axios.create({
   baseURL: import.meta.env.VITE_API_URL || "http://localhost:3000",
 });
 
-console.log("Base URL configurada:", API.defaults.baseURL);
-
 export const getGuest = (id) => {
   return API.get(`/guest/${id}`);
 };
