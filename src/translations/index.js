@@ -115,8 +115,8 @@ export const translations = {
     
     // Thanks
     thanks: {
-      title: "Gracias",
-      message: "Gracias por ser parte de nuestro día especial"
+      title: "Gracias por confirmar tu asistencia",
+      message: "¡Esperamos verte pronto en la celebración!"
     },
     
     // Fathers
@@ -290,8 +290,8 @@ export const translations = {
     
     // Thanks
     thanks: {
-      title: "Thank You",
-      message: "Thank you for being part of our special day"
+      title: "Thank you for confirming your attendance",
+      message: "We look forward to seeing you soon at the celebration!"
     },
     
     // Fathers

@@ -1,14 +1,16 @@
 import "./thanks.css";
+import { useTranslation } from '../../hooks/useTranslation';
 
 const Thanks = () => {
+  const { t } = useTranslation();
   return (
     <section className="thanks-container">
       <article className="thanks-card">
         <div className="tips-and-tricks-header">
-          <h2>Gracias por confirmar tu asistencia</h2>
+          <h2>{t.thanks.title}</h2>
           <hr />
         </div>
-        <p className="thanks-title-text">¡Esperamos verte pronto en la celebración!</p>
+        <p className="thanks-title-text">{t.thanks.message}</p>
       </article>
     </section>
   );
