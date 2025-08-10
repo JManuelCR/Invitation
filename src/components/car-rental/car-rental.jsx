@@ -1,6 +1,8 @@
 import "./car-rental.css";
+import { useTranslation } from '../../hooks/useTranslation';
 
 const CarRental = ({ rentalOptions }) => {
+  const { t } = useTranslation();
   return (
     <section className="car-rental-container">
       {rentalOptions.map((option) => (
@@ -15,7 +17,7 @@ const CarRental = ({ rentalOptions }) => {
           <div className="rental-name-container">
             <h3 className="rental-option-name">{option.name}</h3>
             <span className="more-information">
-              ...info
+              {t.tips.moreInformation}
             </span>
           </div>
         </a>

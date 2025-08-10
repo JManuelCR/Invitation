@@ -2,8 +2,10 @@ import './tips-and-tricks-slider.css'
 import { useState, useRef, useEffect } from 'react';
 import { useKeenSlider } from "keen-slider/react";
 import "keen-slider/keen-slider.min.css";
+import { useTranslation } from '../../hooks/useTranslation';
 
 const TipsANdTricksSlider = ({places}) => {
+    const { t } = useTranslation();
     const [currentSlide, setCurrentSlide] = useState(0);
     const [isUserInteracting, setIsUserInteracting] = useState(false);
     const interactionTimeout = useRef(null);
@@ -69,7 +71,7 @@ const TipsANdTricksSlider = ({places}) => {
                             <article className="tips-and-tricks-slider-article">
                                 {place.name && <h4 className="tips-and-tricks-slider-article-title">{place.name}</h4>}
                                 {place.image && <div className="tips-and-tricks-slider-article-image"><img src={place.image} alt={place.name} /></div>}
-                                <p className='tips-and-tricks-slider-article-text'>Haz click para ver <br />en Google Maps</p>
+                                <p className='tips-and-tricks-slider-article-text'>{t.tips.clickToSee} <br />{t.tips.inGoogleMaps}</p>
                             </article>
                         </a>
                     </div>

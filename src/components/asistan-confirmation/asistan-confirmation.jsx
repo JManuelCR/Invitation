@@ -17,11 +17,7 @@ const AsistanConfirmation = ({ totalPasses = 4, guestId }) => {
     try {
       setIsSubmitting(true);
       setSubmitMessage('');
-      console.log("=== FORMULARIO ENVIADO ===");
-      console.log("Guest ID:", guestId);
-      console.log("Datos del formulario:", data);
       
-      // Mapear los datos del formulario a los campos del backend
       const updateData = {
         guestPassesNumberToRecibe: parseInt(data.passCount),
         guestFoodPreference: data.foodPreference
@@ -81,10 +77,7 @@ const AsistanConfirmation = ({ totalPasses = 4, guestId }) => {
       </div>
       
       <p className="asistan-confirmation-text">
-        "Lo más importante para nosotros es compartir este momento contigo.
-        Sabemos que es una fecha complicada, por eso te agradeceríamos mucho
-        confirmar tu asistencia. Queremos organizar todo con cariño y medida,
-        pensando en cada uno de ustedes."
+        {t.confirmation.confirmationMessage}
       </p>
       
       {submitMessage && (
@@ -98,11 +91,11 @@ const AsistanConfirmation = ({ totalPasses = 4, guestId }) => {
         onSubmit={handleSubmit(onSubmit)}
       >
         <h3 className="asistan-confirmation-title">
-          Tienes {totalPasses} pases para ti y tu familia
+          {t.confirmation.confirmationMessageComplement} {totalPasses} {t.confirmation.confirmationMessageComplement2}
         </h3>
         
         <label className="asistan-confirmation-label" htmlFor="passCount">
-          <span className="asistan-confirmation-label-text">Pases a utilizar:</span>
+          <span className="asistan-confirmation-label-text">{t.confirmation.passesToUse}</span>
           <select 
             name="passCount" 
             id="passCount" 
@@ -112,7 +105,7 @@ const AsistanConfirmation = ({ totalPasses = 4, guestId }) => {
             })}
             disabled={isSubmitting}
           >
-            <option value="">Selecciona pases</option>
+            <option value="">{t.confirmation.selectPasses}</option>
             {Array.from({ length: totalPasses }, (_, index) => {
               const value = totalPasses - index;
               return (
@@ -126,11 +119,11 @@ const AsistanConfirmation = ({ totalPasses = 4, guestId }) => {
         </label>
 
         <span className="asistan-confirmation-label-text">
-          No nos gustaría desperdiciar alimentos, por favor, indica que prefieres comer:
+          {t.confirmation.confirmationMessageComplement3}
         </span>
         
         <label className="asistan-confirmation-label" htmlFor="foodPreference">
-          <span className="asistan-confirmation-label-text">Preferencia:</span>
+          <span className="asistan-confirmation-label-text">{t.confirmation.preference}</span>
           <select 
             name="foodPreference" 
             id="foodPreference" 
@@ -140,16 +133,16 @@ const AsistanConfirmation = ({ totalPasses = 4, guestId }) => {
             })}
             disabled={isSubmitting}
           >
-            <option value="">Selecciona una opción</option>
-            <option value="Pollo">Pollo</option>
-            <option value="Cerdo">Cerdo</option>
+            <option value="">{t.confirmation.selectOption}</option>
+            <option value="Pollo">{t.confirmation.chicken}</option>
+            <option value="Cerdo">{t.confirmation.pork}</option>
           </select>
           {errors.foodPreference && <span className="error">{errors.foodPreference.message}</span>}
         </label>
 
         {
           isSubmitting ? (
-            <p>Enviando...</p>
+            <p>{t.confirmation.sending}</p>
           ) : (
             <section className="button-container">
             <button 
@@ -157,7 +150,7 @@ const AsistanConfirmation = ({ totalPasses = 4, guestId }) => {
               className="button-confirmar-asistencia"
               disabled={isSubmitting}
             >
-              Confirmar asistencia
+              {t.confirmation.confirmAttendance}
             </button>
             <button 
               type="button" 
@@ -165,7 +158,7 @@ const AsistanConfirmation = ({ totalPasses = 4, guestId }) => {
               onClick={handleNoAsistan}
               disabled={isSubmitting}
             >
-              No asistiré
+              {t.confirmation.willNotAttend}
             </button>
           </section>
           )
@@ -173,7 +166,7 @@ const AsistanConfirmation = ({ totalPasses = 4, guestId }) => {
       </form>
       
       <p>
-        Por favor, confirma tu asistencia antes de Octubre 15.
+        {t.confirmation.deadlineMessage}
       </p>
     </section>
   );

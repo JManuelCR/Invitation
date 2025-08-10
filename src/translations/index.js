@@ -75,25 +75,42 @@ export const translations = {
     
     // Gifts
     gifts: {
-      title: "Regalos",
-      message: "Tu presencia es nuestro mejor regalo",
-      bankInfo: "Información bancaria disponible"
+      title: "Mesa de regalos",
+      message: "Si deseas acompañarnos de una manera especial, una contribución para nuestra luna de miel o nuestro futuro hogar será recibida con mucha gratitud y alegría.",
+      bankInfo: "Información bancaria disponible",
+      liverpool: "Liverpool",
+      savingsAccount: "Cuenta de ahorros Santander",
+      copied: "Copiado en el portapapeles"
     },
     
     // Travel
     travel: {
       title: "Viaje",
-      hotels: "Hoteles Recomendados",
+      hotelsSuggested: "Hoteles Sugeridos",
       transportation: "Transportación",
       activities: "Actividades"
     },
     
     // TipsAndTricks
     tips: {
-      title: "Tips y Trucos",
+      title: "Tips & Tricks",
       weather: "Clima",
       currency: "Moneda",
-      language: "Idioma"
+      language: "Idioma",
+      oaxacaPromotion: "Oaxaca es principal punto turístico en Mexico, aquí hay algunas sugerencias para que disfrutes aún más tu estadía.",
+      hotelsSuggested: "Hoteles Sugeridos",
+      placesToVisit: "Lugares para visitar",
+      carRental: "Car rental",
+      downtownInstructions: "Instrucciones para llegar al centro desde el aeropuerto",
+      airportTaxi: "También puedes tomar un taxi del aeropuerto a la “zona 1” bajando en el templo de Santo Domingo",
+      taxis: "Taxis",
+      contact: "Contacto",
+      noAlone: "No estarás solo, si tienes algún inconveniente llámanos",
+      airportInstructions: "Aeropuerto - centro",
+      airportInstructionsGoogle: "...ver en google maps",
+      moreInformation: "...llámanos",
+      clickToSee: "Haz click para ver",
+      inGoogleMaps: "en Google Maps"
     },
     
     // Thanks
@@ -116,7 +133,8 @@ export const translations = {
       lazoGodParents: "Padrinos de lazo",
       ringGodParents: "Padrinos de anillos",
       arrasGodParents: "Padrino de arras",
-
+      titleBride: "Padres de la novia",
+      titleGroom: "Padres del novio"
     },
     
     // WeSaidYes
@@ -133,18 +151,25 @@ export const translations = {
       title: "Confirmación de Asistencia",
       confirm: "Confirmar",
       decline: "Declinar",
+      confirmationMessage: "Lo más importante para nosotros es compartir este momento contigo. Sabemos que es una fecha complicada, por eso te agradeceríamos mucho confirmar tu asistencia. Queremos organizar todo con cariño y medida, pensando en cada uno de ustedes.",
       message: "Por favor confirma tu asistencia",
+      confirmationMessageComplement: "Tienes",
+      confirmationMessageComplement2: "pases para ti y tu familia",
       passesMessage: "Tienes {totalPasses} pases para ti y tu familia",
       passesToUse: "Pases a utilizar:",
       foodWasteMessage: "No nos gustaría desperdiciar alimentos, por favor, indica que prefieres comer:",
       preference: "Preferencia:",
+      selectPasses: "Selecciona tu numero de pases",
       selectOption: "Selecciona una opción",
       chicken: "Pollo",
       pork: "Cerdo",
       confirmAttendance: "Confirmar asistencia",
       willNotAttend: "No asistiré",
       deadlineMessage: "Por favor, confirma tu asistencia antes de Octubre 15.",
-      requiredField: "Este campo es requerido"
+      requiredField: "Este campo es requerido",
+      confirmationMessageComplement3: "No nos gustaría desperdiciar alimentos, por favor, indica que prefieres comer:",
+      sending: "Enviando...",
+        
     }
   },
   
@@ -224,15 +249,19 @@ export const translations = {
     
     // Gifts
     gifts: {
-      title: "Gifts",
-      message: "Your presence is our best gift",
-      bankInfo: "Bank information available"
+      title: "Gift Registry",
+      message: "If you wish to accompany us in a special way, a contribution towards our honeymoon or future home will be received with heartfelt gratitude and joy.",
+      bankInfo: "Bank information available",
+      liverpool: "Liverpool",
+      savingsAccount: "Savings Account Santander",
+      copied: "Copied to clipboard"
     },
     
     // Travel
     travel: {
       title: "Travel",
-      hotels: "Recommended Hotels",
+      oaxacaPromotion: "Oaxaca is the main tourist destination in Mexico, here are some suggestions to enjoy your stay even more.",
+      hotelsSuggested: "Recommended Hotels",
       transportation: "Transportation",
       activities: "Activities"
     },
@@ -242,7 +271,21 @@ export const translations = {
       title: "Tips & Tricks",
       weather: "Weather",
       currency: "Currency",
-      language: "Language"
+      language: "Language",
+      oaxacaPromotion: "Oaxaca is the main tourist destination in Mexico, here are some suggestions to enjoy your stay even more.",
+      hotelsSuggested: "Recommended Hotels",
+      placesToVisit: "Places to visit",
+      carRental: "Car rental",  
+      downtownInstructions: "Instructions to get to the center from the airport",
+      airportTaxi: "You can also take a taxi from the airport to the “zone 1” by getting off at the Santo Domingo temple",
+      taxis: "Taxis",
+      contact: "Contact",
+      noAlone: "You won't be alone, if you have any inconvenience call us",
+      airportInstructions: "Airport - center",
+      airportInstructionsGoogle: "...see on google maps",
+      moreInformation: "...call us",
+      clickToSee: "Click to see",
+      inGoogleMaps: "in Google Maps"
     },
     
     // Thanks
@@ -280,21 +323,27 @@ export const translations = {
     
     // AsistanConfirmation
     confirmation: {
-      title: "RSVP",
+      title: "Attendance Confirmation",
       confirm: "Confirm",
       decline: "Decline",
+      confirmationMessage: "The most important thing for us is to share this moment with you. We know it's a difficult date, so we would appreciate it if you could confirm your attendance. We want to organize everything with love and measure, thinking about each of you.",
+      confirmationMessageComplement: "You have",
+      confirmationMessageComplement2: "passes for you and your family",
       message: "Please confirm your attendance",
       passesMessage: "You have {totalPasses} passes for you and your family",
       passesToUse: "Passes to use:",
       foodWasteMessage: "We wouldn't like to waste food, please indicate what you prefer to eat:",
       preference: "Preference:",
+      selectPasses: "Select your number of passes",
       selectOption: "Select an option",
       chicken: "Chicken",
       pork: "Pork",
       confirmAttendance: "Confirm attendance",
       willNotAttend: "I will not attend",
       deadlineMessage: "Please confirm your attendance before October 15.",
-      requiredField: "This field is required"
+      requiredField: "This field is required",
+      confirmationMessageComplement3: "We wouldn't like to waste food, please indicate what you prefer to eat:",
+      sending: "Sending..."
     }
   }
 }; 

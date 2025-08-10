@@ -21,8 +21,7 @@ import Travel from '../travel/travel'
 
 
 export default function Invitation() {
-    const { person, loading } = useData();
-    const { guestId } = useParams();
+    const { person, loading, guestId } = useData();
     const targetRef = useRef(null);
     const audioRef = useRef(null);
     const [isMuted, setIsMuted] = useState(false);

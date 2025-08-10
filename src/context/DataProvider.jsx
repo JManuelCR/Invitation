@@ -2,14 +2,15 @@ import { useEffect, useState } from "react";
 import { getGuest } from "../services/apdiPeopleService";
 import { DataContext } from "./DataContext";
 
-export const DataProvider = ({ children, guestId }) => {
+export const DataProvider = ({ children, guestId: dataGuestId }) => {
     const [person, setPerson] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [guestId, setGuestId] = useState('');
 
     const loadPeople = async () => {
         // Si no hay guestId, usar un ID por defecto o hacer una consulta diferente
-        const idToUse = guestId || "default";
-        
+        const idToUse = dataGuestId || "default";
+        setGuestId(idToUse);
         try {
             const response = await getGuest(idToUse);
             setPerson(response.data);
@@ -22,10 +23,10 @@ export const DataProvider = ({ children, guestId }) => {
 
     useEffect(() => {
         loadPeople();
-    }, [guestId]);
+    }, [dataGuestId]);
     
     return (
-        <DataContext.Provider value={{ person, loading }}>
+        <DataContext.Provider value={{ person, loading, guestId }}>
             {children}
         </DataContext.Provider>
     );

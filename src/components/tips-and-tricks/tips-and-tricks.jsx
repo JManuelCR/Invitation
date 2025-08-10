@@ -26,7 +26,7 @@ import antequera from "../../assets/img/antequera.jpg";
 import aeropuertoTaxi from "../../assets/img/aeropuerto.jpg";
 import GuysContact from "../guys-contact/guys-contact";
 import marriott from "../../assets/img/marriott-oaxaca.jpg";
-
+import { useTranslation } from '../../hooks/useTranslation';
 const hoteles = [
   {
     name: "Quinta Real",
@@ -150,28 +150,29 @@ const taxisOptions = [
 ];
 
 const TipsAndTricks = () => {
+  const { t } = useTranslation();
   return (
     <section className="tips-and-tricks-container">
       <div className="tips-and-tricks-header">
-        <h2>Tips & Tricks</h2>
+        <h2>{t.tips.title}</h2>
         <hr />
       </div>
-      <p className="airport-recommendation-for-airport-taxi">Oaxaca es principal punto turístico en Mexico, aquí hay algunas sugerencias para que disfrutes aún más tu estadía.</p>
+      <p className="airport-recommendation-for-airport-taxi">{t.tips.oaxacaPromotion}</p>
       <section className="tips-and-tricks-title-primary">
-        <p className="tips-and-tricks-text">Hoteles sugeridos</p>
+        <p className="tips-and-tricks-text">{t.tips.hotelsSuggested}</p>
       </section>
       <TipsANdTricksSlider places={hoteles} />
       <section className="tips-and-tricks-title-primary">
-        <p className="tips-and-tricks-text">Lugares para visitar</p>
+        <p className="tips-and-tricks-text">{t.tips.placesToVisit}</p>
       </section>
       <TipsANdTricksSlider places={suggestedPlaces} />
       <section className="tips-and-tricks-title-primary">
-        <p className="tips-and-tricks-text">Car rental</p>
+        <p className="tips-and-tricks-text">{t.tips.carRental}</p>
       </section>
       <CarRental rentalOptions={carRentalOptions} />
       <section className="tips-and-tricks-title-primary">
         <p className="tips-and-tricks-text downtown-instructions">
-          Intrucciones para llegar al centro desde el aeropuerto
+          {t.tips.downtownInstructions}
         </p>
       </section>
       <section className="airport-instructions-maps">
@@ -182,22 +183,22 @@ const TipsAndTricks = () => {
             alt="airport-instructions-maps-google"
           />
           <div className="airport-instructions-text-container">
-            <p className="airport-instructions-text">Aeropuerto - centro</p>
-            <span>...ver en google maps</span>
+            <p className="airport-instructions-text">{t.tips.airportInstructions}</p>
+            <span>{t.tips.airportInstructionsGoogle}</span>
           </div>
         </a>
       </section>
       <section className="airport-recommendation-for-airport-taxi-container">
-        <p className="airport-recommendation-for-airport-taxi">También puedes tomar un taxi del aeropuerto a la “zona 1” bajando en el templo de Santo Domingo</p>
+        <p className="airport-recommendation-for-airport-taxi">{t.tips.airportTaxi}</p>
       </section>
       <section className="tips-and-tricks-title-primary">
-        <p className="tips-and-tricks-text">Taxis</p>
+        <p className="tips-and-tricks-text">{t.tips.taxis}</p>
       </section>
       <CarRental rentalOptions={taxisOptions} />
       <section className="tips-and-tricks-title-primary">
-        <p className="tips-and-tricks-text">Contacto</p>
+        <p className="tips-and-tricks-text">{t.tips.contact}</p>
       </section>
-      <p className="airport-recommendation-for-airport-taxi">No estarás solo, si tienes algún inconveniente llámanos</p>
+      <p className="airport-recommendation-for-airport-taxi">{t.tips.noAlone}</p>
         <GuysContact />
     </section>
   );
