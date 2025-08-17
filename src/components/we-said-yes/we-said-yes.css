@@ -106,6 +106,18 @@
 .we-said-yes-slider-article-image.restaurante-merida img {
   object-position: 50% 90%;
 }
+.we-said-yes-slider-article-image.concert img {
+  object-position: 70% 90%;
+}
+.we-said-yes-slider-article-image.divertidos-festival img {
+  object-position: 60% 90%;
+}
+.we-said-yes-slider-article-image.encantosa img {
+  object-position: 90% 50%;
+}
+.we-said-yes-slider-article-image.hamburguesas img {
+  object-position: 60% 80%;
+}
 
 @media (min-width: 768px) {
   .we-said-yes-container {

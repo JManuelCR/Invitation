@@ -82,7 +82,11 @@ const WeSaidYes = () => {
                         >
                             <div className={`we-said-yes-slider-article-image ${
                                 image === restaurante_osa ? 'restaurante-osa' : 
-                                image === restaurante_merida ? 'restaurante-merida' : ''
+                                image === restaurante_merida ? 'restaurante-merida':
+                                image === concert ? 'concert' : 
+                                image === divertidos_festival ? 'divertidos-festival' :
+                                image === encantosa ? 'encantosa' :
+                                image === hamburguesas ? 'hamburguesas' : ''
                             }`}>
                                 <img
                                     src={image}
