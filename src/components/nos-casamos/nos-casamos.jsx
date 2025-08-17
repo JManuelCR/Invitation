@@ -34,7 +34,10 @@ export default function NosCasamos() {
   }, []);
 
   return <section className={`nos-casamos-container ${isVisible ? 'visible' : ''}`} ref={containerRef}>
+    <div className="header-alignment">
     <h2 className="nos-casamos-title">{t.weAreGettingMarried.title}</h2>
+    <hr />
+    </div>
     <section className="nos-casamos-images">
         <img className="image_manu" src={manu_buscando_a_tla} alt="manu_buscando_a_tla" />
         <img className="image_tla" src={osa_smilling} alt="tla_buscando_a_manu" />

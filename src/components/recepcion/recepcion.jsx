@@ -12,7 +12,7 @@ export default function Recption(){
       ]
       return (
         <section className=" general-container recepcion-container">
-          <header className="recepcion-container-header">
+          <header className="recepcion-container-header header-alignment">
             <h2>{t.reception.title}</h2>
             <hr />
           </header>

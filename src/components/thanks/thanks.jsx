@@ -6,7 +6,7 @@ const Thanks = () => {
   return (
     <section className="thanks-container">
       <article className="thanks-card">
-        <div className="tips-and-tricks-header">
+        <div className="tips-and-tricks-header header-alignment">
           <h2>{t.thanks.title}</h2>
           <hr />
         </div>

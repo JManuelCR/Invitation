@@ -71,7 +71,7 @@ export const translations = {
       description: "Traje oscuro / Vestido largo",
       brideReserved: "Blanco reservado para la novia",
       weather: "El clima promedio en la ciudad de Oaxaca en esta fecha es:",
-      weatherMaxMin: "26°max/10°min",
+      weatherMaxMin: "25°max/10°min",
       weatherRain: "0 días de lluvia",
       floorType: "Tipo de piso de la recepción:",
       floorTypeHighlight: "Jardín"
@@ -248,7 +248,7 @@ export const translations = {
       description: "Dark suit / Long dress",
       brideReserved: "White reserved for the bride",
       weather: "The average weather in the city of Oaxaca on this date is:",
-      weatherMaxMin: "26°max/10°min",
+      weatherMaxMin: "25°max/10°min",
       weatherRain: "0 days of rain",
       floorType: "Floor type of the reception:",
       floorTypeHighlight: "Garden"

@@ -35,7 +35,7 @@ const DressCode = () => {
 
     return (
         <section className="dress-code-container" ref={containerRef}>
-            <div className="dress-code-header">
+            <div className="dress-code-header header-alignment">
                 <h2 className="dress-code-header-title">{t.dressCode.title}</h2>
                 <hr />
             </div>
@@ -53,7 +53,7 @@ const DressCode = () => {
                 <p className="dress-code-text-item">{t.dressCode.weather}</p>
                 <p className="dress-code-text-item">{t.dressCode.weatherMaxMin}<br />
                 {t.dressCode.weatherRain}</p>
-                <p className="dress-code-text-item">{t.dressCode.floorType}: <span className="dress-code-text-highlight">{t.dressCode.floorTypeHighlight}</span></p>
+                <p className="dress-code-text-item">{t.dressCode.floorType} <span className="dress-code-text-highlight">{t.dressCode.floorTypeHighlight}</span></p>
             </section>
         </section>
     )

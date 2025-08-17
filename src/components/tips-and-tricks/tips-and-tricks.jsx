@@ -153,7 +153,7 @@ const TipsAndTricks = () => {
   const { t } = useTranslation();
   return (
     <section className="tips-and-tricks-container">
-      <div className="tips-and-tricks-header">
+      <div className="tips-and-tricks-header header-alignment">
         <h2>{t.tips.title}</h2>
         <hr />
       </div>

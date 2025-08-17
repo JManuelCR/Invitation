@@ -16,7 +16,7 @@ const Gifts = () => {
   const url_liverpool = 'https://mesaderegalos.liverpool.com.mx/milistaderegalos/51623252'
   return (
     <section className="gifts-container">
-      <div className="gifts-header">
+      <div className="gifts-header header-alignment">
         <h2 className="gifts-header-title">{t.gifts.title}</h2>
         <hr />
       </div>

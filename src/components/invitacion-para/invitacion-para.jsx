@@ -16,7 +16,10 @@ export default function InvitacionPara({ data }) {
 
     return (
         <section className="invitacion-para-container">
+            <div className="header-alignment">
             <h2>{t.invitation.invitationFor}</h2>
+            <hr />
+            </div>
             <h2 className='nombre_del_invitado'>
                 {person?.guestInvitationName !== '' ? person.guestInvitationName : person?.guestName ?? t.invitation.guest}
             </h2>

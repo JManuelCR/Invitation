@@ -54,7 +54,7 @@ const WeSaidYes = () => {
 
   return (
     <section className="we-said-yes-container">
-        <div className="we-said-yes-header">
+        <div className="we-said-yes-header header-alignment">
             <h2 className="we-said-yes-title">{t.weSaidYes.title}</h2>
             <hr />
         </div>

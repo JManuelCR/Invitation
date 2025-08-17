@@ -69,7 +69,7 @@ const AsistanConfirmation = ({ totalPasses = 4, guestId }) => {
 
   return (
     <section className="asistan-confirmation-container">
-      <div className="dress-code-header">
+      <div className="dress-code-header header-alignment">
         <h2 className="dress-code-header-title">
           {t?.confirmation?.title || 'Confirmación de Asistencia'}
         </h2>

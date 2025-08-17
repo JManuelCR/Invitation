@@ -29,7 +29,7 @@ export default function Fathers() {
             {t.fathersInLaw.message}
           <br /> {t.fathersInLaw.messageComplement}
         </p>
-        <header className="ceremonia-container-header">
+        <header className="ceremonia-container-header header-alignment">
           <h2 className="fathers-title">{t.fathersInLaw.titleBride}</h2>
           <hr />
         </header>
@@ -37,7 +37,7 @@ export default function Fathers() {
           <p>Donají Pérez Cruz</p>
           <p>Jorge Javier Bautista Pérez</p>
         </section>
-        <header className="ceremonia-container-header">
+        <header className="ceremonia-container-header header-alignment">
           <h2 className="fathers-title">{t.fathersInLaw.titleGroom}</h2>
           <hr />
         </header>
@@ -46,7 +46,7 @@ export default function Fathers() {
           <p>Pastor Cabrera Castellanos</p>
         </section>
       </article>
-      <section className="ceremonia-container-header">
+      <section className="ceremonia-container-header header-alignment">
           <h2 className="fathersInLaw-title">{t.fathersInLaw.titleWeddingFathersInLaw}</h2>
           <hr />
         </section>

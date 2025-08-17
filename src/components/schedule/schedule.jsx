@@ -34,7 +34,7 @@ const Schedule = () => {
 
   return (
     <section className="schedule-container">
-      <div className="schedule-header">
+      <div className="schedule-header header-alignment">
         <h2 className="schedule-header-title">{t.schedule.title}</h2>
         <hr />
       </div>

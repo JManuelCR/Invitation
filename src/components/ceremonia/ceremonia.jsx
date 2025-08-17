@@ -12,7 +12,7 @@ export default function Ceremonia() {
   ]
   return (
     <section className=" general-container ceremonia-container">
-      <header className="ceremonia-container-header">
+      <header className="ceremonia-container-header header-alignment">
         <h2>{t.ceremony.title}</h2>
         <hr />
       </header>

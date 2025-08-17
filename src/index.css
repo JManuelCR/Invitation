@@ -409,3 +409,9 @@ select {
     transform: scale(1.05);
     transition: all 0.3s ease;
   }
+  .header-alignment{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
