@@ -1,5 +1,5 @@
 import manu_buscando_a_tla from "../../assets/img/manu_buscando_a_tla.jpg";
-import tla_buscando_a_manu from "../../assets/img/tla_buscando_a_manu.jpg";
+import osa_smilling from "../../assets/img/osa-smilling.jpg";
 import './nos-casamos.css'
 import { useState, useEffect, useRef } from 'react';
 import { useTranslation } from '../../hooks/useTranslation';
@@ -37,8 +37,10 @@ export default function NosCasamos() {
     <h2 className="nos-casamos-title">{t.weAreGettingMarried.title}</h2>
     <section className="nos-casamos-images">
         <img className="image_manu" src={manu_buscando_a_tla} alt="manu_buscando_a_tla" />
-        <img className="image_tla" src={tla_buscando_a_manu} alt="tla_buscando_a_manu" />
+        <img className="image_tla" src={osa_smilling} alt="tla_buscando_a_manu" />
     </section>
-    <p>{t.weAreGettingMarried.message}</p>
+    <p>{t.weAreGettingMarried.message_1}</p>
+    <br />
+    <p>{t.weAreGettingMarried.message_2}</p>
   </section>;
 }

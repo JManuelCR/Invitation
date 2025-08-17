@@ -92,7 +92,7 @@
 .we-said-yes-slider-article-image img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit:cover;
   border-radius: 10px;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;

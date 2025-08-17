@@ -8,7 +8,7 @@ export default function Ceremonia() {
   const listElements = [
     { icon: "location", text: t.ceremony.address },
     { icon: "calendar", text: t.ceremony.date },
-    { icon: "time", text: "12:00 PM" },
+    { icon: "time", text: "12:00 hrs" },
   ]
   return (
     <section className=" general-container ceremonia-container">

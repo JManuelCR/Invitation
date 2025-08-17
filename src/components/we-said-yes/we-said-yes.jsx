@@ -1,9 +1,7 @@
 import river from "../../assets/img/bikes.jpg";
 import harry_potter from "../../assets/img/harry-potter.png";
 import concert from "../../assets/img/rammstein-concert.jpg";
-import parque from "../../assets/img/park.png";
 import merida from "../../assets/img/merida.jpg";
-import osa_smilling from "../../assets/img/osa-smilling.jpg";
 import restaurante_meridad from "../../assets/img/restaurante-merida.jpg";
 import restaurante_osa from "../../assets/img/restaurante-osos.jpg";
 import six_flags from "../../assets/img/six_flags.png";
@@ -12,7 +10,6 @@ import six_flags_2 from "../../assets/img/six-flags-2.jpg";
 import six_flags_3 from "../../assets/img/six-flags-3.jpg";
 import six_flags_4 from "../../assets/img/six-flags-4.jpg";
 import berlin from "../../assets/img/berlin.jpg";
-import descierto_de_los_leones from "../../assets/img/desierto-de-los-leones.jpg";
 import divertidos_festival from "../../assets/img/divertidos.jpg";
 import encantosa from "../../assets/img/encantosa.jpg";
 import good_party from "../../assets/img/good.jpg";
@@ -25,7 +22,7 @@ import { useTranslation } from "../../hooks/useTranslation";
 
 const WeSaidYes = () => {
   const { t } = useTranslation();
-  const images = [river, harry_potter, concert, parque, merida, osa_smilling, restaurante_meridad, restaurante_osa, six_flags, six_flags_1, six_flags_2, six_flags_3, six_flags_4, berlin, descierto_de_los_leones, divertidos_festival, encantosa, good_party, hamburguesas];
+  const images = [ river, harry_potter, concert, merida, restaurante_meridad, restaurante_osa, six_flags, six_flags_1, six_flags_2, six_flags_3, six_flags_4, berlin, divertidos_festival, encantosa, good_party, hamburguesas];
   const [currentSlide, setCurrentSlide] = useState(0);
 
   const [sliderRef, instanceRef] = useKeenSlider({
@@ -90,6 +87,7 @@ const WeSaidYes = () => {
                                 <img
                                     src={image}
                                     alt={`Slide ${index + 1}`}
+                                    className="we-said-yes-slider-article-image-img"
                                 />
                             </div>
                         </div>

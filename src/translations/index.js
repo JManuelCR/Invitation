@@ -30,7 +30,8 @@ export const translations = {
     // NosCasamos
     weAreGettingMarried: {
       title: "Nos Casamos",
-      message: "¡Nos complace compartir con ustedes nuestra alegría y anunciar que nos casamos! Es un honor para nosotros invitarles a celebrar este día tan especial. Únanse a nosotros para celebrar el amor, la amistad y el comienzo de esta nueva etapa en nuestras vidas."
+      message_1: "¡Nos complace compartir con ustedes nuestra alegría y anunciar que nos casamos!",
+      message_2: "Es un honor para nosotros invitarles a celebrar este día tan especial. Únanse a nosotros para celebrar la amistad, el amor y el comienzo de esta nueva etapa en nuestras vidas."
     },
     
     // Ceremonia
@@ -38,7 +39,7 @@ export const translations = {
       title: "Ceremonia",
       date: "19 de Diciembre, 2025",
       location: "Templo de Santo Domingo de Guzmán",
-      address: "Oaxaca, MéxicC. Macedonio Alcalá s/n, RUTA INDEPENDENCIA, Centro, 68000 Oaxaca de Juárez, Oax.o",
+      address: "Oaxaca, México. C. Macedonio Alcalá s/n ruta Independencia, Centro, C.P. 68000 Oaxaca de Juárez, Oax.",
       map: "Ver el mapa"
     },
     
@@ -46,9 +47,9 @@ export const translations = {
     reception: {
       title: "Recepción",
       date: "19 de Diciembre, 2025",
-      time: "2:00 PM",
+      time: "14:00 hrs",
       location: "Quinta San Pedro",
-      address: "Carr. Puerto Escondido - Oaxaca S/N, Centro, 71700 Zimatlán de Álvarez, Oax.",
+      address: "Carr. Puerto Escondido - Oaxaca S/N, Centro, C.P. 71700 Zimatlán de Álvarez, Oax.",
       map: "Ver el mapa"
     },
     
@@ -144,8 +145,8 @@ export const translations = {
     weSaidYes: {
       title: "Dijimos que Sí",
       poemLine1: "Amar a alguien es una cosa.",
-      poemLine2: "Pero que te ame la misma persona que amas, lo es todo.",
-      poemLine3: "Que alguien te ame es otra.",
+      poemLine2: "Que alguien te ame es otra.",
+      poemLine3: "Pero que te ame la misma persona que amas, lo es todo.",
       poemAuthor: "PAULO COELHO"
     },
     
@@ -215,7 +216,7 @@ export const translations = {
       title: "Ceremony",
       date: "December 19, 2025",
       location: "Templo de Santo Domingo de Guzmán",
-      address: "Oaxaca, Mexico C. Macedonio Alcalá s/n, RUTA INDEPENDENCIA, Centro, 68000 Oaxaca de Juárez, Oax.",
+      address: "Oaxaca, Mexico. C. Macedonio Alcalá s/n ruta Independencia, Centro, C.P. 68000 Oaxaca de Juárez, Oax.",
       map: "See the map"
     },
     
@@ -223,9 +224,9 @@ export const translations = {
     reception: {
       title: "Reception",
       date: "December 19, 2025",
-      time: "2:00 PM",
+      time: "14:00 hrs",
       location: "Quinta San Pedro",
-      address: "Carr. Puerto Escondido - Oaxaca S/N, Centro, 71700 Zimatlán de Álvarez, Oax.",
+      address: "Carr. Puerto Escondido - Oaxaca S/N, Centro, C.P. 71700 Zimatlán de Álvarez, Oax.",
       map: "See the map"
     },
     
@@ -322,8 +323,8 @@ export const translations = {
     weSaidYes: {
       title: "We Said Yes",
       poemLine1: "To love someone is one thing.",
-      poemLine2: "But to love the same person who loves you, that's everything.",
-      poemLine3: "To have someone love you is another.",
+      poemLine2: "To have someone love you is another.",
+      poemLine3: "But to love the same person who loves you, that's everything.",
       poemAuthor: "PAULO COELHO"
     },
     
