@@ -16,7 +16,7 @@ const PortadaDeInvitacion = forwardRef((props, ref) => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsVisible(true);
-    }, 7000); // Comienza la entrada después de 500ms
+    }, 10500); // Comienza la entrada después de que llegue el scroll
 
     return () => clearTimeout(timer);
   }, []);

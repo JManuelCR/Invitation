@@ -3,7 +3,10 @@ export const translations = {
     // Envelope
     envelope: {
       open: "Abrir",
-      loading: "Cargando..."
+      loading: "Cargando...",
+      letter_1: "No es un viernes cualquiera.",
+      letter_2: "No es una fiesta cualquiera.",
+      letter_3: "¿Listo para descubrirlo?"
     },
     // Portada de la invitacion
     cover: {
@@ -177,7 +180,10 @@ export const translations = {
     // Envelope
     envelope: {
       open: "Open",
-      loading: "Loading..."
+      loading: "Loading...",
+      letter_1: "It is not just any Friday.",
+      letter_2: "It is not just any party.",
+      letter_3: "Ready to discover it?"
     },
     // Portada de la invitacion
     cover: {

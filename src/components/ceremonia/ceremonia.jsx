@@ -1,5 +1,5 @@
 import "./ceremonia.css";
-import image_ceremonia from "../../assets/img/santo_domingo.jpeg";
+import image_ceremonia from "../../assets/img/santo_domingo.jpg";
 import ListElement from "../list-item/list-element";
 import { useTranslation } from "../../hooks/useTranslation";
 

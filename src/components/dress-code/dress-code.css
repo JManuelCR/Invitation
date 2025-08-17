@@ -4,7 +4,7 @@
     padding-top: var(--section-padding-vertical);
     padding-bottom: var(--section-padding-vertical);
     width: 100%;
-    max-width: 800px;
+    /* max-width: 800px; */
     margin: 0 auto;
     box-sizing: border-box;
     background-color: var(--base-opacity-40);
