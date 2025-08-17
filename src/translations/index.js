@@ -48,7 +48,7 @@ export const translations = {
       title: "Recepción",
       date: "19 de Diciembre, 2025",
       time: "14:00 hrs",
-      location: "Quinta San Pedro",
+      location: "Quinta Real San Pedro",
       address: "Carr. Puerto Escondido - Oaxaca S/N, Centro, C.P. 71700 Zimatlán de Álvarez, Oax.",
       map: "Ver el mapa"
     },
@@ -225,7 +225,7 @@ export const translations = {
       title: "Reception",
       date: "December 19, 2025",
       time: "14:00 hrs",
-      location: "Quinta San Pedro",
+      location: "Quinta Real San Pedro",
       address: "Carr. Puerto Escondido - Oaxaca S/N, Centro, C.P. 71700 Zimatlán de Álvarez, Oax.",
       map: "See the map"
     },

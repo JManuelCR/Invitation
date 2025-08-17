@@ -99,6 +99,14 @@
   cursor: pointer;
 }
 
+/* Posicionamiento específico para restaurante_osa */
+.we-said-yes-slider-article-image.restaurante-osa img {
+  object-position: 70% 50%;
+}
+.we-said-yes-slider-article-image.restaurante-merida img {
+  object-position: 50% 90%;
+}
+
 @media (min-width: 768px) {
   .we-said-yes-container {
     padding: 15px;

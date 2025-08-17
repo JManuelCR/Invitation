@@ -2,13 +2,10 @@ import river from "../../assets/img/bikes.jpg";
 import harry_potter from "../../assets/img/harry-potter.png";
 import concert from "../../assets/img/rammstein-concert.jpg";
 import merida from "../../assets/img/merida.jpg";
-import restaurante_meridad from "../../assets/img/restaurante-merida.jpg";
+import restaurante_merida from "../../assets/img/restaurante-merida.jpg";
 import restaurante_osa from "../../assets/img/restaurante-osos.jpg";
 import six_flags from "../../assets/img/six_flags.png";
-import six_flags_1 from "../../assets/img/six-flags-1.jpg";
-import six_flags_2 from "../../assets/img/six-flags-2.jpg";
 import six_flags_3 from "../../assets/img/six-flags-3.jpg";
-import six_flags_4 from "../../assets/img/six-flags-4.jpg";
 import berlin from "../../assets/img/berlin.jpg";
 import divertidos_festival from "../../assets/img/divertidos.jpg";
 import encantosa from "../../assets/img/encantosa.jpg";
@@ -22,7 +19,7 @@ import { useTranslation } from "../../hooks/useTranslation";
 
 const WeSaidYes = () => {
   const { t } = useTranslation();
-  const images = [ river, harry_potter, concert, merida, restaurante_meridad, restaurante_osa, six_flags, six_flags_1, six_flags_2, six_flags_3, six_flags_4, berlin, divertidos_festival, encantosa, good_party, hamburguesas];
+  const images = [ river, harry_potter, concert, merida, restaurante_merida, restaurante_osa, six_flags,  six_flags_3, berlin, divertidos_festival, encantosa, good_party, hamburguesas];
   const [currentSlide, setCurrentSlide] = useState(0);
 
   const [sliderRef, instanceRef] = useKeenSlider({
@@ -83,7 +80,10 @@ const WeSaidYes = () => {
                             key={index}
                             className="keen-slider__slide"
                         >
-                            <div className="we-said-yes-slider-article-image">
+                            <div className={`we-said-yes-slider-article-image ${
+                                image === restaurante_osa ? 'restaurante-osa' : 
+                                image === restaurante_merida ? 'restaurante-merida' : ''
+                            }`}>
                                 <img
                                     src={image}
                                     alt={`Slide ${index + 1}`}
