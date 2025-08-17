@@ -87,7 +87,6 @@ const WeSaidYes = () => {
                                 <img
                                     src={image}
                                     alt={`Slide ${index + 1}`}
-                                    className="we-said-yes-slider-article-image-img"
                                 />
                             </div>
                         </div>

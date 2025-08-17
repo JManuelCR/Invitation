@@ -39,8 +39,9 @@ export default function NosCasamos() {
         <img className="image_manu" src={manu_buscando_a_tla} alt="manu_buscando_a_tla" />
         <img className="image_tla" src={osa_smilling} alt="tla_buscando_a_manu" />
     </section>
+    <section>
     <p>{t.weAreGettingMarried.message_1}</p>
-    <br />
     <p>{t.weAreGettingMarried.message_2}</p>
+    </section>
   </section>;
 }
