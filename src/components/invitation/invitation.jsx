@@ -123,8 +123,7 @@ export default function Invitation() {
     return (
         <div className={`invitation-container ${isEnvelopeOpened ? 'envelope-opened' : ''}`}>
             {loading ? <div>Cargando...</div> : 
-            <>
-            {!isEnvelopeOpened ? 
+            <> 
                 <Envelope
                 text="Abrir"
                 targetRef={targetRef}
@@ -132,9 +131,6 @@ export default function Invitation() {
                 onEnvelopeClick={handleEnvelopeClick}
                 isOpened={isEnvelopeOpened}
             />
-            :
-            ''
-            }
             <PortadaDeInvitacion ref={targetRef}/>
             <NosCasamos/>
             <InvitacionPara data={{ person }} />
