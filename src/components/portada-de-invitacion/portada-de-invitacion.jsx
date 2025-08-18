@@ -4,6 +4,7 @@ import { useTranslation } from "../../hooks/useTranslation";
 
 const PortadaDeInvitacion = forwardRef((props, ref) => {
   const { t } = useTranslation();
+  
   const [timeLeft, setTimeLeft] = useState({
     days: 0,
     hours: 0,
@@ -16,7 +17,7 @@ const PortadaDeInvitacion = forwardRef((props, ref) => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsVisible(true);
-    }, 11500); // Comienza la entrada después de que llegue el scroll
+    }, 8500); // Comienza la entrada antes del scroll para que esté lista
 
     return () => clearTimeout(timer);
   }, []);
@@ -60,7 +61,11 @@ const PortadaDeInvitacion = forwardRef((props, ref) => {
   };
 
   return (
-    <section className={`container-portada-de-invitacion ${isVisible ? 'fade-in' : ''}`} ref={ref}>
+    <section 
+      className={`container-portada-de-invitacion ${isVisible ? 'fade-in' : ''}`} 
+      ref={ref}
+      id="portada-de-invitacion"
+    >
       <header>
         <section className="title-and-phrase">
           <h1>{t.cover.title}</h1>

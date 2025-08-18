@@ -23,12 +23,10 @@ const AsistanConfirmation = ({ totalPasses = 4, guestId }) => {
         guestFoodPreference: data.foodPreference
       };
       
-      console.log("Datos a enviar al backend:", updateData);
       
       await patchGuest(guestId, updateData);
         
       setSubmitMessage('¡Confirmación enviada exitosamente!');
-      console.log("Formulario enviado correctamente");
       
     } catch (error) {
       console.error("Error al enviar el formulario:", error);
@@ -43,8 +41,6 @@ const AsistanConfirmation = ({ totalPasses = 4, guestId }) => {
     try {
       setIsSubmitting(true);
       setSubmitMessage('');
-      console.log("=== DECLINANDO ASISTENCIA ===");
-      console.log("Guest ID:", guestId);
       
       await patchGuest(guestId, {
         guestPassesNumberToRecibe: 0,
@@ -62,10 +58,6 @@ const AsistanConfirmation = ({ totalPasses = 4, guestId }) => {
   };
 
   // Debug: Verificar datos
-  console.log("=== DEBUG INFO ===");
-  console.log("Guest ID recibido:", guestId);
-  console.log("Total passes:", totalPasses);
-  console.log("Valores del formulario:", watchedValues);
 
   return (
     <section className="asistan-confirmation-container">

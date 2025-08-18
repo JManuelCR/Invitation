@@ -8,6 +8,7 @@ const Envelope = ({ targetRef, audioRef, onEnvelopeClick }) => {
   const { t } = useTranslation();
   const [isFading, setIsFading] = useState(false);
   const [isEnvelopeOpened, setIsEnvelopeOpened] = useState(false);
+  const [isCompletelyHidden, setIsCompletelyHidden] = useState(false);
 
     const handleClick = () => {
     // Activar la apertura del envelope inmediatamente
@@ -18,32 +19,44 @@ const Envelope = ({ targetRef, audioRef, onEnvelopeClick }) => {
       audioRef.current.play();
     }
     
-    // Iniciar el desvanecimiento después de que termine la animación del envelope
-    setTimeout(() => {
-      setIsFading(true);
-    },5000); // Aumentado a 6 segundos para dar tiempo a ver la portada
-
     // Hacer scroll suave hacia la portada
     setTimeout(() => {
       if (targetRef && targetRef.current) {
-        targetRef.current.scrollIntoView({ 
-          behavior: "smooth", 
-          block: "start" // Asegura que se detenga al inicio de la portada
-        });
+        // Verificar que el elemento esté en el DOM antes de hacer scroll
+        const element = targetRef.current;
+        
+        if (element && element.getBoundingClientRect) {
+          element.scrollIntoView({ 
+            behavior: "smooth", 
+            block: "start" // Asegura que se detenga al inicio de la portada
+          });
+        }
+      } else {
+        console.error('❌ TargetRef no encontrado:', targetRef);
       }
-    }, 9000); // Reducido a 7 segundos para que coincida con el fade-out
+    }, 8000); // Scroll después de que termine la animación del envelope y la portada esté lista
+
+    // Iniciar el desvanecimiento del envelope DESPUÉS de que la portada esté visible
+    setTimeout(() => {
+      setIsFading(true);
+    }, 5000); // 12 segundos para que la portada esté completamente visible
+
+    // Ocultar completamente el envelope después de que termine la transición de fade-out
+    setTimeout(() => {
+      setIsCompletelyHidden(true);
+    }, 9800); // 16.5 segundos (4.5s después del fade-out)
 
     // Llamar al callback después de que termine la transición
     setTimeout(() => {
       if (onEnvelopeClick) {
         onEnvelopeClick();
       }
-    }, 10500); // Aumentado para dar tiempo a ver la portada
+    }, 9500); // 13.5 segundos para dar tiempo a ver la portada
   };
 
   return (
     <section
-      className={`envelope_background ${isFading ? "fade-out" : ""}`}
+      className={`envelope_background ${isFading ? "fade-out" : ""} ${isCompletelyHidden ? "completely-hidden" : ""}`}
     >
       <div className="envelope__inner">
         <section className="envelope_animation_container">
@@ -66,7 +79,7 @@ const Envelope = ({ targetRef, audioRef, onEnvelopeClick }) => {
           ):('')
         }
         <div className="envelope__image-container">
-          {/* <img className="envelope__image" src={envelope} alt="envelope" /> */}
+          {/* <img className="envelope__image" src={envelope" alt="envelope" /> */}
 
         </div>
       </div>

@@ -23,6 +23,11 @@
   display: none;
 }
 
+/* Ocultar completamente el envelope después de que termine la transición de fade-out */
+.envelope_background.completely-hidden {
+  display: none;
+}
+
 .envelope__inner {
   text-align: center;
 }

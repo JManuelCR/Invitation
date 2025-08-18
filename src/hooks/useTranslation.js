@@ -32,7 +32,6 @@ export const useTranslation = () => {
       if (result && result[k] !== undefined) {
         result = result[k];
       } else {
-        console.warn(`Translation key not found: ${key}`);
         return key; // Retorna la clave si no encuentra la traducción
       }
     }
