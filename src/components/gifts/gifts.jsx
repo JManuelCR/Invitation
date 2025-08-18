@@ -34,11 +34,12 @@ const Gifts = () => {
           <img src={santander} alt="santander" className='gifts-animation' />
           <div>
             <p className='gifts-data'>{t.gifts.savingsAccount}</p>
+            <p className='gifts-account-number'>{t.gifts.accountUserName}</p>
             <p className='gifts-account-number'>014610200071796956   {t.gifts.copy}</p>
           </div>
-          <p className='gifts-copy'>{t.gifts.messageComplement}</p>
           {isCopied && <div className='gifts-copied'><p>{t.gifts.copied}</p></div>}
         </div>
+          <p className='gifts-copy'>{t.gifts.messageComplement}</p>
       </div>
     </section>
   );

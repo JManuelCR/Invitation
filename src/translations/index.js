@@ -86,8 +86,9 @@ export const translations = {
       viewMore: "Ver más",
       copy: "Copiar",
       savingsAccount: "Cuenta de ahorros Santander",
+      accountUserName: "Jose Manuel Cabrera Rojas",
       copied: "Copiado en el portapapeles",
-      messageComplement: "Si nos haces un regalo digital, para nosotros es mejor porque aun no tenemos casa y no vivimos en Oaxaca"
+      messageComplement: "Si nos haces un regalo digital, para nosotros es mejor yo no vivimos en Oaxaca"
 
     },
     
@@ -267,6 +268,7 @@ export const translations = {
       viewMore: "View more",
       copy: "Copy",
       savingsAccount: "Savings Account Santander",
+      accountUserName: "Jose Manuel Cabrera Rojas",
       copied: "Copied to clipboard",
       messageComplement: "If you make a digital gift, it's better for us because we don't have a house and we don't live in Oaxaca"
     },
