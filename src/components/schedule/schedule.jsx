@@ -6,12 +6,12 @@ import { useTranslation } from "../../hooks/useTranslation";
 const Schedule = () => {
   const { t } = useTranslation();
   const events = [
-    { time: "12:00 pm", label: t.schedule.ceremony },
-    { time: "2:30 pm", label: t.schedule.reception },
-    { time: "3:00 pm", label: t.schedule.dinner },
-    { time: "4:30 pm", label: t.schedule.brindis },
-    { time: "5:00 pm", label: t.schedule.dance },
-    { time: "5:30 pm", label: t.schedule.party },
+    { time: "12:00 hrs", label: t.schedule.ceremony },
+    { time: "14:30 hrs", label: t.schedule.reception },
+    { time: "15:00 hrs", label: t.schedule.dinner },
+    { time: "16:30 hrs", label: t.schedule.brindis },
+    { time: "17:00 hrs", label: t.schedule.dance },
+    { time: "17:30 hrs", label: t.schedule.party },
   ];
   const [activeIndex, setActiveIndex] = useState(0);
   const itemRefs = useRef([]);

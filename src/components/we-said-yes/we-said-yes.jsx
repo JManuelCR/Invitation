@@ -19,7 +19,7 @@ import { useTranslation } from "../../hooks/useTranslation";
 
 const WeSaidYes = () => {
   const { t } = useTranslation();
-  const images = [ river, harry_potter, concert, merida, restaurante_merida, restaurante_osa, six_flags,  six_flags_3, berlin, divertidos_festival, encantosa, good_party, hamburguesas];
+  const images = [six_flags, river, harry_potter, concert, merida, restaurante_merida, restaurante_osa, six_flags_3, berlin, divertidos_festival, encantosa, good_party, hamburguesas];
   const [currentSlide, setCurrentSlide] = useState(0);
 
   const [sliderRef, instanceRef] = useKeenSlider({

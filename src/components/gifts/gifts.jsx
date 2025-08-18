@@ -28,14 +28,15 @@ const Gifts = () => {
         className='gifts-account-link'
         >
           <img src={liverpool} alt="liverpool"  className='gifts-animation'/>
-          <p className="gifts-data">{t.gifts.liverpool}</p>
+          <p className="gifts-data">{t.gifts.liverpool}  {t.gifts.viewMore}</p>
         </a>
         <div className='gifts-account-link' onClick={handleCopy}>
           <img src={santander} alt="santander" className='gifts-animation' />
           <div>
             <p className='gifts-data'>{t.gifts.savingsAccount}</p>
-            <p className='gifts-account-number'>014610200071796956</p>
+            <p className='gifts-account-number'>014610200071796956   {t.gifts.copy}</p>
           </div>
+          <p className='gifts-copy'>{t.gifts.messageComplement}</p>
           {isCopied && <div className='gifts-copied'><p>{t.gifts.copied}</p></div>}
         </div>
       </div>

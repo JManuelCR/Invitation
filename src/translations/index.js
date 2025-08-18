@@ -71,7 +71,7 @@ export const translations = {
       description: "Traje oscuro / Vestido largo",
       brideReserved: "Blanco reservado para la novia",
       weather: "El clima promedio en la ciudad de Oaxaca en esta fecha es:",
-      weatherMaxMin: "25°max/10°min",
+      weatherMaxMin: "25°max/9°min",
       weatherRain: "0 días de lluvia",
       floorType: "Tipo de piso de la recepción:",
       floorTypeHighlight: "Jardín"
@@ -83,8 +83,12 @@ export const translations = {
       message: "Si deseas acompañarnos de una manera especial, una contribución para nuestra luna de miel o nuestro futuro hogar será recibida con mucha gratitud y alegría.",
       bankInfo: "Información bancaria disponible",
       liverpool: "Liverpool",
+      viewMore: "Ver más",
+      copy: "Copiar",
       savingsAccount: "Cuenta de ahorros Santander",
-      copied: "Copiado en el portapapeles"
+      copied: "Copiado en el portapapeles",
+      messageComplement: "Si nos haces un regalo digital, para nosotros es mejor porque aun no tenemos casa y no vivimos en Oaxaca"
+
     },
     
     // Travel
@@ -248,7 +252,7 @@ export const translations = {
       description: "Dark suit / Long dress",
       brideReserved: "White reserved for the bride",
       weather: "The average weather in the city of Oaxaca on this date is:",
-      weatherMaxMin: "25°max/10°min",
+      weatherMaxMin: "25°max/9°min",
       weatherRain: "0 days of rain",
       floorType: "Floor type of the reception:",
       floorTypeHighlight: "Garden"
@@ -260,8 +264,11 @@ export const translations = {
       message: "If you wish to accompany us in a special way, a contribution towards our honeymoon or future home will be received with heartfelt gratitude and joy.",
       bankInfo: "Bank information available",
       liverpool: "Liverpool",
+      viewMore: "View more",
+      copy: "Copy",
       savingsAccount: "Savings Account Santander",
-      copied: "Copied to clipboard"
+      copied: "Copied to clipboard",
+      messageComplement: "If you make a digital gift, it's better for us because we don't have a house and we don't live in Oaxaca"
     },
     
     // Travel
