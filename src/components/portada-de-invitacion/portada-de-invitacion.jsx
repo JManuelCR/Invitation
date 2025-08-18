@@ -13,14 +13,17 @@ const PortadaDeInvitacion = forwardRef((props, ref) => {
   });
   const [isVisible, setIsVisible] = useState(false);
 
-  // Efecto para activar la entrada con fade-in
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsVisible(true);
-    }, 9000); // Comienza la entrada antes del scroll para que esté lista
+                       // Efecto para activar la entrada con fade-in
+     useEffect(() => {
+       const timer = setTimeout(() => {
+        requestAnimationFrame(() =>{
+          setIsVisible(true);
+          console.log('🎯 PortadaDeInvitacion: fade-in iniciado - transición CSS de 3s comenzando');
+        });
+       }, 4500); // Comienza cuando el envelope inicia su fade-out
 
-    return () => clearTimeout(timer);
-  }, []);
+       return () => clearTimeout(timer);
+     }, []);
 
   useEffect(() => {
     const targetDate = new Date("December 19, 2025 12:00:00").getTime();

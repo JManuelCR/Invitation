@@ -6,8 +6,15 @@ import { useTranslation } from '../../hooks/useTranslation';
 const Gifts = () => {
   const [isCopied, setIsCopied] = useState(false);
   const { t } = useTranslation();
-  const handleCopy = () => {
+  const handleCopyAccount = () => {
     navigator.clipboard.writeText('014610200071796956');
+    setIsCopied(true);
+    setTimeout(() => {
+      setIsCopied(false);
+    }, 1500);
+  }
+  const handleOwnerName = () => {
+    navigator.clipboard.writeText('Jose Manuel Cabrera Rojas');
     setIsCopied(true);
     setTimeout(() => {
       setIsCopied(false);
@@ -28,14 +35,14 @@ const Gifts = () => {
         className='gifts-account-link'
         >
           <img src={liverpool} alt="liverpool"  className='gifts-animation'/>
-          <p className="gifts-data">{t.gifts.liverpool}  {t.gifts.viewMore}</p>
+          <section className="gifts-data-section"><p className='noBold'>{t.gifts.liverpool}</p>  {t.gifts.viewMore}</section>
         </a>
-        <div className='gifts-account-link' onClick={handleCopy}>
+        <div className='gifts-account-link' >
           <img src={santander} alt="santander" className='gifts-animation' />
           <div>
-            <p className='gifts-data'>{t.gifts.savingsAccount}</p>
-            <p className='gifts-account-number'>{t.gifts.accountUserName}</p>
-            <p className='gifts-account-number'>014610200071796956   {t.gifts.copy}</p>
+            <p className='gifts-data noBold spare'>{t.gifts.savingsAccount}</p>
+            <section onClick={handleOwnerName} className='gifts-account-number noBold'><p className='noBold'>{t.gifts.accountUserName}</p>   <p className='gifts-account-number spare'>{t.gifts.copy}</p></section>
+            <section onClick={handleOwnerName} className='gifts-account-number noBold'><p className='noBold'>014610200071796956</p>  <p className='gifts-account-number spare'>{t.gifts.copy}</p></section>
           </div>
           {isCopied && <div className='gifts-copied'><p>{t.gifts.copied}</p></div>}
         </div>
