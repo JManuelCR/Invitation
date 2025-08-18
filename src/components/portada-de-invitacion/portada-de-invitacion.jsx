@@ -17,7 +17,7 @@ const PortadaDeInvitacion = forwardRef((props, ref) => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsVisible(true);
-    }, 8500); // Comienza la entrada antes del scroll para que esté lista
+    }, 9000); // Comienza la entrada antes del scroll para que esté lista
 
     return () => clearTimeout(timer);
   }, []);
