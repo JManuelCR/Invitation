@@ -36,6 +36,7 @@
     align-items: center;
     justify-content: center;
     font-weight: 600;
+    color: var(--bold);
 }
 .gifts-account-number {
     font-size: 18px;
