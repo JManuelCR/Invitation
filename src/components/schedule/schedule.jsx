@@ -39,6 +39,7 @@ const Schedule = () => {
         <hr />
       </div>
       <ul className="schedule-list">
+      <hr className="schedule-steps-path"/>
         {events.map((event, idx) => (
           <li
             key={event.time}

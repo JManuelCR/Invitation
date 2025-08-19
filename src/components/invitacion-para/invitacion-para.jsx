@@ -21,7 +21,7 @@ export default function InvitacionPara({ data }) {
             <hr />
             </div>
             <h2 className='nombre_del_invitado'>
-                {person?.guestInvitationName !== '' ? person.guestInvitationName : person?.guestName ?? t.invitation.guest}
+                {person?.guestName !== '' ? person.guestName : person?.guestName ?? t.invitation.guest}
             </h2>
             <h3 className='general_text'>
                 <span className='number_of_passes_number'>{number_of_passes}</span>

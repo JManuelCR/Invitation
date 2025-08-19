@@ -142,7 +142,7 @@ export default function Invitation() {
             <DressCode/>
             <Schedule/>
             <Gifts/>
-            <AsistanConfirmation totalPasses={person?.guestPassesNumberToRecibe} guestId={guestId}/>
+            <AsistanConfirmation totalPasses={person?.guestPassesNumberToRecibe} guestId={guestId} isSubmitted={person.guestInvitationResponse} foreignGuest={person.guestForeigner}/>
             <TipsAndTricks/>
             <Travel/>
             <Thanks/>

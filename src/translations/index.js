@@ -214,7 +214,8 @@ export const translations = {
     // NosCasamos
     weAreGettingMarried: {
       title: "We Are Getting Married",
-      message: "We are pleased to share with you our joy and announce that we are getting married! It is an honor for us to invite you to celebrate this special day. Join us to celebrate love, friendship, and the beginning of this new stage in our lives."
+      message_1: "We are pleased to share with you our joy and announce that we are getting married! It is an honor for us to invite you to celebrate this special day. Join us to celebrate love, friendship, and the beginning of this new stage in our lives.",
+      message_2: "It is an honor for us to invite you to celebrate this special day. Join us to celebrate love, friendship, and the beginning of this new stage in our lives."
     },
     
     // Ceremonia

@@ -9,7 +9,6 @@
   gap: 80px;
   padding-inline: var(--Padding-x);
   box-sizing: border-box;
-  margin: 42px 0;
 }
 .nombre_del_invitado {
   font-size: 2rem;
