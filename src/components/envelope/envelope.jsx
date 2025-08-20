@@ -19,18 +19,14 @@ const Envelope = ({ audioRef, onEnvelopeClick }) => {
       audioRef.current.play();
     }
     
-         // NO HACER SCROLL - Solo esperar a que termine la animación del envelope
-     console.log('🎭 Envelope abierto, esperando fin de animación...');
 
          // Iniciar el desvanecimiento del envelope cuando termine su animación
      setTimeout(() => {
-       console.log('🎭 Iniciando fade-out del envelope...');
        setIsFading(true);
      }, 3000); // 3 segundos para que termine la animación del envelope
 
      // Ocultar completamente el envelope después de que termine la transición de fade-out
      setTimeout(() => {
-       console.log('🎭 Ocultando envelope completamente...');
        setIsCompletelyHidden(true);
      }, 7500); // 7.5s = 3s (animación) + 4.5s (transición CSS)
 

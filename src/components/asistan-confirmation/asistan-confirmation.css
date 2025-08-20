@@ -38,6 +38,7 @@
 .asistan-confirmation-label-text {
     font-weight: 500;
     color: var(--text-color);
+    text-align: center;
 }
 
 /* .asistan-confirmation-label select {

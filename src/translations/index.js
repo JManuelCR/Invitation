@@ -179,6 +179,21 @@ export const translations = {
       requiredField: "Este campo es requerido",
       confirmationMessageComplement3: "No nos gustaría desperdiciar alimentos, por favor, indica que prefieres comer:",
       sending: "Enviando...",
+      passRequiere: "Este campo es requerido",
+      selectAPassNumber: "Selecciona un número de pases",
+      selectAnOption: "Selecciona una opción",
+      foreignerTransport:"¿Necesitas transporte?",
+      yes: "Si",
+      no: "No",
+      passDistribution: "Distribución de pases:",
+      selectQuantities: " Selecciona las cantidades",
+      completed: "Completed",
+      exceded: "Excede el total de pases",
+      chickenCount: "Cantidad de pollo",
+      dishesSum: "La suma debe ser igual al número de pases",
+      porkCount: "Cantidad de Cerdo",
+      churchAssistant: "¿Asistirás a la ceremonia de la iglesia?",
+      receptionAssistant: "¿Asistirás a la recepción?",
         
     }
   },
@@ -362,7 +377,22 @@ export const translations = {
       deadlineMessage: "Please confirm your attendance before October 15.",
       requiredField: "This field is required",
       confirmationMessageComplement3: "We wouldn't like to waste food, please indicate what you prefer to eat:",
-      sending: "Sending..."
+      sending: "Sending...",
+      passRequiere: "This field is required",
+      selectAPassNumber: "Select a pass number",
+      selectAnOption: "Select an option",
+      foreignerTransport:"Do you need transportation?",
+      yes: "Yes",
+      no: "No",
+      passDistribution: "Pass distribution:",
+      selectQuantities: " Select quantities",
+      completed: "Completed",
+      exceded: "Exceeds the total of passes",
+      chickenCount: "Chicken quantity",
+      dishesSum: "The sum must be equal to the number of passes",
+      porkCount: "Pork quantity",
+      churchAssistant: "Will you attend the church ceremony?",
+      receptionAssistant: "Will you attend the reception?"
     }
   }
 }; 

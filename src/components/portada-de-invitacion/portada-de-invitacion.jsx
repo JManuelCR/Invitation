@@ -18,7 +18,6 @@ const PortadaDeInvitacion = forwardRef((props, ref) => {
        const timer = setTimeout(() => {
         requestAnimationFrame(() =>{
           setIsVisible(true);
-          console.log('🎯 PortadaDeInvitacion: fade-in iniciado - transición CSS de 3s comenzando');
         });
        }, 4500); // Comienza cuando el envelope inicia su fade-out
 

@@ -49,7 +49,7 @@ const AsistanConfirmation = ({
           {i}{" "}
           {i === 1
             ? t?.confirmation?.chicken || "Pollo"
-            : t?.confirmation?.chicken || "Pollos"}
+            : t?.confirmation?.chicken + "s" || "Pollos"}
         </option>
       );
     }
@@ -127,7 +127,7 @@ const AsistanConfirmation = ({
     }
   };
 
-  const onSubmit = async (data) => {
+  const onSubmit = async (data) => {   
     try {
       setIsSubmitting(true);
       setSubmitMessage("");
@@ -145,7 +145,6 @@ const AsistanConfirmation = ({
       if (foreignGuest === "YES") {
         updateData.guestForeignerTransport = data.foreignerTransport === "true";
       }
-
       await patchGuest(guestId, updateData);
 
       setSubmitMessage("¡Confirmación enviada exitosamente!");
@@ -231,9 +230,17 @@ const AsistanConfirmation = ({
             name="passCount"
             id="passCount"
             {...register("passCount", {
-              required: "Este campo es requerido",
-              validate: (value) =>
-                value !== "" || "Selecciona un número de pases",
+              required: (watchedValues.churchAssistant === "true" || watchedValues.receptionAssistant === "true") 
+                ? `${t.confirmation.passRequiere}` 
+                : false,
+              validate: (value) => {
+                // Si ambos son false, no se requiere validación
+                if (watchedValues.churchAssistant === "false" && watchedValues.receptionAssistant === "false") {
+                  return true;
+                }
+                // Si al menos uno es true, se debe seleccionar un número de pases
+                return value !== "" && value !== `${t.confirmation.selectAPassNumber}`;
+              }
             })}
             disabled={isSubmitting}
           >
@@ -259,15 +266,25 @@ const AsistanConfirmation = ({
             name="churchAssistant"
             id="churchAssistant"
             {...register("churchAssistant", {
-              required: "Este campo es requerido",
-              validate: (value) => value !== "" || "Selecciona una opción",
+              required: false,
+              validate: (value) => {
+                // Si receptionAssistant es false, este campo no es requerido
+                if (watchedValues.receptionAssistant === "false") {
+                  return true;
+                }
+                // Si receptionAssistant es true, este campo debe tener un valor válido
+                return value !== "" && value !== `${t.confirmation.selectAnOption}`;
+              }
             })}
           >
             <option value="true">{t.confirmation.yes}</option>
             <option value="false">{t.confirmation.no}</option>
           </select>
         </label>
-        <label htmlFor="receptionAssistant">
+        <label
+          htmlFor="receptionAssistant"
+          className="asistan-confirmation-label"
+        >
           <span className="asistan-confirmation-label-text">
             {t.confirmation.receptionAssistant}
           </span>
@@ -276,8 +293,15 @@ const AsistanConfirmation = ({
             name="receptionAssistant"
             id="receptionAssistant"
             {...register("receptionAssistant", {
-              required: "Este campo es requerido",
-              validate: (value) => value !== "" || "Selecciona una opción",
+              required: false,
+              validate: (value) => {
+                // Si churchAssistant es false, este campo no es requerido
+                if (watchedValues.churchAssistant === "false") {
+                  return true;
+                }
+                // Si churchAssistant es true, este campo debe tener un valor válido
+                return value !== "" && value !== `${t.confirmation.selectAnOption}`;
+              }
             })}
           >
             <option value="true">{t.confirmation.yes}</option>
@@ -294,21 +318,19 @@ const AsistanConfirmation = ({
               htmlFor="foreignerTransport"
             >
               <span className="asistan-confirmation-label-text">
-                {t?.confirmation?.foreignerTransport || "¿Necesitas transporte?"}
+                {t?.confirmation?.foreignerTransport || ""}
               </span>
               <select
                 name="foreignerTransport"
                 id="foreignerTransport"
                 {...register("foreignerTransport", {
-                  required: "Este campo es requerido",
+                  required: `${t.confirmation.passRequiere}`,
                 })}
                 disabled={isSubmitting}
               >
-                <option value="">
-                  {t?.confirmation?.selectOption || "Selecciona"}
-                </option>
-                <option value="true">{t?.confirmation?.yes || "Sí"}</option>
-                <option value="false">{t?.confirmation?.no || "No"}</option>
+                <option value="">{t?.confirmation?.selectOption || ""}</option>
+                <option value="true">{t?.confirmation?.yes || ""}</option>
+                <option value="false">{t?.confirmation?.no || ""}</option>
               </select>
             </label>
           </div>
@@ -322,24 +344,29 @@ const AsistanConfirmation = ({
         {currentPassCount > 0 && (
           <div className="passes-distribution-info">
             <p>
-              <strong>Distribución de pases:</strong>
+              <strong>{t.confirmation.passDistribution}</strong>
               {currentChickenCount > 0 &&
-                ` ${currentChickenCount} pollo${
+                ` ${currentChickenCount} ${t.confirmation.chicken}${
                   currentChickenCount > 1 ? "s" : ""
                 }`}
               {currentChickenCount > 0 && currentPorkCount > 0 && " + "}
               {currentPorkCount > 0 &&
-                ` ${currentPorkCount} cerdo${currentPorkCount > 1 ? "s" : ""}`}
+                ` ${currentPorkCount} ${t.confirmation.pork}${
+                  currentPorkCount > 1 ? "s" : ""
+                }`}
               {currentChickenCount === 0 &&
                 currentPorkCount === 0 &&
-                " Selecciona las cantidades"}
+                `${t.confirmation.selectQuantities}`}
               {currentChickenCount + currentPorkCount === currentPassCount && (
-                <span className="valid-distribution"> ✓ Completado</span>
+                <span className="valid-distribution">
+                  {" "}
+                  ✓ {t.confirmation.completed}
+                </span>
               )}
               {currentChickenCount + currentPorkCount > currentPassCount && (
                 <span className="invalid-distribution">
                   {" "}
-                  ✗ Excede el total de pases
+                  ✗ {t.confirmation.exceded}
                 </span>
               )}
             </p>
@@ -347,8 +374,7 @@ const AsistanConfirmation = ({
         )}
 
         {/* Campos de comida - solo aparecen si hay pases seleccionados */}
-        {currentPassCount > 0 &&
-        watchedValues.receptionAssistant === "true" ? (
+        {currentPassCount > 0 && watchedValues.receptionAssistant === "true" ? (
           <>
             <label
               className="asistan-confirmation-label"
@@ -356,29 +382,27 @@ const AsistanConfirmation = ({
             >
               <span className="asistan-confirmation-label-text">
                 {currentPassCount > 1
-                  ? t?.confirmation?.chickenCount || "Cantidad de Pollo"
-                  : t?.confirmation?.chickenCountSingle || "Pollo"}
+                  ? t?.confirmation?.chickenCount || ""
+                  : t?.confirmation?.chicken || ""}
               </span>
               <select
                 name="chickenCount"
                 id="chickenCount"
                 {...register("chickenCount", {
-                  required: "Este campo es requerido",
+                  required: `${t.confirmation.passRequiere}`,
                   validate: (value) => {
                     const chicken = parseInt(value) || 0;
                     const pork = currentPorkCount;
                     return (
                       chicken + pork === currentPassCount ||
-                      "La suma debe ser igual al número de pases"
+                      `${t.confirmation.dishesSum}`
                     );
                   },
                 })}
                 disabled={isSubmitting}
                 onChange={handleChickenChange}
               >
-                <option value="">
-                  {t?.confirmation?.selectOption || "Selecciona"}
-                </option>
+                <option value="">{t?.confirmation?.selectOption || ""}</option>
                 {chickenCountOptions()}
               </select>
               {errors.chickenCount && (
@@ -389,29 +413,27 @@ const AsistanConfirmation = ({
             <label className="asistan-confirmation-label" htmlFor="porkCount">
               <span className="asistan-confirmation-label-text">
                 {currentPassCount > 1
-                  ? t?.confirmation?.porkCount || "Cantidad de Cerdo"
-                  : t?.confirmation?.porkCountSingle || "Cerdo"}
+                  ? t?.confirmation?.porkCount || ""
+                  : t?.confirmation?.pork || ""}
               </span>
               <select
                 name="porkCount"
                 id="porkCount"
                 {...register("porkCount", {
-                  required: "Este campo es requerido",
+                  required: `${t.confirmation.passRequiere}`,
                   validate: (value) => {
                     const pork = parseInt(value) || 0;
                     const chicken = currentChickenCount;
                     return (
                       chicken + pork === currentPassCount ||
-                      "La suma debe ser igual al número de pases"
+                      `${t.confirmation.dishesSum}`
                     );
                   },
                 })}
                 disabled={isSubmitting}
                 onChange={handlePorkChange}
               >
-                <option value="">
-                  {t?.confirmation?.selectOption || "Selecciona"}
-                </option>
+                <option value="">{t?.confirmation?.selectOption || ""}</option>
                 {porkCountOptions()}
               </select>
               {errors.porkCount && (
