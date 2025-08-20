@@ -1,9 +1,10 @@
 import "./travel.css";
+import React from "react";
 
-const Travel = () => {
+const Travel = React.forwardRef((props, ref) => {
   return (
     
-    <div className="travel-container">
+    <div ref={ref} className="travel-container">
       <svg
         version="1.1"
         id="Layer_1"
@@ -5952,6 +5953,6 @@ const Travel = () => {
       
     </div>
   );
-};
+});
 
 export default Travel;

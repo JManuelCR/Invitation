@@ -47,6 +47,7 @@ body {
   /* Asegurar que siempre comience al inicio */
   scroll-padding-top: 0;
   transition: var(--responsive-transition);
+  scroll-behavior: smooth;
 }
 
 em {

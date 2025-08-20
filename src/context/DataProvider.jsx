@@ -26,7 +26,7 @@ export const DataProvider = ({ children, guestId: dataGuestId }) => {
     }, [dataGuestId]);
     
     return (
-        <DataContext.Provider value={{ person, loading, guestId }}>
+        <DataContext.Provider value={{ person, loading, guestId, setPerson }}>
             {children}
         </DataContext.Provider>
     );

@@ -198,8 +198,6 @@ const TipsAndTricks = () => {
       <section className="tips-and-tricks-title-primary">
         <p className="tips-and-tricks-text">{t.tips.contact}</p>
       </section>
-      <p className="airport-recommendation-for-airport-taxi">{t.tips.noAlone}</p>
-        <GuysContact />
     </section>
   );
 };

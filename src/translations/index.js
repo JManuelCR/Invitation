@@ -198,9 +198,12 @@ export const translations = {
       formErrorSend: "¡Error al enviar el formulario!",
       formErrorTryAgain: "Error al enviar la confirmación. Intenta de nuevo.",
       sorryToKnow: "Lo sentimos saber que no podrás asistir",
-      noAssistantMessage: "Si no puedes asistir, por favor, háganoslo saber para ajustar el número de pases en consecuencia.",
-      noAssistantButton: "Declinar"
-        
+      noAssistantMessage: "Si no puedes asistir, por favor, háganos saber para ajustar el número de pases en consecuencia.",
+      noAssistantButton: "Declinar",
+      thanksForDeclineConfirmation: "Gracias por tu respuesta. Lamentamos que no puedas asistir.",
+      errorDeclineConfirmation: "Error al declinar tu asistencia.",
+      errorDeclineConfirmationTryAgain: "Error al procesar tu respuesta. Intenta de nuevo."
+
     }
   },
   
@@ -404,7 +407,10 @@ export const translations = {
       formErrorTryAgain: "Error sending the confirmation. Try again.",
       sorryToKnow: "Sorry to know that you will not be able to attend",
       noAssistantMessage: "If you are not able to attend, please let us know so we can adjust the number of passes accordingly.",
-      noAssistantButton: "Decline"
+      noAssistantButton: "Decline",
+      thanksForDeclineConfirmation: "Thank you for your response. We are sorry to know that you will not be able to attend.",
+      errorDeclineConfirmation: "Error declining your attendance.",
+      errorDeclineConfirmationTryAgain: "Error processing your response. Try again."
     }
   }
 }; 

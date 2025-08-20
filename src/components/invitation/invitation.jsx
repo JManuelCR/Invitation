@@ -1,6 +1,5 @@
 import Envelope from "../envelope/envelope";
 import { useRef, useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
 import { useData } from "../../context/useData";
 import PortadaDeInvitacion from "../portada-de-invitacion/portada-de-invitacion";
 import NosCasamos from "../nos-casamos/nos-casamos";
@@ -18,10 +17,10 @@ import AsistanConfirmation from "../asistan-confirmation/asistan-confirmation";
 import TipsAndTricks from "../tips-and-tricks/tips-and-tricks";
 import Thanks from "../thanks/thanks";
 import Travel from "../travel/travel";
+import Contact from "../contact/contact";
 
 export default function Invitation() {
-  const {  loading, guestId } = useData();
-  let {person} = useData();
+  const { person, loading, guestId, setPerson } = useData();
   const targetRef = useRef(null);
   const audioRef = useRef(null);
   const [isMuted, setIsMuted] = useState(false);
@@ -112,12 +111,6 @@ export default function Invitation() {
     setShowFullControls(!showFullControls);
     setShowControls(!showControls);
   };
-  const handleSubmit = (data) => {
-      person = {
-          ...person, ...data
-        }
-        console.log('data', person)
-  }
 
   const handleVolumeChange = (increment) => {
     if (audioRef.current) {
@@ -127,6 +120,26 @@ export default function Invitation() {
       );
       audioRef.current.volume = newVolume;
     }
+  };
+
+  const travelRef = useRef(null);
+  const scrollToTravel = () => {
+    const targetY = travelRef.current.getBoundingClientRect().top + window.pageYOffset;
+    const startY = window.pageYOffset;
+    const distance = targetY - startY;
+    const duration = 1000; // 500ms
+    let startTime = null;
+  
+    const step = (timestamp) => {
+      if (!startTime) startTime = timestamp;
+      const progress = Math.min((timestamp - startTime) / duration, 1);
+      window.scrollTo(0, startY + distance * progress);
+      if (progress < 1) {
+        requestAnimationFrame(step);
+      }
+    };
+  
+    requestAnimationFrame(step);
   };
 
   return (
@@ -157,16 +170,22 @@ export default function Invitation() {
           <DressCode />
           <Schedule />
           <Gifts />
+          {person.guestForeigner === "YES" && <TipsAndTricks />}
           <AsistanConfirmation
             totalPasses={person?.guestPassesNumberToRecibe}
-            guestId={guestId}
-            isSubmitted={person.guestInvitationResponse}
-            foreignGuest={person.guestForeigner}
-            handleAsistanConfirmation={handleSubmit}            
+            setPerson={setPerson}
+            person={person}
+            scrollToTravel={scrollToTravel}
           />
-          <TipsAndTricks />
-          <Travel />
-          <Thanks />
+          {person.guestInvitationResponse ? (
+            <>
+              <Travel ref={travelRef} />
+              <Thanks />
+              <Contact />
+            </>
+          ) : (
+            <></>
+          )}
           <audio
             ref={audioRef}
             src="/audio/Christina Perri - A Thousand Years [Official Music Video] - Christina Perri.mp3"
