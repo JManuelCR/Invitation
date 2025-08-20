@@ -194,6 +194,12 @@ export const translations = {
       porkCount: "Cantidad de Cerdo",
       churchAssistant: "¿Asistirás a la ceremonia de la iglesia?",
       receptionAssistant: "¿Asistirás a la recepción?",
+      confirmationSend:"¡Confirmación enviada exitosamente!",
+      formErrorSend: "¡Error al enviar el formulario!",
+      formErrorTryAgain: "Error al enviar la confirmación. Intenta de nuevo.",
+      sorryToKnow: "Lo sentimos saber que no podrás asistir",
+      noAssistantMessage: "Si no puedes asistir, por favor, háganoslo saber para ajustar el número de pases en consecuencia.",
+      noAssistantButton: "Declinar"
         
     }
   },
@@ -392,7 +398,13 @@ export const translations = {
       dishesSum: "The sum must be equal to the number of passes",
       porkCount: "Pork quantity",
       churchAssistant: "Will you attend the church ceremony?",
-      receptionAssistant: "Will you attend the reception?"
+      receptionAssistant: "Will you attend the reception?",
+      confirmationSend:"Confirmation sent successfully!",
+      formErrorSend: "Error sending the form!",
+      formErrorTryAgain: "Error sending the confirmation. Try again.",
+      sorryToKnow: "Sorry to know that you will not be able to attend",
+      noAssistantMessage: "If you are not able to attend, please let us know so we can adjust the number of passes accordingly.",
+      noAssistantButton: "Decline"
     }
   }
 }; 

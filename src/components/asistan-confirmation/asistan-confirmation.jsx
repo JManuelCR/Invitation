@@ -9,6 +9,7 @@ const AsistanConfirmation = ({
   guestId,
   isSubmitted = false,
   foreignGuest = "NO",
+  handleAsistanConfirmation = () => {},
 }) => {
   const {
     register,
@@ -145,12 +146,14 @@ const AsistanConfirmation = ({
       if (foreignGuest === "YES") {
         updateData.guestForeignerTransport = data.foreignerTransport === "true";
       }
-      await patchGuest(guestId, updateData);
+      console.log('test')
+      handleAsistanConfirmation(updateData);
+      // await patchGuest(guestId, updateData);
 
-      setSubmitMessage("¡Confirmación enviada exitosamente!");
+      setSubmitMessage(`${t.confirmation.confirmationSend}`);
     } catch (error) {
-      console.error("Error al enviar el formulario:", error);
-      setSubmitMessage("Error al enviar la confirmación. Intenta de nuevo.");
+      console.error(`${t.confirmation.formErrorSend}`, error);
+      setSubmitMessage(`${t.confirmation.formErrorTryAgain}`);
     } finally {
       setIsSubmitting(false);
     }
@@ -175,8 +178,8 @@ const AsistanConfirmation = ({
       if (foreignGuest === "YES") {
         updateData.guestForeignerTransport = false;
       }
-
-      await patchGuest(guestId, updateData);
+      handleAsistanConfirmation(updateData);
+      // await patchGuest(guestId, updateData);
 
       setSubmitMessage(
         "Gracias por tu respuesta. Lamentamos que no puedas asistir."
@@ -202,16 +205,6 @@ const AsistanConfirmation = ({
       <p className="asistan-confirmation-text">
         {t.confirmation.confirmationMessage}
       </p>
-
-      {submitMessage && (
-        <div
-          className={`submit-message ${
-            submitMessage.includes("Error") ? "error" : "success"
-          }`}
-        >
-          {submitMessage}
-        </div>
-      )}
 
       <form
         className="asistan-confirmation-form"
@@ -258,7 +251,33 @@ const AsistanConfirmation = ({
             <span className="error">{errors.passCount.message}</span>
           )}
         </label>
-        <label className="asistan-confirmation-label" htmlFor="churchAssistant">
+
+        {/*No asistir*/}
+        {
+          currentPassCount === 0 ? 
+          <>
+        <section className="noAssistant-section">
+          <p>{t.confirmation.noAssistantMessage}</p>
+          <button
+              type="button"
+              className="button-no-asistir"
+              onClick={handleNoAsistan}
+              disabled={isSubmitting || isSubmitted}
+            >
+              {t.confirmation.willNotAttend}
+            </button>
+        </section>
+
+          </> :
+          <>
+          </>
+        }
+
+        {/*Asistir*/}
+        {
+          currentPassCount === 0 ? <></> :
+          <>
+          <label className="asistan-confirmation-label" htmlFor="churchAssistant">
           <span className="asistan-confirmation-label-text">
             {t.confirmation.churchAssistant}
           </span>
@@ -277,6 +296,7 @@ const AsistanConfirmation = ({
               }
             })}
           >
+            <option value="">{t.confirmation.selectOption}</option>
             <option value="true">{t.confirmation.yes}</option>
             <option value="false">{t.confirmation.no}</option>
           </select>
@@ -304,6 +324,7 @@ const AsistanConfirmation = ({
               }
             })}
           >
+            <option value="">{t.confirmation.selectOption}</option>
             <option value="true">{t.confirmation.yes}</option>
             <option value="false">{t.confirmation.no}</option>
           </select>
@@ -454,17 +475,20 @@ const AsistanConfirmation = ({
             >
               {t.confirmation.confirmAttendance}
             </button>
-            <button
-              type="button"
-              className="button-no-asistir"
-              onClick={handleNoAsistan}
-              disabled={isSubmitting || isSubmitted}
-            >
-              {t.confirmation.willNotAttend}
-            </button>
           </section>
-        )}
+        )}</>
+        }
+          
       </form>
+      {submitMessage && (
+        <div
+          className={`submit-message ${
+            submitMessage.includes("Error") ? "error" : "success"
+          }`}
+        >
+          {submitMessage}
+        </div>
+      )}
 
       <p>{t.confirmation.deadlineMessage}</p>
     </section>
