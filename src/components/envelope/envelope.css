@@ -7,7 +7,7 @@
   justify-content: center;
   align-items: center;
   opacity: 1;
-  transition: all 4.5s ease-in-out;
+  transition: all 6.5s ease-in-out;
   position: relative;
   z-index: 10;
   box-sizing: border-box;
@@ -211,25 +211,49 @@
 }
 .wrapper.opened .lid.one {
   transform: rotateX(90deg);
-  transition-delay: 0s;
+  transition-delay: 1s;
 }
 
 .wrapper.opened .lid.two {
     transform: rotateX(180deg);
-    transition-delay: 0.25s;
+    transition-delay: 1.25s;
   }
    
   .wrapper.opened .letter {
   transform: translateY(-220px);
   height: 210%;
-  transition-delay: 0.5s;
+  transition-delay: 1.5s;
 }
 
 .wrapper.opened .letter p {
   opacity: 1;
-  transition-delay: 2.1s;
+  transition-delay: 3.1s;
   margin-top: 10px;
 }
 .wrapper.opened .letter p:first-of-type {
   margin-top: 20px;
+}
+.wrapper.opened {
+  margin-top: 100px;
+  transition-delay: 0s;
+  transition: margin-top 0.5s ease-out;
+}
+.shadow {
+  position: absolute;
+  bottom: -30px; /* separada debajo del sobre */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 180px; /* ancho de la sombra */
+  height: 30px;  /* altura de la sombra */
+  background: rgba(0,0,0,0.2);
+  border-radius: 50%; /* para hacerla ovalada/redonda */
+  filter: blur(8px); /* suaviza la sombra */
+  z-index: 1;
+}
+.wrapper.opened .shadow {
+  transition-delay: 0s;
+  transition: all 0.5s ease-in;
+  width: 220px;
+  height: 50px;
+  bottom: -50px;
 }

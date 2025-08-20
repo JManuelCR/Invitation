@@ -23,7 +23,7 @@ const Envelope = ({ audioRef, onEnvelopeClick }) => {
          // Iniciar el desvanecimiento del envelope cuando termine su animación
      setTimeout(() => {
        setIsFading(true);
-     }, 3000); // 3 segundos para que termine la animación del envelope
+     }, 4000); // 3 segundos para que termine la animación del envelope
 
      // Ocultar completamente el envelope después de que termine la transición de fade-out
      setTimeout(() => {
@@ -53,6 +53,7 @@ const Envelope = ({ audioRef, onEnvelopeClick }) => {
               <p>{t.envelope.letter_2}</p>
               <p>{t.envelope.letter_3}</p>
             </div>
+            <div className="shadow"></div>
           </div>
         </section>{
           !isEnvelopeOpened ? (
