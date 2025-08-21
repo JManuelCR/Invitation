@@ -54,8 +54,7 @@ const Envelope = ({ audioRef, onEnvelopeClick }) => {
               <p>{t.envelope.letter_3}</p>
             </div>
             <div className="shadow"></div>
-          </div>
-        </section>{
+            {
           !isEnvelopeOpened ? (
           <button className="envelope__button" onClick={handleClick}>
             <span className="envelope__button-text">{t.envelope.open}</span>{" "}
@@ -63,10 +62,8 @@ const Envelope = ({ audioRef, onEnvelopeClick }) => {
           </button>
           ):('')
         }
-        <div className="envelope__image-container">
-          {/* <img className="envelope__image" src={envelope" alt="envelope" /> */}
-
-        </div>
+          </div>
+        </section>
       </div>
     </section>
   );
