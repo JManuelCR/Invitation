@@ -250,11 +250,19 @@
   .lid.one, .lid.two {
     border-top: 200px solid #e3c094;
   }
+  .lid.two {
+    border-top: 200px solid e3c094;
+  }
   .envelope {
     border-top: 200px solid transparent;
     border-right: 300px solid #f1d1ae;
     border-bottom: 200px solid #f1d1ae;
     border-left: 300px solid #e7c7a4;
+  }
+  .lid {
+    border-right: 300px solid transparent;
+    border-bottom: 200px solid transparent;
+    border-left: 300px solid transparent;
   }
   .letter {
     width: 100%;
@@ -282,6 +290,9 @@
     transform: translateY(-220px);
     height: 110%;
     transition-delay: 1.5s;
+  }
+  .wrapper.opened .letter p:first-of-type {
+    margin-top: 80px;
   }
 }
 @keyframes pulse {
