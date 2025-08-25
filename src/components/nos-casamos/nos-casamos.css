@@ -10,7 +10,8 @@
     padding-top: 40px;
     padding-bottom: 40px;
     box-sizing: border-box;
-    background: var(--base-opacity-40, rgba(233, 214, 208, 0.40));
+    background: var(--base-opacity-40);
+    background-size: cover;
 }
 .nos-casamos-title{
     text-align: center;

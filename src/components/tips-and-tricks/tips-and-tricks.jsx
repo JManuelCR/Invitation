@@ -195,9 +195,6 @@ const TipsAndTricks = () => {
         <p className="tips-and-tricks-text">{t.tips.taxis}</p>
       </section>
       <CarRental rentalOptions={taxisOptions} />
-      <section className="tips-and-tricks-title-primary">
-        <p className="tips-and-tricks-text">{t.tips.contact}</p>
-      </section>
     </section>
   );
 };

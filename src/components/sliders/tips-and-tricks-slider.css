@@ -16,6 +16,8 @@
   cursor: pointer;
   box-shadow: 1px 2px  
   10px 0 rgba(0, 0, 0, 0.4);
+  background: var(--white);
+border-radius: 10px;
 }
 
 .tips-and-tricks-slider-article-text {

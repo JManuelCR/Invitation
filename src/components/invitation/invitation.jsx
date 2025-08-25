@@ -143,6 +143,7 @@ export default function Invitation() {
   };
 
   return (
+    <section className="main-container">
     <div
       className={`invitation-container ${
         isEnvelopeOpened ? "envelope-opened" : ""
@@ -180,8 +181,8 @@ export default function Invitation() {
           {person.guestInvitationResponse ? (
             <>
               <Travel ref={travelRef} />
-              <Thanks />
-              <Contact />
+              <Thanks person={person} />
+              <Contact person={person} />
             </>
           ) : (
             <></>
@@ -232,8 +233,9 @@ export default function Invitation() {
               ✖️
             </button>
           </div>
-        </>
-      )}
-    </div>
+          </>
+        )}
+      </div>
+    </section>
   );
 }

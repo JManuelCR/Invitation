@@ -42,9 +42,9 @@ const AsistanConfirmation = ({ setPerson = () => {}, person = {}, scrollToTravel
       options.push(
         <option key={i} value={i}>
           {i}{" "}
-          {i === 1
+          {i === 0
             ? t?.confirmation?.chicken || "Pollo"
-            : t?.confirmation?.chicken + "s" || "Pollos"}
+            : t?.confirmation?.chickenPlural || "Pollos"}
         </option>
       );
     }
@@ -63,9 +63,9 @@ const AsistanConfirmation = ({ setPerson = () => {}, person = {}, scrollToTravel
       options.push(
         <option key={i} value={i}>
           {i}{" "}
-          {i === 1
+          {i === 0
             ? t?.confirmation?.pork || "Cerdo"
-            : t?.confirmation?.pork || "Cerdos"}
+            : t?.confirmation?.porkPlural || "Cerdos"}
         </option>
       );
     }

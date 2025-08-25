@@ -1,16 +1,24 @@
 import "./thanks.css";
 import { useTranslation } from '../../hooks/useTranslation';
 
-const Thanks = () => {
+const Thanks = ({ person }) => {
   const { t } = useTranslation();
   return (
     <section className="thanks-container">
       <article className="thanks-card">
         <div className="tips-and-tricks-header header-alignment">
-          <h2>{t.thanks.title}</h2>
+          {person.guestReceptionAssistantConfirmation ? (
+            <h2>{t.thanks.title}</h2>
+          ) : (
+            <h2>{t.thanks.title2}</h2>
+          )}
           <hr />
         </div>
-        <p className="thanks-title-text">{t.thanks.message}</p>
+        {person.guestReceptionAssistantConfirmation ? (
+          <p className="thanks-title-text">{t.thanks.message}</p>
+        ) : (
+          <p className="thanks-title-text">{t.thanks.messageDismissInvitation}</p>
+        )}
       </article>
     </section>
   );
