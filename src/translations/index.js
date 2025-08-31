@@ -226,6 +226,7 @@ export const translations = {
       errorDeclineConfirmation: "Error al declinar tu asistencia.",
       errorDeclineConfirmationTryAgain:
         "Error al procesar tu respuesta. Intenta de nuevo.",
+      alreadyConfirmed: "Ya has confirmado tu asistencia. Muchas gracias por tu respuesta.",
     },
   },
 
@@ -460,6 +461,7 @@ export const translations = {
       errorDeclineConfirmation: "Error declining your attendance.",
       errorDeclineConfirmationTryAgain:
         "Error processing your response. Try again.",
+      alreadyConfirmed: "You have already confirmed your attendance. Thank you for your response.",
     },
   },
 };

@@ -220,335 +220,339 @@ const AsistanConfirmation = ({ scrollToTravel }) => {
       <p className="asistan-confirmation-text">
         {t.confirmation.confirmationMessage}
       </p>
-
-      <form
-        className="asistan-confirmation-form"
-        onSubmit={handleSubmit(onSubmit)}
-      >
-        <h3 className="asistan-confirmation-title">
-          {t.confirmation.confirmationMessageComplement}{" "}
-          {person.guestPassesNumberToRecibe}{" "}
-          {t.confirmation.confirmationMessageComplement2}
-        </h3>
-
-        <label className="asistan-confirmation-label" htmlFor="passCount">
-          <span className="asistan-confirmation-label-text">
-            {t.confirmation.passesToUse}
-          </span>
-          <select
-            name="passCount"
-            id="passCount"
-            {...register("passCount", {
-              required:
-                watchedValues.churchAssistant === "true" ||
-                watchedValues.receptionAssistant === "true"
-                  ? `${t.confirmation.passRequiere}`
-                  : false,
-              validate: (value) => {
-                // Si ambos son false, no se requiere validación
-                if (
-                  watchedValues.churchAssistant === "false" &&
-                  watchedValues.receptionAssistant === "false"
-                ) {
-                  return true;
-                }
-                // Si al menos uno es true, se debe seleccionar un número de pases
-                return (
-                  value !== "" &&
-                  value !== `${t.confirmation.selectAPassNumber}`
-                );
-              },
-            })}
-            disabled={isSubmitting}
-          >
-            <option value="">{t.confirmation.selectPasses}</option>
-            {Array.from(
-              { length: person.guestPassesNumberToRecibe },
-              (_, index) => {
-                const value = person.guestPassesNumberToRecibe - index;
-                return (
-                  <option key={value} value={value}>
-                    {value}
-                  </option>
-                );
-              }
-            )}
-          </select>
-          {errors.passCount && (
-            <span className="error">{errors.passCount.message}</span>
-          )}
-        </label>
-
-        {/*No asistir*/}
-        {currentPassCount === 0 ? (
-          <>
-            <section className="noAssistant-section">
-              <p>{t.confirmation.noAssistantMessage}</p>
-              <button
-                type="button"
-                className="button-no-asistir"
-                onClick={handleNoAsistan}
-                disabled={isSubmitting || person.guestInvitationResponse}
-              >
-                {t.confirmation.willNotAttend}
-              </button>
-            </section>
-          </>
-        ) : (
-          <></>
-        )}
-
-        {/*Asistir*/}
-        {currentPassCount === 0 ? (
-          <></>
-        ) : (
-          <>
-            <label
-              className="asistan-confirmation-label"
-              htmlFor="churchAssistant"
-            >
-              <span className="asistan-confirmation-label-text">
-                {t.confirmation.churchAssistant}
-              </span>
-              <select
-                name="churchAssistant"
-                id="churchAssistant"
-                {...register("churchAssistant", {
-                  required: false,
-                  validate: (value) => {
-                    // Si receptionAssistant es false, este campo no es requerido
-                    if (value === "") {
-                      return `${t.confirmation.selectAnOption}`;
-                    }
-                    // Si receptionAssistant es true, este campo debe tener un valor válido
-                    return true;
-                  },
-                })}
-              >
-                <option value="">{t.confirmation.selectOption}</option>
-                <option value="true">{t.confirmation.yes}</option>
-                <option value="false">{t.confirmation.no}</option>
-              </select>
-              {errors.churchAssistant && (
-                <span className="error">{errors.churchAssistant.message}</span>
-              )}
-            </label>
-            <label
-              htmlFor="receptionAssistant"
-              className="asistan-confirmation-label"
-            >
-              <span className="asistan-confirmation-label-text">
-                {t.confirmation.receptionAssistant}
-              </span>
-              <select
-                type="checkbox"
-                name="receptionAssistant"
-                id="receptionAssistant"
-                {...register("receptionAssistant", {
-                  required: false,
-                  validate: (value) => {                    // Si churchAssistant es false, este campo no es requerido
-                    if (value === "") {
-                      return `${t.confirmation.selectAnOption}`;
-                    }
-                    return true;
-                    // Si churchAssistant es true, este campo debe tener un valor válido
-                  },
-                })}
-              >
-                <option value="">{t.confirmation.selectOption}</option>
-                <option value="true">{t.confirmation.yes}</option>
-                <option value="false">{t.confirmation.no}</option>
-              </select>
-              {errors.receptionAssistant && (
-                <span className="error">
-                  {errors.receptionAssistant.message}
-                </span>
-              )}
-            </label>
-            {/* Campo de transporte para extranjeros */}
-            {person.guestForeigner === "YES" &&
-            watchedValues.churchAssistant === "true" &&
-            watchedValues.receptionAssistant === "true" ? (
-              <div className="foreigner-transport-field">
-                <label
-                  className="asistan-confirmation-label"
-                  htmlFor="foreignerTransport"
-                >
-                  <span className="asistan-confirmation-label-text">
-                    {t?.confirmation?.foreignerTransport || ""}
-                  </span>
-                  <select
-                    name="foreignerTransport"
-                    id="foreignerTransport"
-                    {...register("foreignerTransport", {
-                      required: `${t.confirmation.passRequiere}`,
-                    })}
-                    disabled={isSubmitting}
-                  >
-                    <option value="">
-                      {t?.confirmation?.selectOption || ""}
-                    </option>
-                    <option value="true">{t?.confirmation?.yes || ""}</option>
-                    <option value="false">{t?.confirmation?.no || ""}</option>
-                  </select>
-                {errors.foreignerTransport && (
-                  <span className="error">
-                    {errors.foreignerTransport.message}
-                  </span>
-                )}
-                </label>
-              </div>
-            ) : null}
-
+      {
+        person.guestInvitationResponse ? (
+          <h2 className="asistan-confirmation-text">{t.confirmation.alreadyConfirmed}</h2>
+        ) :(   <form
+          className="asistan-confirmation-form"
+          onSubmit={handleSubmit(onSubmit)}
+        >
+          <h3 className="asistan-confirmation-title">
+            {t.confirmation.confirmationMessageComplement}{" "}
+            {person.guestPassesNumberToRecibe}{" "}
+            {t.confirmation.confirmationMessageComplement2}
+          </h3>
+  
+          <label className="asistan-confirmation-label" htmlFor="passCount">
             <span className="asistan-confirmation-label-text">
-              {t.confirmation.confirmationMessageComplement3}
+              {t.confirmation.passesToUse}
             </span>
-
-            {/* Indicador de distribución de pases */}
-            {currentPassCount > 0 && watchedValues.receptionAssistant === "true" && (
-              <div className="passes-distribution-info">
-                <p>
-                  <strong>{t.confirmation.passDistribution}</strong>
-                  {currentChickenCount > 0 &&
-                    ` ${currentChickenCount} ${t.confirmation.chicken}${
-                      currentChickenCount > 1 ? "s" : ""
-                    }`}
-                  {currentChickenCount > 0 && currentPorkCount > 0 && " + "}
-                  {currentPorkCount > 0 &&
-                    ` ${currentPorkCount} ${t.confirmation.pork}${
-                      currentPorkCount > 1 ? "s" : ""
-                    }`}
-                  {currentChickenCount === 0 &&
-                    currentPorkCount === 0 &&
-                    `${t.confirmation.selectQuantities}`}
-                  {currentChickenCount + currentPorkCount ===
-                    currentPassCount && (
-                    <span className="valid-distribution">
-                      {" "}
-                      ✓ {t.confirmation.completed}
-                    </span>
-                  )}
-                  {currentChickenCount + currentPorkCount >
-                    currentPassCount && (
-                    <span className="invalid-distribution">
-                      {" "}
-                      ✗ {t.confirmation.exceded}
-                    </span>
-                  )}
-                </p>
-              </div>
+            <select
+              name="passCount"
+              id="passCount"
+              {...register("passCount", {
+                required:
+                  watchedValues.churchAssistant === "true" ||
+                  watchedValues.receptionAssistant === "true"
+                    ? `${t.confirmation.passRequiere}`
+                    : false,
+                validate: (value) => {
+                  // Si ambos son false, no se requiere validación
+                  if (
+                    watchedValues.churchAssistant === "false" &&
+                    watchedValues.receptionAssistant === "false"
+                  ) {
+                    return true;
+                  }
+                  // Si al menos uno es true, se debe seleccionar un número de pases
+                  return (
+                    value !== "" &&
+                    value !== `${t.confirmation.selectAPassNumber}`
+                  );
+                },
+              })}
+              disabled={isSubmitting}
+            >
+              <option value="">{t.confirmation.selectPasses}</option>
+              {Array.from(
+                { length: person.guestPassesNumberToRecibe },
+                (_, index) => {
+                  const value = person.guestPassesNumberToRecibe - index;
+                  return (
+                    <option key={value} value={value}>
+                      {value}
+                    </option>
+                  );
+                }
+              )}
+            </select>
+            {errors.passCount && (
+              <span className="error">{errors.passCount.message}</span>
             )}
-
-            {/* Campos de comida - solo aparecen si hay pases seleccionados */}
-            {currentPassCount > 0 &&
-            watchedValues.receptionAssistant === "true" ? (
-              <>
-                <label
-                  className="asistan-confirmation-label"
-                  htmlFor="chickenCount"
+          </label>
+  
+          {/*No asistir*/}
+          {currentPassCount === 0 ? (
+            <>
+              <section className="noAssistant-section">
+                <p>{t.confirmation.noAssistantMessage}</p>
+                <button
+                  type="button"
+                  className="button-no-asistir"
+                  onClick={handleNoAsistan}
+                  disabled={isSubmitting || person.guestInvitationResponse}
                 >
-                  <span className="asistan-confirmation-label-text">
-                    {currentPassCount > 1
-                      ? t?.confirmation?.chickenCount || ""
-                      : t?.confirmation?.chicken || ""}
-                  </span>
-                  <select
-                    name="chickenCount"
-                    id="chickenCount"
-                    {...register("chickenCount", {
-                      required: `${t.confirmation.passRequiere}`,
-                      validate: (value) => {
-                        const chicken = parseInt(value) || 0;
-                        const pork = currentPorkCount;
-                        return (
-                          chicken + pork === currentPassCount ||
-                          `${t.confirmation.dishesSum}`
-                        );
-                      },
-                    })}
-                    disabled={isSubmitting}
-                    onChange={handleChickenChange}
-                  >
-                    <option value="">
-                      {t?.confirmation?.selectOption || ""}
-                    </option>
-                    {chickenCountOptions()}
-                  </select>
-                  {errors.chickenCount && (
-                    <span className="error">{errors.chickenCount.message}</span>
-                  )}
-                </label>
-
-                <label
-                  className="asistan-confirmation-label"
-                  htmlFor="porkCount"
-                >
-                  <span className="asistan-confirmation-label-text">
-                    {currentPassCount > 1
-                      ? t?.confirmation?.porkCount || ""
-                      : t?.confirmation?.pork || ""}
-                  </span>
-                  <select
-                    name="porkCount"
-                    id="porkCount"
-                    {...register("porkCount", {
-                      required: `${t.confirmation.passRequiere}`,
-                      validate: (value) => {
-                        const pork = parseInt(value) || 0;
-                        const chicken = currentChickenCount;
-                        return (
-                          chicken + pork === currentPassCount ||
-                          `${t.confirmation.dishesSum}`
-                        );
-                      },
-                    })}
-                    disabled={isSubmitting}
-                    onChange={handlePorkChange}
-                  >
-                    <option value="">
-                      {t?.confirmation?.selectOption || ""}
-                    </option>
-                    {porkCountOptions()}
-                  </select>
-                  {errors.porkCount && (
-                    <span className="error">{errors.porkCount.message}</span>
-                  )}
-                </label>
-              </>
-            ) : null}
-
-            {isSubmitting ? (
-              <p>{t.confirmation.sending}</p>
-            ) : (
-              <section className="button-container">
-                {(watchedValues.churchAssistant !== "false" ||
-                watchedValues.receptionAssistant !== "false") ? (
-                  <>
-                    <button
-                      type="submit"
-                      className="button-confirmar-asistencia"
-                      disabled={isSubmitting || person?.guestInvitationResponse}
-                    >
-                      {t.confirmation.confirmAttendance}
-                    </button>
-                  </>
-                ) : (
-                  <>
-                    <button
-                      type="button"
-                      className="button-no-asistir"
-                      onClick={handleNoAsistan}
-                      disabled={isSubmitting || person?.guestInvitationResponse}
-                    >
-                      {t.confirmation.willNotAttend}
-                    </button>
-                  </>
-                )}
+                  {t.confirmation.willNotAttend}
+                </button>
               </section>
-            )}
-          </>
-        )}
-      </form>
+            </>
+          ) : (
+            <></>
+          )}
+  
+          {/*Asistir*/}
+          {currentPassCount === 0 ? (
+            <></>
+          ) : (
+            <>
+              <label
+                className="asistan-confirmation-label"
+                htmlFor="churchAssistant"
+              >
+                <span className="asistan-confirmation-label-text">
+                  {t.confirmation.churchAssistant}
+                </span>
+                <select
+                  name="churchAssistant"
+                  id="churchAssistant"
+                  {...register("churchAssistant", {
+                    required: false,
+                    validate: (value) => {
+                      // Si receptionAssistant es false, este campo no es requerido
+                      if (value === "") {
+                        return `${t.confirmation.selectAnOption}`;
+                      }
+                      // Si receptionAssistant es true, este campo debe tener un valor válido
+                      return true;
+                    },
+                  })}
+                >
+                  <option value="">{t.confirmation.selectOption}</option>
+                  <option value="true">{t.confirmation.yes}</option>
+                  <option value="false">{t.confirmation.no}</option>
+                </select>
+                {errors.churchAssistant && (
+                  <span className="error">{errors.churchAssistant.message}</span>
+                )}
+              </label>
+              <label
+                htmlFor="receptionAssistant"
+                className="asistan-confirmation-label"
+              >
+                <span className="asistan-confirmation-label-text">
+                  {t.confirmation.receptionAssistant}
+                </span>
+                <select
+                  type="checkbox"
+                  name="receptionAssistant"
+                  id="receptionAssistant"
+                  {...register("receptionAssistant", {
+                    required: false,
+                    validate: (value) => {                    // Si churchAssistant es false, este campo no es requerido
+                      if (value === "") {
+                        return `${t.confirmation.selectAnOption}`;
+                      }
+                      return true;
+                      // Si churchAssistant es true, este campo debe tener un valor válido
+                    },
+                  })}
+                >
+                  <option value="">{t.confirmation.selectOption}</option>
+                  <option value="true">{t.confirmation.yes}</option>
+                  <option value="false">{t.confirmation.no}</option>
+                </select>
+                {errors.receptionAssistant && (
+                  <span className="error">
+                    {errors.receptionAssistant.message}
+                  </span>
+                )}
+              </label>
+              {/* Campo de transporte para extranjeros */}
+              {person.guestForeigner === "YES" &&
+              watchedValues.churchAssistant === "true" &&
+              watchedValues.receptionAssistant === "true" ? (
+                <div className="foreigner-transport-field">
+                  <label
+                    className="asistan-confirmation-label"
+                    htmlFor="foreignerTransport"
+                  >
+                    <span className="asistan-confirmation-label-text">
+                      {t?.confirmation?.foreignerTransport || ""}
+                    </span>
+                    <select
+                      name="foreignerTransport"
+                      id="foreignerTransport"
+                      {...register("foreignerTransport", {
+                        required: `${t.confirmation.passRequiere}`,
+                      })}
+                      disabled={isSubmitting}
+                    >
+                      <option value="">
+                        {t?.confirmation?.selectOption || ""}
+                      </option>
+                      <option value="true">{t?.confirmation?.yes || ""}</option>
+                      <option value="false">{t?.confirmation?.no || ""}</option>
+                    </select>
+                  {errors.foreignerTransport && (
+                    <span className="error">
+                      {errors.foreignerTransport.message}
+                    </span>
+                  )}
+                  </label>
+                </div>
+              ) : null}
+  
+              <span className="asistan-confirmation-label-text">
+                {t.confirmation.confirmationMessageComplement3}
+              </span>
+  
+              {/* Indicador de distribución de pases */}
+              {currentPassCount > 0 && watchedValues.receptionAssistant === "true" && (
+                <div className="passes-distribution-info">
+                  <p>
+                    <strong>{t.confirmation.passDistribution}</strong>
+                    {currentChickenCount > 0 &&
+                      ` ${currentChickenCount} ${t.confirmation.chicken}${
+                        currentChickenCount > 1 ? "s" : ""
+                      }`}
+                    {currentChickenCount > 0 && currentPorkCount > 0 && " + "}
+                    {currentPorkCount > 0 &&
+                      ` ${currentPorkCount} ${t.confirmation.pork}${
+                        currentPorkCount > 1 ? "s" : ""
+                      }`}
+                    {currentChickenCount === 0 &&
+                      currentPorkCount === 0 &&
+                      `${t.confirmation.selectQuantities}`}
+                    {currentChickenCount + currentPorkCount ===
+                      currentPassCount && (
+                      <span className="valid-distribution">
+                        {" "}
+                        ✓ {t.confirmation.completed}
+                      </span>
+                    )}
+                    {currentChickenCount + currentPorkCount >
+                      currentPassCount && (
+                      <span className="invalid-distribution">
+                        {" "}
+                        ✗ {t.confirmation.exceded}
+                      </span>
+                    )}
+                  </p>
+                </div>
+              )}
+  
+              {/* Campos de comida - solo aparecen si hay pases seleccionados */}
+              {currentPassCount > 0 &&
+              watchedValues.receptionAssistant === "true" ? (
+                <>
+                  <label
+                    className="asistan-confirmation-label"
+                    htmlFor="chickenCount"
+                  >
+                    <span className="asistan-confirmation-label-text">
+                      {currentPassCount > 1
+                        ? t?.confirmation?.chickenCount || ""
+                        : t?.confirmation?.chicken || ""}
+                    </span>
+                    <select
+                      name="chickenCount"
+                      id="chickenCount"
+                      {...register("chickenCount", {
+                        required: `${t.confirmation.passRequiere}`,
+                        validate: (value) => {
+                          const chicken = parseInt(value) || 0;
+                          const pork = currentPorkCount;
+                          return (
+                            chicken + pork === currentPassCount ||
+                            `${t.confirmation.dishesSum}`
+                          );
+                        },
+                      })}
+                      disabled={isSubmitting}
+                      onChange={handleChickenChange}
+                    >
+                      <option value="">
+                        {t?.confirmation?.selectOption || ""}
+                      </option>
+                      {chickenCountOptions()}
+                    </select>
+                    {errors.chickenCount && (
+                      <span className="error">{errors.chickenCount.message}</span>
+                    )}
+                  </label>
+  
+                  <label
+                    className="asistan-confirmation-label"
+                    htmlFor="porkCount"
+                  >
+                    <span className="asistan-confirmation-label-text">
+                      {currentPassCount > 1
+                        ? t?.confirmation?.porkCount || ""
+                        : t?.confirmation?.pork || ""}
+                    </span>
+                    <select
+                      name="porkCount"
+                      id="porkCount"
+                      {...register("porkCount", {
+                        required: `${t.confirmation.passRequiere}`,
+                        validate: (value) => {
+                          const pork = parseInt(value) || 0;
+                          const chicken = currentChickenCount;
+                          return (
+                            chicken + pork === currentPassCount ||
+                            `${t.confirmation.dishesSum}`
+                          );
+                        },
+                      })}
+                      disabled={isSubmitting}
+                      onChange={handlePorkChange}
+                    >
+                      <option value="">
+                        {t?.confirmation?.selectOption || ""}
+                      </option>
+                      {porkCountOptions()}
+                    </select>
+                    {errors.porkCount && (
+                      <span className="error">{errors.porkCount.message}</span>
+                    )}
+                  </label>
+                </>
+              ) : null}
+  
+              {isSubmitting ? (
+                <p>{t.confirmation.sending}</p>
+              ) : (
+                <section className="button-container">
+                  {(watchedValues.churchAssistant !== "false" ||
+                  watchedValues.receptionAssistant !== "false") ? (
+                    <>
+                      <button
+                        type="submit"
+                        className="button-confirmar-asistencia"
+                        disabled={isSubmitting || person?.guestInvitationResponse}
+                      >
+                        {t.confirmation.confirmAttendance}
+                      </button>
+                    </>
+                  ) : (
+                    <>
+                      <button
+                        type="button"
+                        className="button-no-asistir"
+                        onClick={handleNoAsistan}
+                        disabled={isSubmitting || person?.guestInvitationResponse}
+                      >
+                        {t.confirmation.willNotAttend}
+                      </button>
+                    </>
+                  )}
+                </section>
+              )}
+            </>
+          )}
+        </form>)
+      }
+   
       {submitMessage && (
         <div
           className={`submit-message ${
