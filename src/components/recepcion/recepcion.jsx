@@ -1,6 +1,6 @@
 import './recepcion.css';
 import ListElement from '../list-item/list-element';
-import image_recption from '../../assets/img/san-pedro.jpg';
+import image_recption from '../../assets/img/quinta-san-pedro.jpg';
 import { useTranslation } from '../../hooks/useTranslation';
 
 export default function Recption(){
