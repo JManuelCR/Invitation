@@ -3,8 +3,9 @@ import { useForm } from "react-hook-form";
 import { useTranslation } from "../../hooks/useTranslation";
 import { useState, useEffect } from "react";
 import { patchGuest } from "../../services/apdiPeopleService";
+import { useData } from "../../context/useData";
 
-const AsistanConfirmation = ({ setPerson = () => {}, person = {}, scrollToTravel }) => {
+const AsistanConfirmation = ({ scrollToTravel }) => {
   const {
     register,
     handleSubmit,
@@ -23,6 +24,11 @@ const AsistanConfirmation = ({ setPerson = () => {}, person = {}, scrollToTravel
   const { t } = useTranslation();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitMessage, setSubmitMessage] = useState("");
+
+  const {
+    person,
+    updatePerson
+  } = useData();
 
   // Observar los valores del formulario
   const watchedValues = watch();
@@ -133,16 +139,25 @@ const AsistanConfirmation = ({ setPerson = () => {}, person = {}, scrollToTravel
         guestChickenCountDesire: parseInt(data.chickenCount) || 0,
         guestPorkCountDesire: parseInt(data.porkCount) || 0,
         guestInvitationResponse: true,
-        guestChurchAssistant: data.churchAssistant === "true",
-        guestReceptionAssistant: data.receptionAssistant === "true",
+        guestChurchAssistantConfirmation: data.churchAssistant === "true",
+        guestReceptionAssistantConfirmation: data.receptionAssistant === "true",
       };
 
       // Solo incluir foreignerTransport si es un extranjero
       if (person.foreignGuest === "YES") {
         updateData.guestForeignerTransport = data.foreignerTransport === "true";
       }
-      setPerson({ ...person, ...updateData });
+      
+      console.log('Antes de actualizar - person:', person);
+      console.log('updateData:', updateData);
+      
+      // Hacer el patch al servidor primero
       await patchGuest(person.guestInvitationId, updateData);
+      
+      // Si el patch fue exitoso, actualizar el estado global del contexto
+      updatePerson(updateData);
+      
+      console.log('Después de actualizar - person actualizado:', { ...person, ...updateData });
 
       setSubmitMessage(`${t.confirmation.confirmationSend}`);
       setTimeout(() => {
@@ -167,16 +182,25 @@ const AsistanConfirmation = ({ setPerson = () => {}, person = {}, scrollToTravel
         guestInvitationResponse: true,
         guestChickenCountDesire: 0,
         guestPorkCountDesire: 0,
-        guestChurchAssistant: false,
-        guestReceptionAssistant: false,
+        guestChurchAssistantConfirmation: false,
+        guestReceptionAssistantConfirmation: false,
       };
 
       // Solo incluir foreignerTransport si es un extranjero
       if (person.foreignGuest === "YES") {
         updateData.guestForeignerTransport = false;
       }
-      setPerson({ ...person, ...updateData });
+      
+      console.log('Antes de actualizar (No asistir) - person:', person);
+      console.log('updateData (No asistir):', updateData);
+      
+      // Hacer el patch al servidor primero
       await patchGuest(person.guestInvitationId, updateData);
+      
+      // Si el patch fue exitoso, actualizar el estado global del contexto
+      updatePerson(updateData);
+      
+      console.log('Después de actualizar (No asistir) - person actualizado:', { ...person, ...updateData });
 
       setSubmitMessage(`${t.confirmation.thanksForDeclineConfirmation}`);
       setTimeout(() => {
@@ -504,13 +528,14 @@ const AsistanConfirmation = ({ setPerson = () => {}, person = {}, scrollToTravel
               <p>{t.confirmation.sending}</p>
             ) : (
               <section className="button-container">
+                {console.log('Estado del botón - isSubmitting:', isSubmitting, 'guestInvitationResponse:', person?.guestInvitationResponse)}
                 {(watchedValues.churchAssistant !== "false" ||
                 watchedValues.receptionAssistant !== "false") ? (
                   <>
                     <button
                       type="submit"
                       className="button-confirmar-asistencia"
-                      disabled={isSubmitting || person.guestInvitationResponse}
+                      disabled={isSubmitting || person?.guestInvitationResponse}
                     >
                       {t.confirmation.confirmAttendance}
                     </button>
@@ -521,7 +546,7 @@ const AsistanConfirmation = ({ setPerson = () => {}, person = {}, scrollToTravel
                       type="button"
                       className="button-no-asistir"
                       onClick={handleNoAsistan}
-                      disabled={isSubmitting || person.guestInvitationResponse}
+                      disabled={isSubmitting || person?.guestInvitationResponse}
                     >
                       {t.confirmation.willNotAttend}
                     </button>

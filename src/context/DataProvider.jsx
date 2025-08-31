@@ -21,12 +21,41 @@ export const DataProvider = ({ children, guestId: dataGuestId }) => {
         }
     };
 
+    // Función para actualizar la data global
+    const updatePerson = (updatedData) => {
+        setPerson(prevPerson => {
+            if (prevPerson) {
+                return { ...prevPerson, ...updatedData };
+            }
+            return updatedData;
+        });
+    };
+
+    // Función para recargar la data desde el servidor
+    const refreshPerson = async () => {
+        if (guestId) {
+            try {
+                const response = await getGuest(guestId);
+                setPerson(response.data);
+            } catch (error) {
+                console.error('Error refreshing person data:', error);
+            }
+        }
+    };
+
     useEffect(() => {
         loadPeople();
     }, [dataGuestId]);
     
     return (
-        <DataContext.Provider value={{ person, loading, guestId, setPerson }}>
+        <DataContext.Provider value={{ 
+            person, 
+            loading, 
+            guestId, 
+            setPerson, 
+            updatePerson, 
+            refreshPerson 
+        }}>
             {children}
         </DataContext.Provider>
     );

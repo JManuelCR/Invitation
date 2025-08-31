@@ -20,7 +20,7 @@ import Travel from "../travel/travel";
 import Contact from "../contact/contact";
 
 export default function Invitation() {
-  const { person, loading, guestId, setPerson } = useData();
+  const { person, loading } = useData();
   const targetRef = useRef(null);
   const audioRef = useRef(null);
   const [isMuted, setIsMuted] = useState(false);
@@ -228,8 +228,6 @@ export default function Invitation() {
           {person.guestForeigner === "YES" && <TipsAndTricks />}
           <AsistanConfirmation
             totalPasses={person?.guestPassesNumberToRecibe}
-            setPerson={setPerson}
-            person={person}
             scrollToTravel={scrollToTravel}
           />
           {person && person.guestInvitationResponse ? (
