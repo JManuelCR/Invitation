@@ -123,23 +123,77 @@ export default function Invitation() {
   };
 
   const travelRef = useRef(null);
+  const [shouldScrollToTravel, setShouldScrollToTravel] = useState(false);
+  
+  // Debug effect to monitor state changes
+  useEffect(() => {
+    console.log('shouldScrollToTravel changed:', shouldScrollToTravel);
+  }, [shouldScrollToTravel]);
+  
+  // Effect to handle scrolling when Travel component is mounted
+  useEffect(() => {
+    if (shouldScrollToTravel && travelRef.current && person && person.guestInvitationResponse) {
+      console.log('Scroll effect triggered:', { shouldScrollToTravel, hasRef: !!travelRef.current, hasPerson: !!person, response: person?.guestInvitationResponse });
+      
+      // Reset the flag
+      setShouldScrollToTravel(false);
+      
+      // Use a longer delay to ensure component is fully rendered and positioned
+      setTimeout(() => {
+        if (travelRef.current) {
+          console.log('Attempting to scroll to travel component');
+          try {
+            // Use the simpler scrollIntoView method first
+            travelRef.current.scrollIntoView({ 
+              behavior: 'smooth', 
+              block: 'start',
+              inline: 'nearest'
+            });
+          } catch (error) {
+            console.error('Error with scrollIntoView, trying manual scroll:', error);
+            // Fallback to manual scroll
+            try {
+              const targetY = travelRef.current.getBoundingClientRect().top + window.pageYOffset;
+              const startY = window.pageYOffset;
+              const distance = targetY - startY;
+              
+              if (Math.abs(distance) < 10) {
+                console.log('Already at target, no scroll needed');
+                return;
+              }
+              
+              console.log('Manual scroll:', { startY, targetY, distance });
+              window.scrollTo({
+                top: targetY - 100, // Offset by 100px for better positioning
+                behavior: 'smooth'
+              });
+            } catch (manualError) {
+              console.error('Manual scroll also failed:', manualError);
+            }
+          }
+        } else {
+          console.log('Travel ref is null in timeout');
+        }
+      }, 500); // Increased delay to 500ms
+    }
+  }, [shouldScrollToTravel, person?.guestInvitationResponse]);
+  
+  // Additional effect to monitor when Travel component mounts
+  useEffect(() => {
+    if (person && person.guestInvitationResponse && travelRef.current) {
+      console.log('Travel component mounted, ref:', travelRef.current);
+    }
+  }, [person?.guestInvitationResponse]);
+
   const scrollToTravel = () => {
-    const targetY = travelRef.current.getBoundingClientRect().top + window.pageYOffset;
-    const startY = window.pageYOffset;
-    const distance = targetY - startY;
-    const duration = 1000; // 500ms
-    let startTime = null;
-  
-    const step = (timestamp) => {
-      if (!startTime) startTime = timestamp;
-      const progress = Math.min((timestamp - startTime) / duration, 1);
-      window.scrollTo(0, startY + distance * progress);
-      if (progress < 1) {
-        requestAnimationFrame(step);
-      }
-    };
-  
-    requestAnimationFrame(step);
+    console.log('scrollToTravel called, person:', person);
+    // Only set flag if person exists
+    if (person) {
+      console.log('Setting shouldScrollToTravel to true');
+      setShouldScrollToTravel(true);
+    } else {
+      console.log('Person is null/undefined, cannot scroll');
+    }
   };
 
   return (
@@ -178,7 +232,7 @@ export default function Invitation() {
             person={person}
             scrollToTravel={scrollToTravel}
           />
-          {person.guestInvitationResponse ? (
+          {person && person.guestInvitationResponse ? (
             <>
               <Travel ref={travelRef} />
               <Thanks person={person} />

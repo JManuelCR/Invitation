@@ -2,6 +2,7 @@ import "./asistan-confirmation.css";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "../../hooks/useTranslation";
 import { useState, useEffect } from "react";
+import { patchGuest } from "../../services/apdiPeopleService";
 
 const AsistanConfirmation = ({ setPerson = () => {}, person = {}, scrollToTravel }) => {
   const {
@@ -42,7 +43,7 @@ const AsistanConfirmation = ({ setPerson = () => {}, person = {}, scrollToTravel
       options.push(
         <option key={i} value={i}>
           {i}{" "}
-          {i === 0
+          {i <= 1
             ? t?.confirmation?.chicken || "Pollo"
             : t?.confirmation?.chickenPlural || "Pollos"}
         </option>
@@ -63,7 +64,7 @@ const AsistanConfirmation = ({ setPerson = () => {}, person = {}, scrollToTravel
       options.push(
         <option key={i} value={i}>
           {i}{" "}
-          {i === 0
+          {i <= 1
             ? t?.confirmation?.pork || "Cerdo"
             : t?.confirmation?.porkPlural || "Cerdos"}
         </option>
@@ -141,12 +142,12 @@ const AsistanConfirmation = ({ setPerson = () => {}, person = {}, scrollToTravel
         updateData.guestForeignerTransport = data.foreignerTransport === "true";
       }
       setPerson({ ...person, ...updateData });
-      // await patchGuest(guestId, updateData);
+      await patchGuest(person.guestInvitationId, updateData);
 
       setSubmitMessage(`${t.confirmation.confirmationSend}`);
       setTimeout(() => {
         scrollToTravel();
-      }, 1500);
+      }, 500);
     } catch (error) {
       console.error(`${t.confirmation.formErrorSend}`, error);
       setSubmitMessage(`${t.confirmation.formErrorTryAgain}`);
@@ -175,12 +176,12 @@ const AsistanConfirmation = ({ setPerson = () => {}, person = {}, scrollToTravel
         updateData.guestForeignerTransport = false;
       }
       setPerson({ ...person, ...updateData });
-      // await patchGuest(guestId, updateData);
+      await patchGuest(person.guestInvitationId, updateData);
 
       setSubmitMessage(`${t.confirmation.thanksForDeclineConfirmation}`);
       setTimeout(() => {
         scrollToTravel();
-      }, 1500);
+      }, 500);
     } catch (error) {
       console.error(`${t.confirmation.errorDeclineConfirmation}`, error);
       setSubmitMessage(`${t.confirmation.errorDeclineConfirmationTryAgain}`);
