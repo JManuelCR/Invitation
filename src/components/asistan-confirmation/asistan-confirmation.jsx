@@ -141,6 +141,7 @@ const AsistanConfirmation = ({ scrollToTravel }) => {
         guestInvitationResponse: true,
         guestChurchAssistantConfirmation: data.churchAssistant === "true",
         guestReceptionAssistantConfirmation: data.receptionAssistant === "true",
+        guestTransportCount: parseInt(data.foreignerTransport === "true" ? data.passCount : 0),
       };
 
       // Solo incluir foreignerTransport si es un extranjero
