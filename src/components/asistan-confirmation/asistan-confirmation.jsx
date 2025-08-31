@@ -148,16 +148,12 @@ const AsistanConfirmation = ({ scrollToTravel }) => {
         updateData.guestForeignerTransport = data.foreignerTransport === "true";
       }
       
-      console.log('Antes de actualizar - person:', person);
-      console.log('updateData:', updateData);
-      
+    
       // Hacer el patch al servidor primero
       await patchGuest(person.guestInvitationId, updateData);
       
       // Si el patch fue exitoso, actualizar el estado global del contexto
       updatePerson(updateData);
-      
-      console.log('Después de actualizar - person actualizado:', { ...person, ...updateData });
 
       setSubmitMessage(`${t.confirmation.confirmationSend}`);
       setTimeout(() => {
@@ -191,8 +187,6 @@ const AsistanConfirmation = ({ scrollToTravel }) => {
         updateData.guestForeignerTransport = false;
       }
       
-      console.log('Antes de actualizar (No asistir) - person:', person);
-      console.log('updateData (No asistir):', updateData);
       
       // Hacer el patch al servidor primero
       await patchGuest(person.guestInvitationId, updateData);
@@ -200,8 +194,7 @@ const AsistanConfirmation = ({ scrollToTravel }) => {
       // Si el patch fue exitoso, actualizar el estado global del contexto
       updatePerson(updateData);
       
-      console.log('Después de actualizar (No asistir) - person actualizado:', { ...person, ...updateData });
-
+      
       setSubmitMessage(`${t.confirmation.thanksForDeclineConfirmation}`);
       setTimeout(() => {
         scrollToTravel();
@@ -528,7 +521,6 @@ const AsistanConfirmation = ({ scrollToTravel }) => {
               <p>{t.confirmation.sending}</p>
             ) : (
               <section className="button-container">
-                {console.log('Estado del botón - isSubmitting:', isSubmitting, 'guestInvitationResponse:', person?.guestInvitationResponse)}
                 {(watchedValues.churchAssistant !== "false" ||
                 watchedValues.receptionAssistant !== "false") ? (
                   <>

@@ -82,7 +82,7 @@ export function protectImages() {
   }, { passive: false });
 
   // Mensaje de advertencia
-  console.log('🛡️ Protección de imágenes activada');
+  // console.log('🛡️ Protección de imágenes activada');
   
   // Aplicar protección CSS a todas las imágenes existentes
   setTimeout(() => {

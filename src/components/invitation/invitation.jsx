@@ -127,13 +127,11 @@ export default function Invitation() {
   
   // Debug effect to monitor state changes
   useEffect(() => {
-    console.log('shouldScrollToTravel changed:', shouldScrollToTravel);
   }, [shouldScrollToTravel]);
   
   // Effect to handle scrolling when Travel component is mounted
   useEffect(() => {
     if (shouldScrollToTravel && travelRef.current && person && person.guestInvitationResponse) {
-      console.log('Scroll effect triggered:', { shouldScrollToTravel, hasRef: !!travelRef.current, hasPerson: !!person, response: person?.guestInvitationResponse });
       
       // Reset the flag
       setShouldScrollToTravel(false);
@@ -141,7 +139,7 @@ export default function Invitation() {
       // Use a longer delay to ensure component is fully rendered and positioned
       setTimeout(() => {
         if (travelRef.current) {
-          console.log('Attempting to scroll to travel component');
+          
           try {
             // Use the simpler scrollIntoView method first
             travelRef.current.scrollIntoView({ 
@@ -158,11 +156,9 @@ export default function Invitation() {
               const distance = targetY - startY;
               
               if (Math.abs(distance) < 10) {
-                console.log('Already at target, no scroll needed');
                 return;
               }
               
-              console.log('Manual scroll:', { startY, targetY, distance });
               window.scrollTo({
                 top: targetY - 100, // Offset by 100px for better positioning
                 behavior: 'smooth'
@@ -172,7 +168,7 @@ export default function Invitation() {
             }
           }
         } else {
-          console.log('Travel ref is null in timeout');
+          console.error('Travel ref is null in timeout');
         }
       }, 500); // Increased delay to 500ms
     }
@@ -181,18 +177,16 @@ export default function Invitation() {
   // Additional effect to monitor when Travel component mounts
   useEffect(() => {
     if (person && person.guestInvitationResponse && travelRef.current) {
-      console.log('Travel component mounted, ref:', travelRef.current);
+      true
     }
   }, [person?.guestInvitationResponse]);
 
   const scrollToTravel = () => {
-    console.log('scrollToTravel called, person:', person);
     // Only set flag if person exists
     if (person) {
-      console.log('Setting shouldScrollToTravel to true');
       setShouldScrollToTravel(true);
     } else {
-      console.log('Person is null/undefined, cannot scroll');
+      console.error('Person is null/undefined, cannot scroll');
     }
   };
 
