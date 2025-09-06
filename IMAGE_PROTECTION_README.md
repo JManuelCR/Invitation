@@ -206,3 +206,4 @@ Para problemas o mejoras en la protección:
 ---
 
 **Nota**: Esta protección dificulta significativamente la descarga de imágenes para usuarios promedio, pero no es 100% infalible para usuarios muy avanzados.
+

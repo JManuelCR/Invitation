@@ -95,12 +95,24 @@ body {
 }
 .main-container {
     max-height: 100vh;
-    overflow-y: scroll;
+    overflow-y: auto;
     background: url(../../assets/img/white-2-background.jpg) no-repeat center center;
     background-size: cover;
     background-color: rgba(255, 255, 255, 0.52); /* blanco semitransparente */
     background-blend-mode: lighten;
   }
+
+/* Bloquear scroll cuando el envelope está cerrado */
+.main-container:not(.envelope-opened) {
+    overflow: hidden;
+    max-height: 100vh;
+}
+
+/* Permitir scroll cuando el envelope está abierto */
+.main-container.envelope-opened {
+    overflow-y: auto;
+    max-height: none;
+}
   
 
   

@@ -31,8 +31,9 @@ export default function Invitation() {
 
   // Bloquear scroll al cargar la página y posicionar al inicio
   useEffect(() => {
-    // Bloquear scroll
+    // Bloquear scroll del body y del contenedor principal
     document.body.style.overflow = "hidden";
+    document.documentElement.style.overflow = "hidden";
 
     // Posicionar al inicio de la página
     window.scrollTo(0, 0);
@@ -46,6 +47,7 @@ export default function Invitation() {
 
     return () => {
       document.body.style.overflow = "auto";
+      document.documentElement.style.overflow = "auto";
       window.removeEventListener("beforeunload", handleBeforeUnload);
     };
   }, []);
@@ -77,6 +79,7 @@ export default function Invitation() {
 
     // Habilitar scroll después de hacer clic
     document.body.style.overflow = "auto";
+    document.documentElement.style.overflow = "auto";
 
     // Hacer scroll suave hacia la invitación solo si es necesario
     if (targetRef.current) {
@@ -172,14 +175,14 @@ export default function Invitation() {
         }
       }, 500); // Increased delay to 500ms
     }
-  }, [shouldScrollToTravel, person?.guestInvitationResponse]);
+  }, [shouldScrollToTravel, person, person?.guestInvitationResponse]);
   
   // Additional effect to monitor when Travel component mounts
   useEffect(() => {
     if (person && person.guestInvitationResponse && travelRef.current) {
       true
     }
-  }, [person?.guestInvitationResponse]);
+  }, [person, person?.guestInvitationResponse]);
 
   const scrollToTravel = () => {
     // Only set flag if person exists
@@ -191,7 +194,7 @@ export default function Invitation() {
   };
 
   return (
-    <section className="main-container">
+    <section className={`main-container ${isEnvelopeOpened ? "envelope-opened" : ""}`}>
     <div
       className={`invitation-container ${
         isEnvelopeOpened ? "envelope-opened" : ""
