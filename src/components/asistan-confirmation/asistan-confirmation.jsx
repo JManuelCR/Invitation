@@ -7,6 +7,7 @@ import { useData } from "../../context/useData";
 import DebugPanel from "./DebugPanel";
 import ErrorBoundary from "./ErrorBoundary";
 import MobileDebugger from "./MobileDebugger";
+import GlobalErrorHandler from "./GlobalErrorHandler";
 import { useMobileDetection } from "../../hooks/useMobileDetection";
 
 const AsistanConfirmation = ({ scrollToTravel }) => {
@@ -36,6 +37,14 @@ const AsistanConfirmation = ({ scrollToTravel }) => {
 
   // Detectar dispositivo móvil
   const { isMobile, isTouch, deviceInfo, isLowEndDevice } = useMobileDetection();
+
+  // Estado para errores globales
+  const [globalError, setGlobalError] = useState(null);
+
+  // Función para manejar errores globales
+  const handleGlobalError = (errorInfo) => {
+    setGlobalError(errorInfo);
+  };
 
   // Observar los valores del formulario
   const watchedValues = watch();
@@ -290,6 +299,7 @@ const AsistanConfirmation = ({ scrollToTravel }) => {
 
   return (
     <ErrorBoundary>
+      <GlobalErrorHandler onError={handleGlobalError} />
       <DebugPanel 
         person={person}
         watchedValues={watchedValues}
@@ -297,6 +307,47 @@ const AsistanConfirmation = ({ scrollToTravel }) => {
         isSubmitting={isSubmitting}
       />
       <MobileDebugger />
+      
+      {/* Mostrar error global si existe */}
+      {globalError && (
+        <div style={{
+          position: 'fixed',
+          top: '10px',
+          left: '10px',
+          right: '10px',
+          background: 'rgba(255, 107, 107, 0.95)',
+          color: 'white',
+          padding: '15px',
+          borderRadius: '8px',
+          zIndex: 10000,
+          fontSize: '14px',
+          boxShadow: '0 4px 12px rgba(0,0,0,0.3)'
+        }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <div>
+              <strong>🚨 Error Global Detectado</strong>
+              <div style={{ fontSize: '12px', marginTop: '5px' }}>
+                {globalError.type}: {globalError.message || globalError.reason}
+              </div>
+            </div>
+            <button
+              onClick={() => setGlobalError(null)}
+              style={{
+                background: 'transparent',
+                border: '1px solid white',
+                color: 'white',
+                padding: '5px 10px',
+                borderRadius: '4px',
+                cursor: 'pointer',
+                fontSize: '12px'
+              }}
+            >
+              ✕
+            </button>
+          </div>
+        </div>
+      )}
+      
       <section className="asistan-confirmation-container">
         <div className="dress-code-header header-alignment">
           <h2 className="dress-code-header-title">
