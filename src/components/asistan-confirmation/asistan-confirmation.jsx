@@ -4,6 +4,7 @@ import { useTranslation } from "../../hooks/useTranslation";
 import { useState, useEffect } from "react";
 import { patchGuest } from "../../services/apdiPeopleService";
 import { useData } from "../../context/useData";
+import DebugPanel from "./DebugPanel";
 
 const AsistanConfirmation = ({ scrollToTravel }) => {
   const {
@@ -94,13 +95,17 @@ const AsistanConfirmation = ({ scrollToTravel }) => {
       // Si se seleccionó pollo, auto-ajustar cerdo
       if (currentChickenCount > 0 && currentChickenCount <= currentPassCount) {
         const remainingPork = currentPassCount - currentChickenCount;
-        setValue("porkCount", remainingPork.toString());
+        if (remainingPork !== currentPorkCount) {
+          setValue("porkCount", remainingPork.toString());
+        }
       }
 
       // Si se seleccionó cerdo, auto-ajustar pollo
       if (currentPorkCount > 0 && currentPorkCount <= currentPassCount) {
         const remainingChicken = currentPassCount - currentPorkCount;
-        setValue("chickenCount", remainingChicken.toString());
+        if (remainingChicken !== currentChickenCount) {
+          setValue("chickenCount", remainingChicken.toString());
+        }
       }
     }
   }, [currentChickenCount, currentPorkCount, currentPassCount, setValue]);
@@ -134,8 +139,13 @@ const AsistanConfirmation = ({ scrollToTravel }) => {
       setIsSubmitting(true);
       setSubmitMessage("");
 
+      // Validar que tenemos los datos necesarios
+      if (!person?.guestInvitationId) {
+        throw new Error("ID de invitación no disponible");
+      }
+
       const updateData = {
-        guestParticipation: parseInt(data.passCount),
+        guestParticipation: parseInt(data.passCount) || 0,
         guestChickenCountDesire: parseInt(data.chickenCount) || 0,
         guestPorkCountDesire: parseInt(data.porkCount) || 0,
         guestInvitationResponse: true,
@@ -149,6 +159,7 @@ const AsistanConfirmation = ({ scrollToTravel }) => {
         updateData.guestForeignerTransport = data.foreignerTransport === "true";
       }
       
+      console.log("Enviando datos:", updateData); // Debug log
     
       // Hacer el patch al servidor primero
       await patchGuest(person.guestInvitationId, updateData);
@@ -158,11 +169,13 @@ const AsistanConfirmation = ({ scrollToTravel }) => {
 
       setSubmitMessage(`${t.confirmation.confirmationSend}`);
       setTimeout(() => {
-        scrollToTravel();
+        if (typeof scrollToTravel === 'function') {
+          scrollToTravel();
+        }
       }, 500);
     } catch (error) {
-      console.error(`${t.confirmation.formErrorSend}`, error);
-      setSubmitMessage(`${t.confirmation.formErrorTryAgain}`);
+      console.error("Error en onSubmit:", error);
+      setSubmitMessage(`${t.confirmation.formErrorTryAgain || "Error al enviar. Intenta de nuevo."}`);
     } finally {
       setIsSubmitting(false);
     }
@@ -173,6 +186,11 @@ const AsistanConfirmation = ({ scrollToTravel }) => {
     try {
       setIsSubmitting(true);
       setSubmitMessage("");
+
+      // Validar que tenemos los datos necesarios
+      if (!person?.guestInvitationId) {
+        throw new Error("ID de invitación no disponible");
+      }
 
       const updateData = {
         guestParticipation: 0,
@@ -188,6 +206,7 @@ const AsistanConfirmation = ({ scrollToTravel }) => {
         updateData.guestForeignerTransport = false;
       }
       
+      console.log("Enviando datos (no asistir):", updateData); // Debug log
       
       // Hacer el patch al servidor primero
       await patchGuest(person.guestInvitationId, updateData);
@@ -195,34 +214,56 @@ const AsistanConfirmation = ({ scrollToTravel }) => {
       // Si el patch fue exitoso, actualizar el estado global del contexto
       updatePerson(updateData);
       
-      
       setSubmitMessage(`${t.confirmation.thanksForDeclineConfirmation}`);
       setTimeout(() => {
-        scrollToTravel();
+        if (typeof scrollToTravel === 'function') {
+          scrollToTravel();
+        }
       }, 500);
     } catch (error) {
-      console.error(`${t.confirmation.errorDeclineConfirmation}`, error);
-      setSubmitMessage(`${t.confirmation.errorDeclineConfirmationTryAgain}`);
+      console.error("Error en handleNoAsistan:", error);
+      setSubmitMessage(`${t.confirmation.errorDeclineConfirmationTryAgain || "Error al enviar. Intenta de nuevo."}`);
     } finally {
       setIsSubmitting(false);
     }
   };
-  // Debug: Verificar datos
+
+  // Verificar que person existe antes de renderizar
+  if (!person) {
+    return (
+      <section className="asistan-confirmation-container">
+        <div className="dress-code-header header-alignment">
+          <h2 className="dress-code-header-title">
+            {t?.confirmation?.title || "Confirmación de Asistencia"}
+          </h2>
+          <hr />
+        </div>
+        <p>Cargando información del invitado...</p>
+      </section>
+    );
+  }
 
   return (
-    <section className="asistan-confirmation-container">
-      <div className="dress-code-header header-alignment">
-        <h2 className="dress-code-header-title">
-          {t?.confirmation?.title || "Confirmación de Asistencia"}
-        </h2>
-        <hr />
-      </div>
+    <>
+      <DebugPanel 
+        person={person}
+        watchedValues={watchedValues}
+        errors={errors}
+        isSubmitting={isSubmitting}
+      />
+      <section className="asistan-confirmation-container">
+        <div className="dress-code-header header-alignment">
+          <h2 className="dress-code-header-title">
+            {t?.confirmation?.title || "Confirmación de Asistencia"}
+          </h2>
+          <hr />
+        </div>
 
       <p className="asistan-confirmation-text">
         {t.confirmation.confirmationMessage}
       </p>
       {
-        person.guestInvitationResponse ? (
+        person?.guestInvitationResponse ? (
           <h2 className="asistan-confirmation-text">{t.confirmation.alreadyConfirmed}</h2>
         ) :(   <form
           className="asistan-confirmation-form"
@@ -230,7 +271,7 @@ const AsistanConfirmation = ({ scrollToTravel }) => {
         >
           <h3 className="asistan-confirmation-title">
             {t.confirmation.confirmationMessageComplement}{" "}
-            {person.guestPassesNumberToRecibe}{" "}
+            {person?.guestPassesNumberToRecibe || 0}{" "}
             {t.confirmation.confirmationMessageComplement2}
           </h3>
   
@@ -266,9 +307,9 @@ const AsistanConfirmation = ({ scrollToTravel }) => {
             >
               <option value="">{t.confirmation.selectPasses}</option>
               {Array.from(
-                { length: person.guestPassesNumberToRecibe },
+                { length: person?.guestPassesNumberToRecibe || 0 },
                 (_, index) => {
-                  const value = person.guestPassesNumberToRecibe - index;
+                  const value = (person?.guestPassesNumberToRecibe || 0) - index;
                   return (
                     <option key={value} value={value}>
                       {value}
@@ -291,7 +332,7 @@ const AsistanConfirmation = ({ scrollToTravel }) => {
                   type="button"
                   className="button-no-asistir"
                   onClick={handleNoAsistan}
-                  disabled={isSubmitting || person.guestInvitationResponse}
+                        disabled={isSubmitting || person?.guestInvitationResponse}
                 >
                   {t.confirmation.willNotAttend}
                 </button>
@@ -369,7 +410,7 @@ const AsistanConfirmation = ({ scrollToTravel }) => {
                 )}
               </label>
               {/* Campo de transporte para extranjeros */}
-              {person.guestForeigner === "YES" &&
+              {person?.guestForeigner === "YES" &&
               watchedValues.churchAssistant === "true" &&
               watchedValues.receptionAssistant === "true" ? (
                 <div className="foreigner-transport-field">
@@ -566,6 +607,7 @@ const AsistanConfirmation = ({ scrollToTravel }) => {
 
       <p>{t.confirmation.deadlineMessage}</p>
     </section>
+    </>
   );
 };
 
