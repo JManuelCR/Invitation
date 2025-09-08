@@ -8,7 +8,6 @@ import DebugPanel from "./DebugPanel";
 import ErrorBoundary from "./ErrorBoundary";
 import MobileDebugger from "./MobileDebugger";
 import GlobalErrorHandler from "./GlobalErrorHandler";
-import CacheBustingNotification from "../CacheBustingNotification";
 import { useMobileDetection } from "../../hooks/useMobileDetection";
 import { useCacheBusting } from "../../hooks/useCacheBusting";
 
@@ -344,17 +343,34 @@ const AsistanConfirmation = ({ scrollToTravel }) => {
         alignItems: 'center',
         height: '100vh',
         flexDirection: 'column',
-        fontFamily: 'Arial, sans-serif'
+        fontFamily: 'Arial, sans-serif',
+        backgroundColor: '#f8f9fa'
       }}>
-        <div style={{ fontSize: '24px', marginBottom: '20px' }}>🔄</div>
-        <div>Limpiando caché y cargando la versión más reciente...</div>
+        <div style={{ 
+          fontSize: '32px', 
+          marginBottom: '20px',
+          animation: 'spin 1s linear infinite'
+        }}>🔄</div>
+        <div style={{ 
+          fontSize: '16px', 
+          color: '#666',
+          textAlign: 'center',
+          maxWidth: '300px'
+        }}>
+          Cargando la aplicación...
+        </div>
+        <style>{`
+          @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+          }
+        `}</style>
       </div>
     );
   }
 
   return (
     <ErrorBoundary>
-      <CacheBustingNotification />
       <GlobalErrorHandler onError={handleGlobalError} />
       <DebugPanel 
         person={person}

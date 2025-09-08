@@ -6,74 +6,62 @@ export const useCacheBusting = () => {
   useEffect(() => {
     const clearCache = async () => {
       try {
-        console.log('🧹 Iniciando limpieza de caché...');
+        console.log('🧹 Limpieza automática de caché...');
 
-        // 1. Limpiar localStorage y sessionStorage
+        // Limpiar caché de forma rápida y eficiente
+        const cleanupPromises = [];
+
+        // 1. Limpiar localStorage y sessionStorage (solo datos de caché, no configuración del usuario)
         if (typeof Storage !== 'undefined') {
-          localStorage.clear();
-          sessionStorage.clear();
-          console.log('✅ localStorage y sessionStorage limpiados');
-        }
-
-        // 2. Limpiar caché del service worker si existe
-        if ('serviceWorker' in navigator) {
-          const registrations = await navigator.serviceWorker.getRegistrations();
-          for (let registration of registrations) {
-            await registration.unregister();
-            console.log('✅ Service Worker desregistrado:', registration.scope);
+          // Solo limpiar claves relacionadas con caché, no toda la configuración
+          const keysToRemove = [];
+          for (let i = 0; i < localStorage.length; i++) {
+            const key = localStorage.key(i);
+            if (key && (key.includes('cache') || key.includes('version') || key.includes('sw-'))) {
+              keysToRemove.push(key);
+            }
           }
+          keysToRemove.forEach(key => localStorage.removeItem(key));
+          sessionStorage.clear();
         }
 
-        // 3. Limpiar caché de la API Cache si está disponible
+        // 2. Limpiar caché de la API Cache si está disponible
         if ('caches' in window) {
-          const cacheNames = await caches.keys();
-          await Promise.all(
-            cacheNames.map(cacheName => {
-              console.log('🗑️ Eliminando caché:', cacheName);
-              return caches.delete(cacheName);
-            })
+          cleanupPromises.push(
+            caches.keys().then(cacheNames => 
+              Promise.all(cacheNames.map(cacheName => caches.delete(cacheName)))
+            )
           );
-          console.log('✅ Caché de API limpiado');
         }
 
-        // 4. Forzar recarga de recursos críticos
-        const criticalResources = [
-          '/src/components/asistan-confirmation/asistan-confirmation.jsx',
-          '/src/components/asistan-confirmation/ErrorBoundary.jsx',
-          '/src/hooks/useTranslation.js',
-          '/src/context/DataProvider.jsx'
-        ];
+        // 3. Desregistrar service workers antiguos
+        if ('serviceWorker' in navigator) {
+          cleanupPromises.push(
+            navigator.serviceWorker.getRegistrations().then(registrations =>
+              Promise.all(registrations.map(registration => registration.unregister()))
+            )
+          );
+        }
 
-        criticalResources.forEach(resource => {
-          const link = document.createElement('link');
-          link.rel = 'preload';
-          link.href = `${resource}?v=${Date.now()}`;
-          link.as = 'script';
-          document.head.appendChild(link);
-        });
+        // Ejecutar todas las limpiezas en paralelo
+        await Promise.all(cleanupPromises);
+
+        // Actualizar versión de la app
+        localStorage.setItem('app-version', import.meta.env.VITE_APP_VERSION || Date.now().toString());
+        localStorage.removeItem('force-cache-clear');
 
         setCacheCleared(true);
-        console.log('🎉 Limpieza de caché completada');
+        console.log('✅ Limpieza automática completada');
 
       } catch (error) {
-        console.error('❌ Error durante la limpieza de caché:', error);
+        console.error('❌ Error durante la limpieza automática:', error);
+        // Aún así, permitir que la app continúe
+        setCacheCleared(true);
       }
     };
 
-    // Solo limpiar caché en desarrollo o cuando se detecte un problema
-    const shouldClearCache = 
-      import.meta.env.DEV || 
-      localStorage.getItem('force-cache-clear') === 'true' ||
-      !localStorage.getItem('app-version') ||
-      localStorage.getItem('app-version') !== import.meta.env.VITE_APP_VERSION;
-
-    if (shouldClearCache) {
-      clearCache();
-      localStorage.setItem('app-version', import.meta.env.VITE_APP_VERSION || Date.now().toString());
-      localStorage.removeItem('force-cache-clear');
-    } else {
-      setCacheCleared(true);
-    }
+    // Siempre hacer limpieza automática
+    clearCache();
   }, []);
 
   const forceCacheClear = () => {
