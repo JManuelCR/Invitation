@@ -45,6 +45,12 @@ const DebugPanel = ({ person, watchedValues, errors, isSubmitting }) => {
           <div>Pork: {watchedValues.porkCount || 'N/A'}</div>
           <div>Church: {watchedValues.churchAssistant || 'N/A'}</div>
           <div>Reception: {watchedValues.receptionAssistant || 'N/A'}</div>
+          <div style={{ 
+            color: (parseInt(watchedValues.chickenCount || 0) + parseInt(watchedValues.porkCount || 0)) === parseInt(watchedValues.passCount || 0) ? '#4CAF50' : '#ff6b6b',
+            fontWeight: 'bold'
+          }}>
+            Sum: {(parseInt(watchedValues.chickenCount || 0) + parseInt(watchedValues.porkCount || 0))} / {watchedValues.passCount || 0}
+          </div>
         </div>
       </div>
 

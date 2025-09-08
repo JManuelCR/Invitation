@@ -5,6 +5,9 @@ import { useState, useEffect } from "react";
 import { patchGuest } from "../../services/apdiPeopleService";
 import { useData } from "../../context/useData";
 import DebugPanel from "./DebugPanel";
+import ErrorBoundary from "./ErrorBoundary";
+import MobileDebugger from "./MobileDebugger";
+import { useMobileDetection } from "../../hooks/useMobileDetection";
 
 const AsistanConfirmation = ({ scrollToTravel }) => {
   const {
@@ -30,6 +33,9 @@ const AsistanConfirmation = ({ scrollToTravel }) => {
     person,
     updatePerson
   } = useData();
+
+  // Detectar dispositivo móvil
+  const { isMobile, isTouch, deviceInfo, isLowEndDevice } = useMobileDetection();
 
   // Observar los valores del formulario
   const watchedValues = watch();
@@ -90,47 +96,86 @@ const AsistanConfirmation = ({ scrollToTravel }) => {
   }, [currentPassCount, setValue]);
 
   // Auto-ajustar el otro campo cuando uno cambie para mantener la suma correcta
+  // Solo se ejecuta cuando cambia el número de pases, no cuando cambian los valores de carne
   useEffect(() => {
     if (currentPassCount > 0) {
-      // Si se seleccionó pollo, auto-ajustar cerdo
-      if (currentChickenCount > 0 && currentChickenCount <= currentPassCount) {
-        const remainingPork = currentPassCount - currentChickenCount;
-        if (remainingPork !== currentPorkCount) {
-          setValue("porkCount", remainingPork.toString());
-        }
-      }
-
-      // Si se seleccionó cerdo, auto-ajustar pollo
-      if (currentPorkCount > 0 && currentPorkCount <= currentPassCount) {
-        const remainingChicken = currentPassCount - currentPorkCount;
-        if (remainingChicken !== currentChickenCount) {
-          setValue("chickenCount", remainingChicken.toString());
-        }
+      // Si hay valores de carne seleccionados, verificar que sumen correctamente
+      const totalSelected = currentChickenCount + currentPorkCount;
+      if (totalSelected > currentPassCount) {
+        // Si excede, resetear ambos campos
+        setValue("chickenCount", "");
+        setValue("porkCount", "");
       }
     }
-  }, [currentChickenCount, currentPorkCount, currentPassCount, setValue]);
+  }, [currentPassCount, currentChickenCount, currentPorkCount, setValue]);
 
   // Función para manejar el cambio de pollo
   const handleChickenChange = (e) => {
-    const chickenValue = parseInt(e.target.value) || 0;
-    setValue("chickenCount", chickenValue.toString());
+    try {
+      const chickenValue = parseInt(e.target.value) || 0;
+      
+      console.log('🐔 handleChickenChange:', {
+        chickenValue,
+        currentPassCount,
+        currentPorkCount,
+        isMobile,
+        isTouch,
+        isLowEndDevice,
+        deviceInfo
+      });
+      
+      // Actualizar el valor de pollo
+      setValue("chickenCount", chickenValue.toString());
 
-    if (chickenValue > 0 && currentPassCount > 0) {
-      // Auto-ajustar cerdo para cubrir el resto de pases
-      const remainingPork = currentPassCount - chickenValue;
-      setValue("porkCount", remainingPork.toString());
+      // Auto-ajustar cerdo solo si hay pases seleccionados
+      if (currentPassCount > 0 && chickenValue >= 0) {
+        const remainingPork = currentPassCount - chickenValue;
+        console.log('🐷 Auto-ajustando cerdo a:', remainingPork);
+        
+        // Usar setTimeout para evitar problemas de timing en móviles
+        // Aumentar el delay en dispositivos de gama baja
+        const delay = isLowEndDevice ? 50 : 10;
+        setTimeout(() => {
+          setValue("porkCount", remainingPork.toString());
+        }, delay);
+      }
+    } catch (error) {
+      console.error('Error en handleChickenChange:', error);
     }
   };
 
   // Función para manejar el cambio de cerdo
   const handlePorkChange = (e) => {
-    const porkValue = parseInt(e.target.value) || 0;
-    setValue("porkCount", porkValue.toString());
+    try {
+      const porkValue = parseInt(e.target.value) || 0;
+      
+      console.log('🐷 handlePorkChange:', {
+        porkValue,
+        currentPassCount,
+        currentChickenCount,
+        isMobile,
+        isTouch,
+        isLowEndDevice,
+        deviceInfo
+      });
+      
+      // Actualizar el valor de cerdo
+      setValue("porkCount", porkValue.toString());
 
-    if (porkValue > 0 && currentPassCount > 0) {
-      // Auto-ajustar pollo para cubrir el resto de pases
-      const remainingChicken = currentPassCount - porkValue;
-      setValue("chickenCount", remainingChicken.toString());
+      // Auto-ajustar pollo solo si hay pases seleccionados
+      if (currentPassCount > 0 && porkValue >= 0) {
+        const remainingChicken = currentPassCount - porkValue;
+        console.log('🐔 Auto-ajustando pollo a:', remainingChicken);
+        
+        // Usar setTimeout para evitar problemas de timing en móviles
+        // Aumentar el delay en dispositivos de gama baja
+        const delay = isLowEndDevice ? 50 : 10;
+        setTimeout(() => {
+          setValue("chickenCount", remainingChicken.toString());
+        }, delay);
+      }
+    } catch (error) {
+      console.error('Error en handlePorkChange:', error);
     }
   };
 
@@ -244,13 +289,14 @@ const AsistanConfirmation = ({ scrollToTravel }) => {
   }
 
   return (
-    <>
+    <ErrorBoundary>
       <DebugPanel 
         person={person}
         watchedValues={watchedValues}
         errors={errors}
         isSubmitting={isSubmitting}
       />
+      <MobileDebugger />
       <section className="asistan-confirmation-container">
         <div className="dress-code-header header-alignment">
           <h2 className="dress-code-header-title">
@@ -304,6 +350,11 @@ const AsistanConfirmation = ({ scrollToTravel }) => {
                 },
               })}
               disabled={isSubmitting}
+              style={{
+                fontSize: '16px', // Previene zoom en iOS
+                minHeight: '44px', // Tamaño mínimo táctil
+                touchAction: 'manipulation' // Optimiza eventos táctiles
+              }}
             >
               <option value="">{t.confirmation.selectPasses}</option>
               {Array.from(
@@ -512,6 +563,11 @@ const AsistanConfirmation = ({ scrollToTravel }) => {
                       })}
                       disabled={isSubmitting}
                       onChange={handleChickenChange}
+                      style={{
+                        fontSize: '16px', // Previene zoom en iOS
+                        minHeight: '44px', // Tamaño mínimo táctil
+                        touchAction: 'manipulation' // Optimiza eventos táctiles
+                      }}
                     >
                       <option value="">
                         {t?.confirmation?.selectOption || ""}
@@ -548,6 +604,11 @@ const AsistanConfirmation = ({ scrollToTravel }) => {
                       })}
                       disabled={isSubmitting}
                       onChange={handlePorkChange}
+                      style={{
+                        fontSize: '16px', // Previene zoom en iOS
+                        minHeight: '44px', // Tamaño mínimo táctil
+                        touchAction: 'manipulation' // Optimiza eventos táctiles
+                      }}
                     >
                       <option value="">
                         {t?.confirmation?.selectOption || ""}
@@ -607,7 +668,7 @@ const AsistanConfirmation = ({ scrollToTravel }) => {
 
       <p>{t.confirmation.deadlineMessage}</p>
     </section>
-    </>
+    </ErrorBoundary>
   );
 };
 
