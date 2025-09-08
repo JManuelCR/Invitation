@@ -1,14 +1,16 @@
 import "./asistan-confirmation.css";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "../../hooks/useTranslation";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { patchGuest } from "../../services/apdiPeopleService";
 import { useData } from "../../context/useData";
 import DebugPanel from "./DebugPanel";
 import ErrorBoundary from "./ErrorBoundary";
 import MobileDebugger from "./MobileDebugger";
 import GlobalErrorHandler from "./GlobalErrorHandler";
+import CacheBustingNotification from "../CacheBustingNotification";
 import { useMobileDetection } from "../../hooks/useMobileDetection";
+import { useCacheBusting } from "../../hooks/useCacheBusting";
 
 const AsistanConfirmation = ({ scrollToTravel }) => {
   const {
@@ -38,6 +40,9 @@ const AsistanConfirmation = ({ scrollToTravel }) => {
   // Detectar dispositivo móvil
   const { isMobile, isTouch, deviceInfo, isLowEndDevice } = useMobileDetection();
 
+  // Manejo de caché
+  const { cacheCleared, forceCacheClear } = useCacheBusting();
+
   // Estado para errores globales
   const [globalError, setGlobalError] = useState(null);
 
@@ -55,7 +60,7 @@ const AsistanConfirmation = ({ scrollToTravel }) => {
   const currentPorkCount = parseInt(watchedValues.porkCount) || 0;
 
   // Generar opciones para chickenCount basadas en pases disponibles
-  const chickenCountOptions = () => {
+  const chickenCountOptions = useMemo(() => {
     if (currentPassCount === 0) return [];
 
     const options = [];
@@ -73,10 +78,10 @@ const AsistanConfirmation = ({ scrollToTravel }) => {
     }
 
     return options;
-  };
+  }, [currentPassCount, t?.confirmation?.chicken, t?.confirmation?.chickenPlural]);
 
   // Generar opciones para porkCount basadas en pases disponibles
-  const porkCountOptions = () => {
+  const porkCountOptions = useMemo(() => {
     if (currentPassCount === 0) return [];
 
     const options = [];
@@ -94,7 +99,7 @@ const AsistanConfirmation = ({ scrollToTravel }) => {
     }
 
     return options;
-  };
+  }, [currentPassCount, t?.confirmation?.pork, t?.confirmation?.porkPlural]);
 
   // Resetear chickenCount y porkCount cuando cambie el número de pases
   useEffect(() => {
@@ -107,23 +112,49 @@ const AsistanConfirmation = ({ scrollToTravel }) => {
   // Auto-ajustar el otro campo cuando uno cambie para mantener la suma correcta
   // Solo se ejecuta cuando cambia el número de pases, no cuando cambian los valores de carne
   useEffect(() => {
-    if (currentPassCount > 0) {
-      // Si hay valores de carne seleccionados, verificar que sumen correctamente
-      const totalSelected = currentChickenCount + currentPorkCount;
-      if (totalSelected > currentPassCount) {
-        // Si excede, resetear ambos campos
-        setValue("chickenCount", "");
-        setValue("porkCount", "");
+    try {
+      console.log('🔄 useEffect de validación ejecutándose:', {
+        currentPassCount,
+        currentChickenCount,
+        currentPorkCount,
+        totalSelected: currentChickenCount + currentPorkCount
+      });
+
+      if (currentPassCount > 0) {
+        // Si hay valores de carne seleccionados, verificar que sumen correctamente
+        const totalSelected = currentChickenCount + currentPorkCount;
+        if (totalSelected > currentPassCount) {
+          console.log('⚠️ Total excede pases, reseteando campos:', {
+            totalSelected,
+            currentPassCount
+          });
+          // Si excede, resetear ambos campos
+          setValue("chickenCount", "");
+          setValue("porkCount", "");
+        }
       }
+    } catch (error) {
+      console.error('🚨 Error en useEffect de validación:', error);
     }
   }, [currentPassCount, currentChickenCount, currentPorkCount, setValue]);
 
   // Función para manejar el cambio de pollo
   const handleChickenChange = (e) => {
     try {
+      console.log('🐔 handleChickenChange INICIADO:', {
+        event: e,
+        target: e.target,
+        value: e.target.value,
+        currentPassCount,
+        currentPorkCount,
+        isMobile,
+        isTouch,
+        isLowEndDevice
+      });
+
       const chickenValue = parseInt(e.target.value) || 0;
       
-      console.log('🐔 handleChickenChange:', {
+      console.log('🐔 handleChickenChange VALOR PROCESADO:', {
         chickenValue,
         currentPassCount,
         currentPorkCount,
@@ -134,6 +165,7 @@ const AsistanConfirmation = ({ scrollToTravel }) => {
       });
       
       // Actualizar el valor de pollo
+      console.log('🐔 Actualizando chickenCount a:', chickenValue.toString());
       setValue("chickenCount", chickenValue.toString());
 
       // Auto-ajustar cerdo solo si hay pases seleccionados
@@ -144,12 +176,18 @@ const AsistanConfirmation = ({ scrollToTravel }) => {
         // Usar setTimeout para evitar problemas de timing en móviles
         // Aumentar el delay en dispositivos de gama baja
         const delay = isLowEndDevice ? 50 : 10;
+        console.log('🐷 Usando delay de:', delay, 'ms');
+        
         setTimeout(() => {
+          console.log('🐷 Ejecutando setValue para porkCount:', remainingPork.toString());
           setValue("porkCount", remainingPork.toString());
         }, delay);
       }
+      
+      console.log('🐔 handleChickenChange COMPLETADO');
     } catch (error) {
-      console.error('Error en handleChickenChange:', error);
+      console.error('🚨 Error en handleChickenChange:', error);
+      console.error('🚨 Stack trace:', error.stack);
     }
   };
 
@@ -297,14 +335,33 @@ const AsistanConfirmation = ({ scrollToTravel }) => {
     );
   }
 
+  // No renderizar hasta que la caché esté limpia
+  if (!cacheCleared) {
+    return (
+      <div style={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: '100vh',
+        flexDirection: 'column',
+        fontFamily: 'Arial, sans-serif'
+      }}>
+        <div style={{ fontSize: '24px', marginBottom: '20px' }}>🔄</div>
+        <div>Limpiando caché y cargando la versión más reciente...</div>
+      </div>
+    );
+  }
+
   return (
     <ErrorBoundary>
+      <CacheBustingNotification />
       <GlobalErrorHandler onError={handleGlobalError} />
       <DebugPanel 
         person={person}
         watchedValues={watchedValues}
         errors={errors}
         isSubmitting={isSubmitting}
+        onForceCacheClear={forceCacheClear}
       />
       <MobileDebugger />
       
@@ -604,16 +661,32 @@ const AsistanConfirmation = ({ scrollToTravel }) => {
                       {...register("chickenCount", {
                         required: `${t.confirmation.passRequiere}`,
                         validate: (value) => {
-                          const chicken = parseInt(value) || 0;
-                          const pork = currentPorkCount;
-                          return (
-                            chicken + pork === currentPassCount ||
-                            `${t.confirmation.dishesSum}`
-                          );
+                          try {
+                            const chicken = parseInt(value) || 0;
+                            const pork = currentPorkCount;
+                            const isValid = chicken + pork === currentPassCount;
+                            console.log('🐔 Validación chickenCount:', {
+                              chicken,
+                              pork,
+                              currentPassCount,
+                              isValid
+                            });
+                            return isValid || `${t.confirmation.dishesSum}`;
+                          } catch (error) {
+                            console.error('🚨 Error en validación chickenCount:', error);
+                            return `${t.confirmation.dishesSum}`;
+                          }
                         },
                       })}
                       disabled={isSubmitting}
-                      onChange={handleChickenChange}
+                      onChange={(e) => {
+                        try {
+                          console.log('🐔 onChange del select chickenCount:', e);
+                          handleChickenChange(e);
+                        } catch (error) {
+                          console.error('🚨 Error en onChange chickenCount:', error);
+                        }
+                      }}
                       style={{
                         fontSize: '16px', // Previene zoom en iOS
                         minHeight: '44px', // Tamaño mínimo táctil
@@ -623,7 +696,7 @@ const AsistanConfirmation = ({ scrollToTravel }) => {
                       <option value="">
                         {t?.confirmation?.selectOption || ""}
                       </option>
-                      {chickenCountOptions()}
+                      {chickenCountOptions}
                     </select>
                     {errors.chickenCount && (
                       <span className="error">{errors.chickenCount.message}</span>
@@ -664,7 +737,7 @@ const AsistanConfirmation = ({ scrollToTravel }) => {
                       <option value="">
                         {t?.confirmation?.selectOption || ""}
                       </option>
-                      {porkCountOptions()}
+                      {porkCountOptions}
                     </select>
                     {errors.porkCount && (
                       <span className="error">{errors.porkCount.message}</span>

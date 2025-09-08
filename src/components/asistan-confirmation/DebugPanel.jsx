@@ -1,8 +1,8 @@
 import React from 'react';
 
-const DebugPanel = ({ person, watchedValues, errors, isSubmitting }) => {
+const DebugPanel = ({ person, watchedValues, errors, isSubmitting, onForceCacheClear }) => {
   // Solo mostrar en desarrollo
-  if (process.env.NODE_ENV === 'production') {
+  if (import.meta.env.PROD) {
     return null;
   }
 
@@ -69,10 +69,31 @@ const DebugPanel = ({ person, watchedValues, errors, isSubmitting }) => {
         </div>
       </div>
 
-      <div>
+      <div style={{ marginBottom: '10px' }}>
         <strong>Status:</strong>
         <div style={{ marginLeft: '10px' }}>
           <div>Submitting: {isSubmitting ? '⏳' : '✅'}</div>
+        </div>
+      </div>
+
+      <div>
+        <strong>Cache Control:</strong>
+        <div style={{ marginLeft: '10px' }}>
+          <button
+            onClick={onForceCacheClear}
+            style={{
+              backgroundColor: '#ff6b6b',
+              color: 'white',
+              border: 'none',
+              padding: '5px 10px',
+              borderRadius: '3px',
+              cursor: 'pointer',
+              fontSize: '10px',
+              marginTop: '5px'
+            }}
+          >
+            🧹 Force Clear Cache
+          </button>
         </div>
       </div>
     </div>
