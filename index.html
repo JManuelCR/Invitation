@@ -23,6 +23,91 @@
     <meta http-equiv="Pragma" content="no-cache" />
     <meta http-equiv="Expires" content="0" />
     
+    <!-- Cache Buster Script - Se ejecuta ANTES de React -->
+    <script>
+      (function() {
+        console.log('🚀 Cache Buster Script iniciando...');
+        
+        // Limpiar caché inmediatamente, antes de que se cargue React
+        try {
+          // 1. Limpiar storages
+          if (typeof Storage !== 'undefined') {
+            localStorage.clear();
+            sessionStorage.clear();
+            console.log('✅ Storages limpiados');
+          }
+          
+          // 2. Limpiar caché de API
+          if ('caches' in window) {
+            caches.keys().then(function(cacheNames) {
+              return Promise.all(
+                cacheNames.map(function(cacheName) {
+                  console.log('🗑️ Eliminando caché:', cacheName);
+                  return caches.delete(cacheName);
+                })
+              );
+            }).then(function() {
+              console.log('✅ Caché de API limpiado');
+            });
+          }
+          
+          // 3. Desregistrar service workers y limpiar su caché
+          if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.getRegistrations().then(function(registrations) {
+              for (let registration of registrations) {
+                registration.unregister();
+                console.log('✅ Service Worker desregistrado:', registration.scope);
+              }
+            });
+            
+            // Limpiar caché del Service Worker activo si existe
+            if (navigator.serviceWorker.controller) {
+              try {
+                const messageChannel = new MessageChannel();
+                messageChannel.port1.onmessage = function(event) {
+                  console.log('✅ Service Worker caché limpiado:', event.data);
+                };
+                
+                navigator.serviceWorker.controller.postMessage(
+                  { type: 'CLEAR_CACHE' },
+                  [messageChannel.port2]
+                );
+              } catch (error) {
+                console.warn('⚠️ Error comunicándose con Service Worker:', error);
+              }
+            }
+          }
+          
+          // 4. Forzar recarga solo si es necesario (evitar bucles)
+          const userAgent = navigator.userAgent;
+          const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(userAgent);
+          const isSafari = /Safari/.test(userAgent) && !/Chrome/.test(userAgent);
+          
+          if (isMobile && isSafari) {
+            // Safari móvil es muy persistente
+            const lastClean = localStorage.getItem('last-cache-clean');
+            const forceReload = localStorage.getItem('force-reload');
+            const now = Date.now();
+            
+            // Solo forzar recarga si no hemos recargado recientemente
+            if (forceReload === 'true' && (!lastClean || (now - parseInt(lastClean)) > 60000)) {
+              localStorage.setItem('last-cache-clean', now.toString());
+              localStorage.removeItem('force-reload'); // Limpiar flag
+              console.log('🔄 Safari móvil detectado - forzando recarga...');
+              setTimeout(function() {
+                window.location.reload(true);
+              }, 100);
+              return;
+            }
+          }
+          
+          console.log('✅ Cache Buster Script completado');
+        } catch (error) {
+          console.error('❌ Error en Cache Buster Script:', error);
+        }
+      })();
+    </script>
+    
     <!-- Service Worker -->
     <script>
       if ('serviceWorker' in navigator) {

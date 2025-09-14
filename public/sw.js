@@ -1,15 +1,11 @@
-// Service Worker para control de caché
-const CACHE_NAME = 'invitation-app-v1';
-const DYNAMIC_CACHE_NAME = 'invitation-dynamic-v1';
+// Service Worker simplificado para control de caché
+const CACHE_NAME = 'invitation-app-v2';
+const DYNAMIC_CACHE_NAME = 'invitation-dynamic-v2';
 
 // Archivos críticos que siempre deben estar en caché
 const CRITICAL_FILES = [
   '/',
-  '/index.html',
-  '/src/components/asistan-confirmation/asistan-confirmation.jsx',
-  '/src/components/asistan-confirmation/ErrorBoundary.jsx',
-  '/src/hooks/useTranslation.js',
-  '/src/context/DataProvider.jsx'
+  '/index.html'
 ];
 
 // Instalar service worker
@@ -66,7 +62,7 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // Estrategia: Network First para archivos dinámicos
+  // Estrategia: Network First para APIs
   if (request.url.includes('/api/') || request.url.includes('.json')) {
     event.respondWith(
       fetch(request)
@@ -89,59 +85,24 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // Estrategia: Cache First para archivos estáticos
-  if (request.url.includes('.js') || request.url.includes('.css') || request.url.includes('.jsx')) {
-    event.respondWith(
-      caches.match(request)
-        .then((response) => {
-          if (response) {
-            // Verificar si el archivo está actualizado
-            const cacheTime = response.headers.get('sw-cache-time');
-            const now = Date.now();
-            
-            // Si el archivo tiene más de 5 minutos en caché, intentar actualizar
-            if (!cacheTime || (now - parseInt(cacheTime)) > 300000) {
-              fetch(request)
-                .then((networkResponse) => {
-                  if (networkResponse.status === 200) {
-                    const responseClone = networkResponse.clone();
-                    responseClone.headers.set('sw-cache-time', now.toString());
-                    caches.open(CACHE_NAME)
-                      .then((cache) => {
-                        cache.put(request, responseClone);
-                      });
-                  }
-                })
-                .catch(() => {
-                  // Si falla la actualización, usar caché existente
-                });
-            }
-            
-            return response;
-          }
-          
-          // Si no está en caché, hacer fetch y cachear
-          return fetch(request)
-            .then((response) => {
-              if (response.status === 200) {
-                const responseClone = response.clone();
-                responseClone.headers.set('sw-cache-time', Date.now().toString());
-                caches.open(CACHE_NAME)
-                  .then((cache) => {
-                    cache.put(request, responseClone);
-                  });
-              }
-              return response;
-            });
-        })
-    );
-    return;
-  }
-
-  // Para otros requests, usar estrategia por defecto
+  // Estrategia: Network First para archivos estáticos (evitar problemas de caché)
   event.respondWith(
     fetch(request)
-      .catch(() => caches.match(request))
+      .then((response) => {
+        // Solo cachear si la respuesta es exitosa
+        if (response.status === 200) {
+          const responseClone = response.clone();
+          caches.open(CACHE_NAME)
+            .then((cache) => {
+              cache.put(request, responseClone);
+            });
+        }
+        return response;
+      })
+      .catch(() => {
+        // Si falla la red, intentar desde caché
+        return caches.match(request);
+      })
   );
 });
 
