@@ -6,15 +6,12 @@ const CacheBuster = ({ children }) => {
   useEffect(() => {
     const aggressiveCacheClear = async () => {
       try {
-        console.log('🚀 CacheBuster: Iniciando limpieza ULTRA AGRESIVA...');
-
         // 1. Limpiar TODOS los storages inmediatamente
         try {
           localStorage.clear();
           sessionStorage.clear();
-          console.log('✅ Storages limpiados');
-        } catch (e) {
-          console.warn('⚠️ Error limpiando storages:', e);
+        } catch {
+          // Error silencioso
         }
 
         // 2. Limpiar caché de API
@@ -22,9 +19,8 @@ const CacheBuster = ({ children }) => {
           try {
             const cacheNames = await caches.keys();
             await Promise.all(cacheNames.map(name => caches.delete(name)));
-            console.log('✅ Caché de API limpiado');
-          } catch (e) {
-            console.warn('⚠️ Error limpiando caché de API:', e);
+          } catch {
+            // Error silencioso
           }
         }
 
@@ -33,9 +29,8 @@ const CacheBuster = ({ children }) => {
           try {
             const registrations = await navigator.serviceWorker.getRegistrations();
             await Promise.all(registrations.map(reg => reg.unregister()));
-            console.log('✅ Service Workers desregistrados');
-          } catch (e) {
-            console.warn('⚠️ Error desregistrando service workers:', e);
+          } catch {
+            // Error silencioso
           }
         }
 
@@ -66,32 +61,22 @@ const CacheBuster = ({ children }) => {
 
         // 5. Detectar dispositivo y aplicar estrategias específicas
         const userAgent = navigator.userAgent;
-        const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(userAgent);
+        const isAndroid = /Android/i.test(userAgent);
         
-        if (isMobile) {
-          console.log('📱 Dispositivo móvil detectado - aplicando estrategias específicas');
-          
-          // Para móviles, forzar recarga más agresiva
-          const forceReload = localStorage.getItem('force-reload-mobile');
-          if (!forceReload) {
-            localStorage.setItem('force-reload-mobile', 'true');
-            console.log('🔄 Forzando recarga en móvil...');
-            setTimeout(() => {
-              window.location.reload(true);
-            }, 50);
-            return;
-          } else {
-            localStorage.removeItem('force-reload-mobile');
+        if (isAndroid) {          
+          // Para Android, verificar si ya se hizo la limpieza
+          const androidCleaned = localStorage.getItem('android-cache-cleaned');
+          if (!androidCleaned) {
+            localStorage.setItem('android-cache-cleaned', 'true');
+            // No forzar recarga, solo marcar como limpio
           }
         }
 
         // 6. Marcar como listo
         localStorage.setItem('cache-buster-ready', timestamp.toString());
         setIsReady(true);
-        console.log('✅ CacheBuster: Limpieza completada');
 
-      } catch (error) {
-        console.error('❌ Error en CacheBuster:', error);
+      } catch {
         // Aún así, permitir que la app continúe
         setIsReady(true);
       }
@@ -99,6 +84,15 @@ const CacheBuster = ({ children }) => {
 
     // Ejecutar inmediatamente
     aggressiveCacheClear();
+
+    // Timeout de seguridad para Android - asegurar que siempre se marque como listo
+    const safetyTimeout = setTimeout(() => {
+      setIsReady(true);
+    }, 3000); // 3 segundos máximo
+
+    return () => {
+      clearTimeout(safetyTimeout);
+    };
   }, []);
 
   // Mostrar pantalla de carga mientras se limpia la caché

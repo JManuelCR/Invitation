@@ -6,24 +6,13 @@ export const useCacheBusting = () => {
   useEffect(() => {
     const clearCache = async () => {
       try {
-        console.log('🧹 Limpieza AGRESIVA de caché iniciada...');
-
         // Detectar tipo de dispositivo y navegador
         const userAgent = navigator.userAgent;
         const isIOS = /iPad|iPhone|iPod/.test(userAgent);
         const isAndroid = /Android/.test(userAgent);
         const isSafari = /Safari/.test(userAgent) && !/Chrome/.test(userAgent);
-        const isChrome = /Chrome/.test(userAgent);
-        const isFirefox = /Firefox/.test(userAgent);
-
-        console.log('📱 Dispositivo detectado:', {
-          isIOS,
-          isAndroid,
-          isSafari,
-          isChrome,
-          isFirefox,
-          userAgent
-        });
+        // const isChrome = /Chrome/.test(userAgent);
+        // const isFirefox = /Firefox/.test(userAgent);
 
         // Estrategias específicas por dispositivo
         const cleanupStrategies = [];
@@ -34,9 +23,8 @@ export const useCacheBusting = () => {
             // Limpiar TODO el localStorage (más agresivo)
             localStorage.clear();
             sessionStorage.clear();
-            console.log('✅ Storage completamente limpiado');
-          } catch (e) {
-            console.warn('⚠️ Error limpiando storage:', e);
+          } catch {
+            // Error silencioso
           }
         }
 
@@ -122,8 +110,8 @@ export const useCacheBusting = () => {
               if (window.chrome && window.chrome.runtime) {
                 try {
                   window.chrome.runtime.reload();
-                } catch (e) {
-                  console.warn('No se pudo recargar Chrome runtime');
+                } catch {
+                  // Error silencioso
                 }
               }
               setTimeout(resolve, 50);
@@ -146,8 +134,8 @@ export const useCacheBusting = () => {
                   console.warn('⚠️ Error limpiando IndexedDB');
                   resolve();
                 };
-              } catch (e) {
-                console.warn('⚠️ IndexedDB no disponible');
+              } catch {
+                // Error silencioso
                 resolve();
               }
             })
@@ -180,7 +168,19 @@ export const useCacheBusting = () => {
         // Ejecutar todas las estrategias
         await Promise.all(cleanupStrategies);
 
-        // 7. MARCAR VERSIÓN Y VERIFICAR SI NECESITAMOS RECARGA
+        // 7. LÓGICA ESPECÍFICA PARA ANDROID
+        if (isAndroid) {
+          // Para Android, usar una lógica más simple y confiable
+          const androidReady = localStorage.getItem('android-ready');
+          if (!androidReady) {
+            localStorage.setItem('android-ready', 'true');
+            // Marcar como listo inmediatamente para Android
+            setCacheCleared(true);
+            return;
+          }
+        }
+
+        // 8. MARCAR VERSIÓN Y VERIFICAR SI NECESITAMOS RECARGA
         const currentVersion = Date.now().toString();
         const lastVersion = localStorage.getItem('app-version');
         const forceReloadFlag = localStorage.getItem('force-reload');
@@ -190,7 +190,6 @@ export const useCacheBusting = () => {
           (!lastVersion || (Date.now() - parseInt(lastVersion)) > 60000); // 1 minuto mínimo entre recargas
 
         if (shouldForceReload) {
-          console.log('🔄 Forzando recarga para asegurar versión fresca...');
           localStorage.setItem('app-version', currentVersion);
           localStorage.removeItem('force-reload'); // Limpiar flag para evitar bucle
           
@@ -204,10 +203,8 @@ export const useCacheBusting = () => {
         // Marcar versión y permitir que la app continúe
         localStorage.setItem('app-version', currentVersion);
         setCacheCleared(true);
-        console.log('✅ Limpieza AGRESIVA completada - App lista para usar');
 
-      } catch (error) {
-        console.error('❌ Error durante la limpieza agresiva:', error);
+      } catch {
         // Aún así, permitir que la app continúe
         setCacheCleared(true);
       }
@@ -216,10 +213,22 @@ export const useCacheBusting = () => {
     // Verificar si necesitamos forzar recarga
     const forceReload = localStorage.getItem('force-reload') === 'true';
     if (forceReload) {
-      console.log('🔄 Flag de recarga forzada detectado - limpiando y continuando...');
       localStorage.removeItem('force-reload');
       setCacheCleared(true);
       return;
+    }
+
+    // Lógica específica para Android
+    const userAgent = navigator.userAgent;
+    const isAndroid = /Android/.test(userAgent);
+    
+    if (isAndroid) {
+      // Para Android, verificar si ya está listo
+      const androidReady = localStorage.getItem('android-ready');
+      if (androidReady) {
+        setCacheCleared(true);
+        return;
+      }
     }
 
     // Hacer limpieza agresiva solo si es necesario
@@ -228,13 +237,20 @@ export const useCacheBusting = () => {
     const needsCleanup = !lastClean || (now - parseInt(lastClean)) > 300000; // 5 minutos
 
     if (needsCleanup) {
-      console.log('🧹 Limpieza necesaria - ejecutando...');
       localStorage.setItem('last-cache-clean', now.toString());
       clearCache();
     } else {
-      console.log('✅ Caché reciente - saltando limpieza');
       setCacheCleared(true);
     }
+
+    // Timeout de seguridad para Android - asegurar que siempre se marque como listo
+    const safetyTimeout = setTimeout(() => {
+      setCacheCleared(true);
+    }, 5000); // 5 segundos máximo
+
+    return () => {
+      clearTimeout(safetyTimeout);
+    };
   }, []);
 
   const forceCacheClear = () => {
