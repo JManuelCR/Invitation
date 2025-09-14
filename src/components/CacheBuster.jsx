@@ -4,6 +4,24 @@ const CacheBuster = ({ children }) => {
   const [isReady, setIsReady] = useState(false);
 
   useEffect(() => {
+    // Detectar Android primero para lógica simplificada
+    const userAgent = navigator.userAgent;
+    const isAndroid = /Android/i.test(userAgent);
+    
+    if (isAndroid) {
+      // Para Android, lógica ultra simplificada
+      try {
+        localStorage.clear();
+        sessionStorage.clear();
+      } catch {
+        // Error silencioso
+      }
+      
+      // Marcar como listo inmediatamente
+      setIsReady(true);
+      return;
+    }
+
     const aggressiveCacheClear = async () => {
       try {
         // 1. Limpiar TODOS los storages inmediatamente
@@ -64,12 +82,10 @@ const CacheBuster = ({ children }) => {
         const isAndroid = /Android/i.test(userAgent);
         
         if (isAndroid) {          
-          // Para Android, verificar si ya se hizo la limpieza
-          const androidCleaned = localStorage.getItem('android-cache-cleaned');
-          if (!androidCleaned) {
-            localStorage.setItem('android-cache-cleaned', 'true');
-            // No forzar recarga, solo marcar como limpio
-          }
+          // Para Android, marcar como listo inmediatamente
+          // No depender de localStorage ya que lo estamos limpiando
+          setIsReady(true);
+          return;
         }
 
         // 6. Marcar como listo

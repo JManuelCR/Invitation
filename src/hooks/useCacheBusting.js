@@ -4,12 +4,29 @@ export const useCacheBusting = () => {
   const [cacheCleared, setCacheCleared] = useState(false);
 
   useEffect(() => {
+    // Detectar Android primero para lógica simplificada
+    const userAgent = navigator.userAgent;
+    const isAndroid = /Android/.test(userAgent);
+    
+    if (isAndroid) {
+      // Para Android, lógica ultra simplificada
+      try {
+        // Limpiar storages básicos
+        localStorage.clear();
+        sessionStorage.clear();
+      } catch {
+        // Error silencioso
+      }
+      
+      // Marcar como listo inmediatamente
+      setCacheCleared(true);
+      return;
+    }
+
     const clearCache = async () => {
       try {
         // Detectar tipo de dispositivo y navegador
-        const userAgent = navigator.userAgent;
         const isIOS = /iPad|iPhone|iPod/.test(userAgent);
-        const isAndroid = /Android/.test(userAgent);
         const isSafari = /Safari/.test(userAgent) && !/Chrome/.test(userAgent);
         // const isChrome = /Chrome/.test(userAgent);
         // const isFirefox = /Firefox/.test(userAgent);
@@ -170,14 +187,10 @@ export const useCacheBusting = () => {
 
         // 7. LÓGICA ESPECÍFICA PARA ANDROID
         if (isAndroid) {
-          // Para Android, usar una lógica más simple y confiable
-          const androidReady = localStorage.getItem('android-ready');
-          if (!androidReady) {
-            localStorage.setItem('android-ready', 'true');
-            // Marcar como listo inmediatamente para Android
-            setCacheCleared(true);
-            return;
-          }
+          // Para Android, marcar como listo inmediatamente
+          // No usar localStorage ya que lo estamos limpiando
+          setCacheCleared(true);
+          return;
         }
 
         // 8. MARCAR VERSIÓN Y VERIFICAR SI NECESITAMOS RECARGA
@@ -218,17 +231,12 @@ export const useCacheBusting = () => {
       return;
     }
 
-    // Lógica específica para Android
-    const userAgent = navigator.userAgent;
-    const isAndroid = /Android/.test(userAgent);
-    
+    // Lógica específica para Android - simplificada
     if (isAndroid) {
-      // Para Android, verificar si ya está listo
-      const androidReady = localStorage.getItem('android-ready');
-      if (androidReady) {
-        setCacheCleared(true);
-        return;
-      }
+      // Para Android, marcar como listo inmediatamente después de limpiar
+      // No depender de localStorage ya que lo estamos limpiando
+      setCacheCleared(true);
+      return;
     }
 
     // Hacer limpieza agresiva solo si es necesario
