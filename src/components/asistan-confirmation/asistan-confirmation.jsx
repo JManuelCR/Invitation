@@ -146,6 +146,11 @@ const AsistanConfirmation = ({ scrollToTravel }) => {
     }
   }, [currentPassCount, currentChickenCount, currentPorkCount, setValue]);
 
+  // Validación adicional para mostrar mensaje de ayuda
+  const totalDishes = currentChickenCount + currentPorkCount;
+  const isValidDishSelection = totalDishes === currentPassCount && currentPassCount > 0;
+  const remainingDishes = currentPassCount - totalDishes;
+
   // Función para manejar el cambio de pollo
   const handleChickenChange = (e) => {
     try {
@@ -725,9 +730,9 @@ const AsistanConfirmation = ({ scrollToTravel }) => {
                             const pork = currentPorkCount;
                             const total = chicken + pork;
                             
-                            // Permitir que la suma sea menor o igual al número de pases
-                            // Esto permite seleccionar 0 pollos sin forzar el cerdo
-                            const isValid = total <= currentPassCount && total >= 0;
+                            // Validar que la suma sea exactamente igual al número de pases
+                            // Esto asegura que se asignen todos los pases seleccionados
+                            const isValid = total === currentPassCount && total > 0;
                             return isValid || `${t.confirmation.dishesSum}`;
                           } catch {
                             // Error silencioso para evitar interrumpir la funcionalidad
@@ -779,9 +784,9 @@ const AsistanConfirmation = ({ scrollToTravel }) => {
                             const chicken = currentChickenCount;
                             const total = chicken + pork;
                             
-                            // Permitir que la suma sea menor o igual al número de pases
-                            // Esto permite seleccionar 0 cerdo sin forzar el pollo
-                            const isValid = total <= currentPassCount && total >= 0;
+                            // Validar que la suma sea exactamente igual al número de pases
+                            // Esto asegura que se asignen todos los pases seleccionados
+                            const isValid = total === currentPassCount && total > 0;
                             return isValid || `${t.confirmation.dishesSum}`;
                           } catch {
                             // Error silencioso para evitar interrumpir la funcionalidad
@@ -806,6 +811,30 @@ const AsistanConfirmation = ({ scrollToTravel }) => {
                       <span className="error">{errors.porkCount.message}</span>
                     )}
                   </label>
+                  
+                  {/* Mensaje de ayuda para la validación de platillos */}
+                  {currentPassCount > 0 && (
+                    <div style={{
+                      marginTop: '10px',
+                      padding: '8px 12px',
+                      borderRadius: '4px',
+                      fontSize: '14px',
+                      backgroundColor: isValidDishSelection ? '#d4edda' : '#fff3cd',
+                      border: `1px solid ${isValidDishSelection ? '#c3e6cb' : '#ffeaa7'}`,
+                      color: isValidDishSelection ? '#155724' : '#856404'
+                    }}>
+                      {isValidDishSelection ? (
+                        <span>✅ {t?.confirmation?.dishesValid || "Platillos asignados correctamente"}</span>
+                      ) : (
+                        <span>
+                          {remainingDishes > 0 
+                            ? `⚠️ ${t?.confirmation?.dishesRemaining || "Faltan"} ${remainingDishes} ${t?.confirmation?.dishes || "platillos"} ${t?.confirmation?.toAssign || "por asignar"}`
+                            : `⚠️ ${t?.confirmation?.dishesExceeded || "Has excedido el número de platillos disponibles"}`
+                          }
+                        </span>
+                      )}
+                    </div>
+                  )}
                 </>
               ) : null}
   
