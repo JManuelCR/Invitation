@@ -133,9 +133,12 @@ const AsistanConfirmation = ({ scrollToTravel }) => {
         // Si hay valores de carne seleccionados, verificar que sumen correctamente
         const totalSelected = currentChickenCount + currentPorkCount;
         if (totalSelected > currentPassCount) {
-          // Si excede, resetear ambos campos
-          setValue("chickenCount", "");
-          setValue("porkCount", "");
+          // Si excede, solo resetear si ambos campos están llenos
+          // Esto permite que el usuario seleccione 0 pollos sin forzar el cerdo
+          if (currentChickenCount > 0 && currentPorkCount > 0) {
+            setValue("chickenCount", "");
+            setValue("porkCount", "");
+          }
         }
       }
     } catch {
@@ -151,17 +154,19 @@ const AsistanConfirmation = ({ scrollToTravel }) => {
       // Actualizar el valor de pollo
       setValue("chickenCount", chickenValue.toString());
 
-      // Auto-ajustar cerdo solo si hay pases seleccionados
-      if (currentPassCount > 0 && chickenValue >= 0) {
+      // Auto-ajustar cerdo solo si hay pases seleccionados y el valor es válido
+      if (currentPassCount > 0 && chickenValue >= 0 && chickenValue <= currentPassCount) {
         const remainingPork = currentPassCount - chickenValue;
         
-        // Usar setTimeout para evitar problemas de timing en móviles
-        // Aumentar el delay en dispositivos de gama baja
-        const delay = isLowEndDevice ? 50 : 10;
-        
-        setTimeout(() => {
-          setValue("porkCount", remainingPork.toString());
-        }, delay);
+        // Solo auto-ajustar si el cerdo actual excede el límite
+        if (currentPorkCount > remainingPork) {
+          // Usar setTimeout para evitar problemas de timing en móviles
+          const delay = isLowEndDevice ? 50 : 10;
+          
+          setTimeout(() => {
+            setValue("porkCount", remainingPork.toString());
+          }, delay);
+        }
       }
     } catch {
       // Error silencioso para evitar interrumpir la funcionalidad
@@ -176,16 +181,19 @@ const AsistanConfirmation = ({ scrollToTravel }) => {
       // Actualizar el valor de cerdo
       setValue("porkCount", porkValue.toString());
 
-      // Auto-ajustar pollo solo si hay pases seleccionados
-      if (currentPassCount > 0 && porkValue >= 0) {
+      // Auto-ajustar pollo solo si hay pases seleccionados y el valor es válido
+      if (currentPassCount > 0 && porkValue >= 0 && porkValue <= currentPassCount) {
         const remainingChicken = currentPassCount - porkValue;
         
-        // Usar setTimeout para evitar problemas de timing en móviles
-        // Aumentar el delay en dispositivos de gama baja
-        const delay = isLowEndDevice ? 50 : 10;
-        setTimeout(() => {
-          setValue("chickenCount", remainingChicken.toString());
-        }, delay);
+        // Solo auto-ajustar si el pollo actual excede el límite
+        if (currentChickenCount > remainingChicken) {
+          // Usar setTimeout para evitar problemas de timing en móviles
+          const delay = isLowEndDevice ? 50 : 10;
+          
+          setTimeout(() => {
+            setValue("chickenCount", remainingChicken.toString());
+          }, delay);
+        }
       }
     } catch {
       // Error silencioso para evitar interrumpir la funcionalidad
@@ -715,7 +723,11 @@ const AsistanConfirmation = ({ scrollToTravel }) => {
                           try {
                             const chicken = parseInt(value) || 0;
                             const pork = currentPorkCount;
-                            const isValid = chicken + pork === currentPassCount;
+                            const total = chicken + pork;
+                            
+                            // Permitir que la suma sea menor o igual al número de pases
+                            // Esto permite seleccionar 0 pollos sin forzar el cerdo
+                            const isValid = total <= currentPassCount && total >= 0;
                             return isValid || `${t.confirmation.dishesSum}`;
                           } catch {
                             // Error silencioso para evitar interrumpir la funcionalidad
@@ -762,12 +774,19 @@ const AsistanConfirmation = ({ scrollToTravel }) => {
                       {...register("porkCount", {
                         required: `${t.confirmation.passRequiere}`,
                         validate: (value) => {
-                          const pork = parseInt(value) || 0;
-                          const chicken = currentChickenCount;
-                          return (
-                            chicken + pork === currentPassCount ||
-                            `${t.confirmation.dishesSum}`
-                          );
+                          try {
+                            const pork = parseInt(value) || 0;
+                            const chicken = currentChickenCount;
+                            const total = chicken + pork;
+                            
+                            // Permitir que la suma sea menor o igual al número de pases
+                            // Esto permite seleccionar 0 cerdo sin forzar el pollo
+                            const isValid = total <= currentPassCount && total >= 0;
+                            return isValid || `${t.confirmation.dishesSum}`;
+                          } catch {
+                            // Error silencioso para evitar interrumpir la funcionalidad
+                            return `${t.confirmation.dishesSum}`;
+                          }
                         },
                       })}
                       disabled={isSubmitting}

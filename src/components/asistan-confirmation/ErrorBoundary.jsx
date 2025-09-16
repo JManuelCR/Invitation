@@ -19,65 +19,16 @@ class ErrorBoundary extends React.Component {
         navigator.clipboard.writeText(text)
           .then(() => resolve(true))
           .catch(() => {
-            // Si falla, usar el método fallback
-            this.fallbackCopyToClipboard(text)
-              .then(() => resolve(true))
-              .catch(() => reject(false));
+            // Si falla, rechazar directamente para mostrar modal
+            reject(new Error('Clipboard API no disponible'));
           });
       } else {
-        // Usar método fallback directamente
-        this.fallbackCopyToClipboard(text)
-          .then(() => resolve(true))
-          .catch(() => reject(false));
+        // Si no hay clipboard API, rechazar directamente para mostrar modal
+        reject(new Error('Clipboard API no disponible'));
       }
     });
   };
 
-  fallbackCopyToClipboard = (text) => {
-    return new Promise((resolve, reject) => {
-      try {
-        const textArea = document.createElement('textarea');
-        textArea.value = text;
-        
-        // Hacer el textarea invisible pero funcional
-        textArea.style.position = 'fixed';
-        textArea.style.left = '-999999px';
-        textArea.style.top = '-999999px';
-        textArea.style.opacity = '0';
-        textArea.style.pointerEvents = 'none';
-        textArea.setAttribute('readonly', '');
-        
-        document.body.appendChild(textArea);
-        
-        // Seleccionar el texto
-        textArea.focus();
-        textArea.select();
-        textArea.setSelectionRange(0, 99999); // Para móviles
-        
-        // Intentar copiar
-        const successful = document.execCommand('copy');
-        
-        // Remover el elemento de forma segura
-        setTimeout(() => {
-          try {
-            if (textArea && textArea.parentNode) {
-              textArea.parentNode.removeChild(textArea);
-            }
-          } catch (removeError) {
-            console.warn('No se pudo remover el elemento temporal:', removeError);
-          }
-        }, 100);
-        
-        if (successful) {
-          resolve(true);
-        } else {
-          reject(new Error('execCommand falló'));
-        }
-      } catch (error) {
-        reject(error);
-      }
-    });
-  };
 
   static getDerivedStateFromError() {
     // Actualiza el state para mostrar la UI de error
@@ -235,8 +186,7 @@ ${errorData.stack}`;
                 try {
                   await this.copyToClipboard(errorText);
                   alert('✅ Información del error copiada al portapapeles');
-                } catch (error) {
-                  console.error('Error al copiar:', error);
+                } catch {
                   // Si no se puede copiar, mostrar en modal para selección manual
                   this.setState({ showErrorModal: true, errorText: errorText });
                 }
