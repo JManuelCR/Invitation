@@ -73,7 +73,7 @@ const AsistanConfirmation = ({ scrollToTravel }) => {
       options.push(
         <option key={i} value={i}>
           {i}{" "}
-          {i <= 1
+          {i === 1
             ? t?.confirmation?.chicken || "Pollo"
             : t?.confirmation?.chickenPlural || "Pollos"}
         </option>
@@ -94,7 +94,7 @@ const AsistanConfirmation = ({ scrollToTravel }) => {
       options.push(
         <option key={i} value={i}>
           {i}{" "}
-          {i <= 1
+          {i === 1
             ? t?.confirmation?.pork || "Cerdo"
             : t?.confirmation?.porkPlural || "Cerdos"}
         </option>
@@ -678,12 +678,12 @@ const AsistanConfirmation = ({ scrollToTravel }) => {
                     <strong>{t.confirmation.passDistribution}</strong>
                     {currentChickenCount > 0 &&
                       ` ${currentChickenCount} ${t.confirmation.chicken}${
-                        currentChickenCount > 1 ? "s" : ""
+                        currentChickenCount === 1 ? "" : "s"
                       }`}
                     {currentChickenCount > 0 && currentPorkCount > 0 && " + "}
                     {currentPorkCount > 0 &&
                       ` ${currentPorkCount} ${t.confirmation.pork}${
-                        currentPorkCount > 1 ? "s" : ""
+                        currentPorkCount === 1 ? "" : "s"
                       }`}
                     {currentChickenCount === 0 &&
                       currentPorkCount === 0 &&
