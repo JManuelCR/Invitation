@@ -175,6 +175,7 @@ const AsistanConfirmation = ({ scrollToTravel }) => {
       }
     } catch {
       // Error silencioso para evitar interrumpir la funcionalidad
+      console.error(error);
     }
   };
 
