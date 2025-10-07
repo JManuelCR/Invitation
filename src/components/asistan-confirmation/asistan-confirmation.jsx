@@ -166,7 +166,8 @@ const AsistanConfirmation = ({ scrollToTravel }) => {
         // Solo auto-ajustar si el cerdo actual excede el límite
         if (currentPorkCount > remainingPork) {
           // Usar setTimeout para evitar problemas de timing en móviles
-          const delay = isLowEndDevice ? 50 : 10;
+          const delay = isLowEndDevice ? 1000 : 1000;
+
           
           setTimeout(() => {
             setValue("porkCount", remainingPork.toString());
@@ -194,7 +195,7 @@ const AsistanConfirmation = ({ scrollToTravel }) => {
         // Solo auto-ajustar si el pollo actual excede el límite
         if (currentChickenCount > remainingChicken) {
           // Usar setTimeout para evitar problemas de timing en móviles
-          const delay = isLowEndDevice ? 50 : 10;
+          const delay = isLowEndDevice ? 1000 : 1000;
           
           setTimeout(() => {
             setValue("chickenCount", remainingChicken.toString());
