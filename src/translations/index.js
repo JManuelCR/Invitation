@@ -194,7 +194,7 @@ export const translations = {
       porkPlural: "Platillos con cerdo",
       confirmAttendance: "Confirmar asistencia",
       willNotAttend: "No asistiré",
-      deadlineMessage: "Por favor, confirma tu asistencia antes de Octubre 15.",
+      deadlineMessage: "Por favor, confirma tu asistencia antes de Octubre 25.",
       requiredField: "Este campo es requerido",
       confirmationMessageComplement3:
         "No nos gustaría desperdiciar alimentos, por favor, indica que prefieres comer:",
@@ -427,7 +427,7 @@ export const translations = {
       porkPlural: "Pork dishes",
       confirmAttendance: "Confirm attendance",
       willNotAttend: "I will not attend",
-      deadlineMessage: "Please confirm your attendance before October 15.",
+      deadlineMessage: "Please confirm your attendance before October 25.",
       requiredField: "This field is required",
       confirmationMessageComplement3:
         "We wouldn't like to waste food, please indicate what you prefer to eat:",
