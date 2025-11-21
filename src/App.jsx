@@ -9,7 +9,7 @@ function AppContent() {
   useEffect(() => {
     // Posicionar al inicio inmediatamente solo al cargar
     window.scrollTo(0, 0);
-    
+
     // Activar protección de imágenes al cargar la aplicación
     protectImages();
   }, []); // Solo se ejecuta una vez al montar
@@ -29,7 +29,7 @@ function App() {
   // Extraer el guestId de los query parameters
   const urlParams = new URLSearchParams(location.search);
   const guestId = urlParams.get('invitation');
-  
+
   return (
     <DataProvider guestId={guestId}>
       <AppContent />
