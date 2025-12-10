@@ -42,7 +42,7 @@ const Gifts = () => {
           <div>
             <p className='gifts-data noBold spare'>{t.gifts.savingsAccount}</p>
             <section onClick={handleOwnerName} className='gifts-account-number noBold'><p className='noBold'>{t.gifts.accountUserName}</p>   <p className='gifts-account-number spare'>{t.gifts.copy}</p></section>
-            <section onClick={handleOwnerName} className='gifts-account-number noBold'><p className='noBold'>014610200071796956</p>  <p className='gifts-account-number spare'>{t.gifts.copy}</p></section>
+            <section onClick={handleCopyAccount} className='gifts-account-number noBold'><p className='noBold'>014610200071796956</p>  <p className='gifts-account-number spare'>{t.gifts.copy}</p></section>
           </div>
           {isCopied && <div className='gifts-copied'><p>{t.gifts.copied}</p></div>}
         </div>
